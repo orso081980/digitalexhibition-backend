@@ -2,6 +2,32 @@
 # Holds live DB credentials + auth salts. See wp-config.reference.php.
 wp-config.php
 
+# === WordPress core — kept on localhost, not version-controlled ===
+# The site still runs locally from these; they're vendor code, restored with
+# `wp core download` or from the host.
+/wp-admin/
+/wp-includes/
+/index.php
+/xmlrpc.php
+/license.txt
+/readme.html
+/.htaccess
+/wp-activate.php
+/wp-blog-header.php
+/wp-comments-post.php
+/wp-config-sample.php
+/wp-cron.php
+/wp-links-opml.php
+/wp-load.php
+/wp-login.php
+/wp-mail.php
+/wp-settings.php
+/wp-signup.php
+/wp-trackback.php
+
+# === NextGEN Gallery module cache — kept on localhost, not tracked ===
+wp-content/ngg/
+
 # === OS / editor cruft ===
 .DS_Store
 ._*
@@ -13,6 +39,7 @@ Thumbs.db
 debug.log
 wp-content/debug.log
 wp-content/logs/
+wp-content/compressx/log/
 
 # === WordPress transient / update state ===
 wp-content/upgrade/
@@ -24,9 +51,6 @@ wp-content/et-cache/
 wp-content/uploads/cache/
 
 # === Media ===
-# Currently tracked. Uncomment once uploads are served from Cloudflare R2
-# (migration plan task 4.1) so the repo stays lean.
-# wp-content/uploads/
-
-# Plugin-generated logs (mis-extensioned)
-wp-content/compressx/log/
+# Not tracked — uploads move to Cloudflare R2 (migration plan task 4.1).
+# The folder is kept locally (empty) so WordPress can write to it.
+wp-content/uploads/
