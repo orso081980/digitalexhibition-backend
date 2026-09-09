@@ -1,0 +1,783 @@
+/* Backend */
+/* Colore dominante */
+:root {
+	--dominant-red: #c72025;
+	--light-red: #eaeaea;
+	--dark-red-hover: #8b0004;
+	--text-color-on-red: #ffffff;
+	--text-color-dark: #333333;
+	--border-color: #d1dbe0;
+	--subtle-bg: #f9f9fb;
+	--blue-light: #339aa9;
+}
+#wpadminbar .menupop .ab-sub-wrapper {
+	background-color: var(--subtle-bg) !important;
+}
+#e-dashboard-overview {
+	display: none !important;
+}
+.cd-custom-cta-buttons {
+	display: flex;
+	gap: 15px;
+	padding: 15px 0;
+	flex-wrap: wrap;
+}
+.cd-custom-cta-buttons .button {
+	font-size: 1.2em;
+	padding: 20px 16px;
+	height: auto;
+}
+#cd_custom_cta_widget {
+	background-color: transparent;
+	border: none;
+}
+#cd_custom_cta_widget .postbox-header,
+#cd_custom_cta_widget h2 {
+	display: none;
+}
+#cd_custom_cta_widget .inside {
+	padding: 0px;
+}
+
+#adminmenu .wp-has-current-submenu .wp-submenu a,
+#adminmenu .wp-has-current-submenu.opensub .wp-submenu a,
+#adminmenu .wp-submenu a,
+#adminmenu a.wp-has-current-submenu:focus + .wp-submenu a {
+	color: var(--light-red);
+}
+#adminmenu li.menu-top {
+	min-height: 40px;
+}
+#adminmenu a {
+	font-size: 18px !important;
+	text-rendering: optimizelegibility;
+}
+#adminmenu .wp-menu-image {
+	display: none !important;
+}
+#adminmenu div.wp-menu-name {
+	padding: 8px 8px 8px 14px !important;
+}
+#cd_dashboard_analytics .inside {
+	padding: 0;
+	margin: 0;
+}
+#cd-post-options-container label.cd-list-checkbox-label {
+	padding: 7px;
+	background-color: var(--light-red);
+	display: flex;
+	flex-direction: column-reverse;
+	align-items: center;
+	gap: 10px;
+	min-width: 110px;
+}
+div#dashboard-widgets {
+	width: 100%;
+	display: flex;
+}
+#dashboard-widgets-wrap {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2%; /* Spazio tra le colonne */
+}
+#cd_dashboard_analytics .inside {
+	background-color: #efefef;
+}
+#cd_dashboard_analytics .inside img {
+	width: 100%;
+}
+#dashboard-widgets #postbox-container-1 {
+	width: 70% !important; /* ~70% tenendo conto del gap */
+}
+
+/* Nascondiamo le colonne non necessarie per evitare che interferiscano con il layout */
+#dashboard-widgets #postbox-container-3,
+#dashboard-widgets #postbox-container-4 {
+	display: none;
+}
+.postbox {
+	box-shadow: none !important;
+}
+.postbox .hndle {
+	border-bottom: none;
+}
+/* --- STILI GENERALI --- */
+body,
+#wpwrap {
+	background-color: var(--subtle-bg);
+	color: var(--text-color-dark);
+}
+
+a {
+	color: var(--dominant-red);
+}
+
+a:hover,
+a:focus {
+	color: var(--dark-red-hover);
+}
+
+/* --- BARRA DI AMMINISTRAZIONE (IN ALTO) --- */
+#wpadminbar {
+	background: var(--dominant-red);
+}
+
+#wpadminbar .ab-item,
+#wpadminbar a.ab-item,
+#wpadminbar > #wp-toolbar span.ab-label,
+#wpadminbar > #wp-toolbar span.noticon {
+	color: var(--text-color-on-red) !important;
+}
+
+#wpadminbar .ab-item:hover,
+#wpadminbar a.ab-item:hover,
+#wpadminbar > #wp-toolbar span.ab-label:hover,
+#wpadminbar > #wp-toolbar span.noticon:hover {
+	background: var(--dark-red-hover) !important;
+	color: var(--text-color-on-red) !important;
+}
+
+#wpadminbar .ab-submenu .ab-item {
+	color: var(--text-color-dark) !important;
+}
+
+#wpadminbar .ab-submenu .ab-item:hover {
+	color: var(--dominant-red) !important;
+	background-color: var(--light-red) !important;
+}
+
+/* --- MENU DI NAVIGAZIONE PRINCIPALE (A SINISTRA) --- */
+#adminmenuwrap,
+#adminmenu,
+#adminmenuback {
+	background-color: var(--dominant-red) !important;
+}
+
+#adminmenu {
+	background-color: var(--dominant-red);
+}
+
+#adminmenu a {
+	color: var(--text-color-on-red);
+	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+#adminmenu div.wp-menu-image::before {
+	color: var(--text-color-on-red);
+}
+
+#adminmenu li.menu-top:hover,
+#adminmenu li.opensub > a.menu-top,
+#adminmenu li > a.menu-top:focus {
+	background-color: var(--dark-red-hover);
+	color: var(--text-color-on-red);
+}
+
+#adminmenu li.wp-has-current-submenu > a.wp-has-current-submenu,
+#adminmenu li.current > a.current {
+	background: var(
+		--dark-red-hover
+	); /* Un verde leggermente più scuro per l'attivo */
+	color: var(--text-color-on-red);
+}
+
+#adminmenu
+	li.wp-has-current-submenu
+	> a.wp-has-current-submenu
+	div.wp-menu-image::before,
+#adminmenu li.current > a.current div.wp-menu-image::before {
+	color: var(--text-color-on-red);
+}
+#adminmenu .wp-has-current-submenu .wp-submenu,
+#adminmenu .wp-has-current-submenu.opensub .wp-submenu,
+#adminmenu .wp-submenu,
+#adminmenu a.wp-has-current-submenu:focus + .wp-submenu {
+	background: var(--dark-red-hover);
+}
+/* Sottomenu */
+#adminmenu .wp-submenu {
+	background: var(
+		--dominant-red
+	); /* Leggermente diverso dal menu principale per distinzione */
+	border-left: 4px solid var(--dark-red-hover);
+}
+
+#adminmenu .wp-submenu a {
+	color: var(--light-red); /* Testo più chiaro per contrasto */
+	padding-left: 20px;
+}
+
+#adminmenu .wp-submenu a:hover,
+#adminmenu .wp-submenu li.current a {
+	background-color: var(--dark-red-hover);
+	color: var(--text-color-on-red);
+}
+#cd-post-options-container {
+	background-color: #fff;
+	padding: 40px;
+	display: flex;
+	gap: 40px;
+}
+#cd-post-options-container li {
+	display: flex;
+	justify-content: space-between;
+}
+#cd-post-options-container .cd-list-checkboxes {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}
+#cd-post-options-container label.cd-list-checkbox-label {
+	padding: 7px;
+	background-color: var(--light-red);
+}
+#cd-post-options-container span.cd-list-actions {
+	display: flex;
+	align-content: center;
+	align-items: center;
+	gap: 10px;
+}
+/* --- AREA DEL CONTENUTO PRINCIPALE --- */
+#wpcontent {
+	background-color: var(--subtle-bg);
+	padding-left: 0; /* Rimuoviamo il padding di default se il menu è fisso */
+}
+.wrap {
+	margin: 0;
+	padding: 20px 10%;
+}
+.wrap h1 {
+	color: var(--dominant-red);
+	border-bottom: 2px solid var(--dominant-red);
+	padding-bottom: 10px;
+	font-weight: 600;
+}
+
+.wrap h2,
+.metabox-holder h2.hndle {
+	color: var(--text-color-dark);
+	font-size: 1.3em;
+}
+
+/* --- PULSANTI --- */
+.button {
+	border-radius: 4px;
+	transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	border: 1px solid #a0c7bd; /* Bordo più tenue */
+}
+
+.button-primary {
+	background: var(--blue-light) !important;
+	border-color: var(--blue-light) !important;
+	color: var(--text-color-on-red) !important;
+	text-shadow: none !important;
+	box-shadow: 0 1px 0 var(--dark-red-hover) !important;
+}
+
+.button-primary:hover,
+.button-primary:focus {
+	background: var(--dark-red-hover) !important;
+	border-color: var(--dark-red-hover) !important;
+	color: var(--text-color-on-red) !important;
+}
+
+.button-secondary {
+	color: var(--dominant-red) !important;
+	border-color: var(--dominant-red) !important;
+	background: var(--text-color-on-red) !important;
+}
+
+.button-secondary:hover,
+.button-secondary:focus {
+	background: var(--light-red) !important;
+	border-color: var(--dark-red-hover) !important;
+	color: var(--dark-red-hover) !important;
+}
+
+/* --- FORM ELEMENTI --- */
+input[type="text"],
+input[type="search"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="url"],
+input[type="tel"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+textarea,
+select {
+	border: 1px solid var(--border-color);
+	border-radius: 4px;
+	padding: 8px 12px;
+	transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+input[type="text"]:focus,
+input[type="search"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="url"]:focus,
+input[type="tel"]:focus,
+input[type="date"]:focus,
+input[type="datetime-local"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+textarea:focus,
+select:focus {
+	border-color: var(--dominant-red);
+	box-shadow: 0 0 0 1px var(--dominant-red);
+	outline: none;
+}
+
+/* --- BOX E WIDGET DELLA DASHBOARD --- */
+.postbox {
+	border: 1px solid var(--border-color);
+	border-radius: 4px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+	background-color: #ffffff;
+}
+
+.postbox .hndle {
+	background-color: var(--light-red);
+	color: var(--dominant-red);
+	border-bottom: 1px solid var(--border-color);
+	border-top-left-radius: 3px; /* Angoli arrotondati per l'header del box */
+	border-top-right-radius: 3px;
+	padding: 10px 15px;
+}
+
+.postbox .inside {
+	padding: 15px;
+}
+
+/* --- NOTIFICHE --- */
+.notice {
+	border-left-width: 4px;
+	border-radius: 3px;
+	padding: 12px;
+}
+.notice-success {
+	border-left-color: #4caf50; /* Un verde successo standard */
+	background-color: #f1f8f1;
+}
+.notice-warning {
+	border-left-color: #ffc107;
+	background-color: #fff8e7;
+}
+.notice-error {
+	border-left-color: #f44336;
+	background-color: #ffebee;
+}
+.notice-info {
+	border-left-color: #2196f3; /* Blu per info, ma puoi cambiarlo in una tonalità di verde */
+	background-color: #e9f5fe;
+}
+
+/* --- RESPONSIVE: COLLASSO MENU --- */
+@media screen and (max-width: 782px) {
+	#wpadminbar {
+		position: fixed; /* Assicura che la barra admin sia sempre visibile */
+	}
+	#adminmenuwrap {
+		position: fixed; /* Per il menu mobile */
+		height: calc(100vh - 32px); /* Altezza completa meno la barra admin */
+		top: 32px; /* Posizionamento sotto la barra admin */
+		background-color: var(--dominant-red);
+	}
+	/* Potrebbero servire ulteriori stili per il menu collassato */
+}
+
+/* Ulteriori aggiustamenti per un look più "elegante" */
+#wpfooter {
+	border-top: 1px solid var(--border-color);
+	padding-top: 15px;
+	margin-top: 20px;
+}
+
+/* Rimuovere ombreggiature di default e bordi che potrebbero non servire */
+.wp-core-ui .wp-list-table {
+	border: 1px solid var(--border-color);
+	box-shadow: none;
+}
+.wp-core-ui .wp-list-table th,
+.wp-core-ui .wp-list-table td {
+	border-bottom: 1px solid var(--border-color);
+}
+.wp-core-ui .wp-list-table thead th {
+	background-color: var(--light-red);
+	color: var(--dominant-red);
+	font-weight: 600;
+	width: 20%;
+}
+/* Fine Backend */
+.mcd-dashboard h1 + .notice,
+#mcd-ajax-general-message-area .notice {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.mcd-dashboard h1 .page-title-action {
+	margin-left: 10px;
+	vertical-align: middle;
+}
+
+.mcd-post-list-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ccd0d4;
+}
+
+.mcd-post-list-header h2 {
+	margin: 0;
+	font-size: 23px;
+	font-weight: 400;
+	padding: 0;
+	line-height: 1.3;
+}
+
+.mcd-posts-table .column-actions a.button,
+.mcd-posts-table .column-actions button.button-link,
+.mcd-posts-table .row-actions button.button-link {
+	margin-right: 5px;
+	vertical-align: middle;
+	padding: 0 6px 1px;
+	line-height: 2.15384615;
+	min-height: 30px;
+	cursor: pointer;
+}
+.mcd-posts-table .row-actions button.button-link {
+	text-decoration: none;
+	color: #007cba;
+	border: none;
+	background: none;
+	box-shadow: none;
+}
+.mcd-posts-table .row-actions button.button-link:hover {
+	color: #00a0d2;
+}
+
+.mcd-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.6);
+	z-index: 100000;
+	display: none;
+}
+.mcd-modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 80%;
+	max-width: 900px;
+	max-height: 90vh;
+	background: #fdfdfd;
+	border: 1px solid #ddd;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+	z-index: 100001;
+	display: none;
+	flex-direction: column;
+}
+body.modal-open {
+	overflow: hidden;
+}
+
+.mcd-modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12px 15px;
+	border-bottom: 1px solid #ddd;
+	background: #f0f0f0;
+}
+
+.mcd-modal-header h2 {
+	margin: 0;
+	font-size: 1.2em;
+	font-weight: 600;
+}
+.mcd-modal-close {
+	text-decoration: none;
+	padding: 0;
+	border: none;
+	background: transparent;
+	cursor: pointer;
+}
+.mcd-modal-close .dashicons {
+	font-size: 24px;
+	color: #666;
+	line-height: 1;
+}
+.mcd-modal-close:hover .dashicons {
+	color: #000;
+}
+
+.mcd-modal-body {
+	padding: 0;
+	background: #fff;
+	overflow-y: auto;
+	overflow-x: hidden;
+	flex-grow: 1;
+	min-height: 200px; /* Altezza minima per vedere qualcosa */
+}
+.mcd-modal-body #poststuff_modal {
+	padding: 15px 20px;
+	min-width: 0;
+}
+.mcd-modal-body #post-body-modal.columns-2 {
+	margin-right: 295px;
+}
+.mcd-modal-body #postbox-container-1-modal {
+	width: 280px;
+	margin-right: -300px;
+}
+
+.mcd-modal-body
+	#post-body-content-modal
+	#titlediv_modal
+	input#mcd_modal_post_title {
+	font-size: 1.7em;
+	height: auto;
+	line-height: 1.3;
+	margin: 0 0 15px;
+	outline: 0;
+	padding: 8px 10px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.mcd-modal-body .wp-editor-wrap {
+	width: 100%;
+}
+.mcd-modal-body .wp-editor-container textarea.wp-editor-area {
+	width: 100% !important;
+	box-sizing: border-box;
+}
+
+.mcd-modal-footer {
+	padding: 15px 20px;
+	border-top: 1px solid #ddd;
+	text-align: right;
+	background: #f9f9f9;
+}
+.mcd-modal-footer .spinner {
+	float: none;
+	vertical-align: middle;
+	margin-left: 8px;
+}
+
+.mcd-loading-message {
+	padding: 30px;
+	text-align: center;
+	font-size: 1.2em;
+	color: #555;
+}
+#mcd-modal-form-feedback.notice {
+	margin: 0 0 15px 0;
+}
+
+.mcd-custom-gallery-field,
+.mcd-custom-pdf-field {
+	margin-bottom: 15px;
+	padding: 10px 0;
+}
+.mcd-acf-fields-container.postbox .inside .acf-field {
+	border: none;
+	padding: 0 0 15px 0;
+	background: none;
+}
+.mcd-acf-fields-container.postbox .inside .acf-field:last-child {
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+
+.mcd-custom-gallery-field .acf-label label,
+.mcd-custom-pdf-field .acf-label label {
+	font-weight: normal;
+	margin-bottom: 5px;
+	display: block;
+}
+
+.mcd-image-preview-area {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 10px;
+	padding: 8px;
+	border: 1px dashed #ccd0d4;
+	background-color: #fdfdfd;
+	min-height: 70px;
+}
+
+.mcd-gallery-item {
+	position: relative;
+	border: 1px solid #ddd;
+	padding: 2px;
+	background: #fff;
+	width: 75px;
+	height: 75px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.mcd-gallery-item img {
+	display: block;
+	max-width: 100%;
+	max-height: 100%;
+	width: auto;
+	height: auto;
+}
+.mcd-remove-gallery-item,
+.mcd-remove-pdf-item {
+	position: absolute !important;
+	top: -8px !important;
+	right: -8px !important;
+	background: white !important;
+	border-radius: 50% !important;
+	color: #d63638 !important;
+	text-decoration: none !important;
+	padding: 0 !important;
+	width: 20px !important;
+	height: 20px !important;
+	line-height: 18px !important;
+	text-align: center !important;
+	border: 1px solid #b4b9be !important;
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05) !important;
+	cursor: pointer !important;
+}
+.mcd-remove-gallery-item:hover,
+.mcd-remove-pdf-item:hover {
+	background: #f0f0f0 !important;
+	border-color: #8c8f94 !important;
+	color: #a00 !important;
+}
+.mcd-remove-gallery-item::before,
+.mcd-remove-pdf-item::before {
+	font-family: dashicons !important;
+	content: "\f158" !important;
+	font-size: 16px !important;
+	font-weight: normal !important;
+	vertical-align: top !important;
+	display: inline-block !important;
+}
+
+.mcd-pdf-preview-area {
+	margin-bottom: 10px;
+	padding: 8px;
+	border: 1px dashed #ccd0d4;
+	min-height: 35px;
+	background-color: #fdfdfd;
+}
+.mcd-pdf-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 6px 8px;
+	background: #fff;
+	border: 1px solid #e0e0e0;
+	border-radius: 3px;
+}
+.mcd-pdf-item a {
+	margin-right: 10px;
+	word-break: break-all;
+}
+
+.mcd-dashboard .acf-field .acf-label label {
+	font-weight: 600;
+	font-size: 13px;
+	line-height: 1.4;
+	margin-bottom: 4px;
+}
+.mcd-dashboard .acf-field p.description {
+	font-style: italic;
+	color: #50575e;
+	font-size: 13px;
+	margin-top: 4px;
+}
+.mcd-dashboard .acf-field input[type="text"],
+.mcd-dashboard .acf-field input[type="email"],
+.mcd-dashboard .acf-field input[type="url"],
+.mcd-dashboard .acf-field input[type="password"],
+.mcd-dashboard .acf-field input[type="search"],
+.mcd-dashboard .acf-field input[type="number"],
+.mcd-dashboard .acf-field input[type="tel"],
+.mcd-dashboard .acf-field textarea,
+.mcd-dashboard .acf-field select {
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+#adminmenu {
+		display: flex;
+		flex-direction: column;
+}
+li#menu-media { order: -4; }
+li#menu-posts { order: -3; }
+li#menu-posts-courses { order: -3; }
+li#menu-posts-seminars { order: -2; }
+li#menu-posts-archiprix { order: -1;}
+li#toplevel_page_archiprix { display: none;}
+li#toplevel_page_content-audit { order: 0; }
+li#menu-dashboard { order: 1; }
+li#toplevel_page_cd-manage-news { order: 0; }
+li#toplevel_page_elementor-home { order: 2; }
+
+@media screen and (max-width: 1500px) {
+
+.wp-core-ui .wp-list-table th, .wp-core-ui .wp-list-table td {
+		width: auto;
+}
+.wp-core-ui .check-column {
+		width: 40px !important;
+}
+.wrap {
+		margin: 0;
+		padding: 20px 2%;
+}
+}
+
+@media screen and (max-width: 900px) {
+	.mcd-modal-body #post-body-modal.columns-2 {
+		margin-right: 0;
+	}
+	.mcd-modal-body #postbox-container-1-modal {
+		float: none;
+		width: 100%;
+		margin-right: 0;
+		margin-top: 20px;
+	}
+	.mcd-modal {
+		width: 95%;
+		max-height: 95vh;
+	}
+}
+@media screen and (max-width: 782px) {
+	.mcd-post-list-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 10px;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.mcd-posts-table .column-author,
+	.mcd-posts-table .column-date,
+	.mcd-posts-table .column-actions {
+		display: none;
+	}
+}
+
+

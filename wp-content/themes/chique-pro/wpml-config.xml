@@ -1,0 +1,7 @@
+<wpml-config>
+    <admin-texts>
+        <key name="theme_mods_chique-pro">
+        	<key name="chique_*"/>
+        </key>
+    </admin-texts>
+</wpml-config>

@@ -1,0 +1,231 @@
+/* cd-post-options.css */
+#cd-post-options-wrap {
+		margin-top: 20px;
+}
+
+#cd-post-options-container {
+		display: flex;
+		gap: 20px;
+		margin-top: 20px;
+}
+
+#cd-post-list-column {
+		width: 40%;
+		max-width: 450px;
+		border: 1px solid #ccd0d4;
+		padding: 15px;
+		background-color: #fff;
+		box-shadow: 0 1px 1px rgba(0,0,0,.04);
+		border-radius: 4px;
+		height: calc(100vh - 200px);
+		display: flex;
+		flex-direction: column;
+}
+
+#cd-post-list-column h2 {
+		margin-top: 0;
+		padding-bottom: 10px;
+		border-bottom: 1px solid #eee;
+		font-size: 1.2em;
+}
+
+#cd-post-search {
+		width: 100%;
+		padding: 8px;
+		margin-bottom: 15px;
+		border: 1px solid #ddd;
+		border-radius: 3px;
+		box-sizing: border-box;
+}
+
+#cd-posts-ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		overflow-y: auto;
+		flex-grow: 1;
+}
+
+#cd-posts-ul li {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 8px 0px;
+		border-bottom: 1px solid #f0f0f1;
+		transition: background-color 0.3s ease-out; /* For feedback */
+}
+
+/* Styling for list item saving/saved states */
+#cd-posts-ul li.cd-item-saving {
+		background-color: #fffbe6; /* Light yellow */
+		opacity: 0.7;
+}
+#cd-posts-ul li.cd-item-saved {
+		background-color: #dcffdc; /* Light green */
+}
+
+
+#cd-posts-ul li a.cd-post-title-link {
+		text-decoration: none;
+		color: #2271b1;
+		flex-grow: 1;
+		padding: 0 5px;
+		transition: background-color 0.2s ease-in-out;
+}
+
+#cd-posts-ul li a.cd-post-title-link:hover {
+		text-decoration: underline;
+}
+
+#cd-posts-ul li.cd-active-post-li { /* More specific selector for active li */
+		background-color: #f0f6fc; /* Light blue for selected row */
+}
+#cd-posts-ul li.cd-active-post-li > a.cd-post-title-link {
+		color: #007cba;
+		font-weight: bold;
+}
+
+#cd-posts-ul li:last-child {
+		border-bottom: none;
+}
+
+.cd-list-checkboxes {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		padding-right: 5px;
+}
+.cd-list-checkbox-label {
+		display: inline-flex;
+		align-items: center;
+		cursor: pointer;
+		font-size: 0.9em;
+		color: #555;
+}
+.cd-list-checkbox-label input[type="checkbox"].cd-list-indicator {
+		margin-right: 3px;
+		vertical-align: middle;
+		width: 16px;
+		height: 16px;
+}
+
+
+#cd-post-settings-column {
+		flex-grow: 1;
+		border: 1px solid #ccd0d4;
+		padding: 20px;
+		background-color: #fff;
+		box-shadow: 0 1px 1px rgba(0,0,0,.04);
+		border-radius: 4px;
+}
+
+#cd-post-settings-column h2 {
+		margin-top: 0;
+		font-size: 1.3em;
+		padding-bottom: 10px;
+		border-bottom: 1px solid #eee;
+}
+#cd-selected-post-title {
+		font-weight: normal;
+		color: #50575e;
+}
+
+#cd-settings-panel-default p {
+		font-size: 1.1em;
+		color: #50575e;
+		text-align: center;
+		margin-top: 50px;
+}
+
+.cd-options-checkbox-container {
+		display: flex;
+		gap: 30px;
+		margin-top: 15px;
+		margin-bottom: 15px;
+		flex-wrap: wrap;
+}
+
+.cd-option-column {
+		flex: 1;
+		min-width: 200px;
+		padding: 10px;
+		border: 1px solid #e5e5e5;
+		border-radius: 4px;
+		background-color: #fdfdfd;
+}
+
+.cd-option-column p {
+		margin: 0;
+}
+
+.cd-checkbox-label {
+		display: flex;
+		align-items: center;
+		margin-bottom: 5px;
+}
+.cd-checkbox-label input[type="checkbox"] {
+		margin-right: 8px;
+}
+.cd-checkbox-label strong {
+		font-size: 1em;
+}
+
+.cd-checkbox-description {
+		font-size: 0.9em;
+		color: #50575e;
+		padding-left: 26px;
+		display: block;
+}
+
+#cd-post-settings-column .submit {
+		clear: both;
+		padding-top: 15px;
+}
+
+
+#cd-options-feedback {
+		padding: 10px;
+		border-radius: 3px;
+		display: none;
+		margin-top: 15px;
+}
+#cd-options-feedback.notice-success {
+		background-color: #dff0d8;
+		border-color: #d6e9c6;
+		color: #3c763d;
+		display: block;
+}
+#cd-options-feedback.notice-error {
+		background-color: #f2dede;
+		border-color: #ebccd1;
+		color: #a94442;
+		display: block;
+}
+
+@media screen and (max-width: 782px) {
+		#cd-post-options-container {
+				flex-direction: column;
+		}
+		#cd-post-list-column {
+				width: 100%;
+				max-width: none;
+				height: auto;
+				max-height: 300px;
+		}
+		#cd-posts-ul li {
+				flex-wrap: wrap;
+		}
+		.cd-list-checkboxes {
+				margin-left: 0;
+				margin-top: 5px;
+				width: 100%;
+				justify-content: flex-start;
+		}
+		.cd-options-checkbox-container {
+				flex-direction: column;
+				gap: 15px;
+		}
+		.cd-option-column {
+				min-width: 100%;
+		}
+}

@@ -1,0 +1,3107 @@
+# Copyright (C) 2012-2020 Catch Themes
+# This file is distributed under the GNU General Public License, version 3 (GPLv3).
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Chique Pro\n"
+"Report-Msgid-Bugs-To: https://catchthemes.com/contact-us/\n"
+"POT-Creation-Date: 2020-05-23 01:00-0700\n"
+"PO-Revision-Date: 2016-12-07 01:05-0500\n"
+"Last-Translator: Catch Themes <info@catchthemes.com>\n"
+"Language-Team: Catch Themes <info@catchthemes.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3.1\n"
+"X-Poedit-KeywordsList: __;_e;_x;esc_html_e;esc_html__;esc_attr_e;esc_attr__;_ex:1,2c;_nx:4c,1,2;"
+"_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: \n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../404.php:27 ../inc/template-tags.php:242
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+
+#: ../404.php:30 ../inc/template-tags.php:280
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links below or a search?"
+msgstr ""
+
+#: ../comments.php:34
+#, php-format
+msgid "One thought on &ldquo;%1$s&rdquo;"
+msgstr ""
+
+#: ../comments.php:40
+#, php-format
+msgctxt "comments title"
+msgid "%1$s thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../comments.php:65
+msgid "Comments are closed."
+msgstr ""
+
+#: ../functions.php:189
+msgid "Primary"
+msgstr ""
+
+#: ../functions.php:190
+msgid "Social on Header"
+msgstr ""
+
+#: ../functions.php:191
+msgid "Social On Footer"
+msgstr ""
+
+#: ../functions.php:192
+msgid "Social on Contact Info"
+msgstr ""
+
+#: ../functions.php:238
+msgid "Small"
+msgstr ""
+
+#: ../functions.php:239
+msgid "S"
+msgstr ""
+
+#: ../functions.php:244
+msgid "Normal"
+msgstr ""
+
+#: ../functions.php:245
+msgid "M"
+msgstr ""
+
+#: ../functions.php:250
+msgid "Large"
+msgstr ""
+
+#: ../functions.php:251
+msgid "L"
+msgstr ""
+
+#: ../functions.php:256
+msgid "Huge"
+msgstr ""
+
+#: ../functions.php:257
+msgid "XL"
+msgstr ""
+
+#: ../functions.php:267
+msgid "White"
+msgstr ""
+
+#: ../functions.php:272
+msgid "Black"
+msgstr ""
+
+#: ../functions.php:277
+msgid "Medium Black"
+msgstr ""
+
+#: ../functions.php:282 ../inc/header-background-color.php:462
+msgid "Gray"
+msgstr ""
+
+#: ../functions.php:287
+msgid "Light Gray"
+msgstr ""
+
+#: ../functions.php:292
+msgid "Deep Blush"
+msgstr ""
+
+#: ../functions.php:297
+msgid "Tradewind"
+msgstr ""
+
+#: ../functions.php:366
+msgid "Sidebar"
+msgstr ""
+
+#: ../functions.php:368
+msgid "Add widgets here."
+msgstr ""
+
+#: ../functions.php:376
+msgid "Footer 1"
+msgstr ""
+
+#: ../functions.php:378 ../functions.php:388 ../functions.php:398 ../functions.php:408
+msgid "Add widgets here to appear in your footer."
+msgstr ""
+
+#: ../functions.php:386
+msgid "Footer 2"
+msgstr ""
+
+#: ../functions.php:396
+msgid "Footer 3"
+msgstr ""
+
+#: ../functions.php:406
+msgid "Footer 4"
+msgstr ""
+
+#: ../functions.php:418
+msgid "WooCommerce Sidebar"
+msgstr ""
+
+#: ../functions.php:420
+msgid "This is Optional Sidebar for WooCommerce Pages"
+msgstr ""
+
+#: ../functions.php:430
+msgid "404 Page Not Found Content"
+msgstr ""
+
+#: ../functions.php:432
+msgid "Replaces the default 404 Page Not Found Content"
+msgstr ""
+
+#: ../functions.php:441
+msgid "Optional Homepage Sidebar"
+msgstr ""
+
+#: ../functions.php:443
+msgid "This is Optional Sidebar for Homepage"
+msgstr ""
+
+#: ../functions.php:452
+msgid "Optional Archive Sidebar"
+msgstr ""
+
+#: ../functions.php:454
+msgid "This is Optional Sidebar for Archive"
+msgstr ""
+
+#: ../functions.php:463
+msgid "Optional Page Sidebar"
+msgstr ""
+
+#: ../functions.php:465
+msgid "This is Optional Sidebar for Page"
+msgstr ""
+
+#: ../functions.php:474
+msgid "Optional Post Sidebar"
+msgstr ""
+
+#: ../functions.php:476
+msgid "This is Optional Sidebar for Post"
+msgstr ""
+
+#: ../functions.php:485 ../inc/metabox/metabox.php:75
+msgid "Optional Sidebar One"
+msgstr ""
+
+#: ../functions.php:487
+msgid "This is Optional Sidebar One"
+msgstr ""
+
+#: ../functions.php:496 ../inc/metabox/metabox.php:76
+msgid "Optional Sidebar Two"
+msgstr ""
+
+#: ../functions.php:498
+msgid "This is Optional Sidebar Two"
+msgstr ""
+
+#: ../functions.php:507
+msgid "Optional Sidebar Three"
+msgstr ""
+
+#: ../functions.php:509
+msgid "This is Optional Sidebar Three"
+msgstr ""
+
+#: ../functions.php:519 ../inc/template-functions.php:1308
+msgid "Instagram"
+msgstr ""
+
+#: ../functions.php:521
+msgid ""
+"Appears above footer. This sidebar is only for Widget from plugin Catch Instagram Feed Gallery "
+"Widget and Catch Instagram Feed Gallery Widget Pro"
+msgstr ""
+
+#: ../functions.php:531 ../inc/template-functions.php:1289
+msgid "Newsletter"
+msgstr ""
+
+#: ../functions.php:533
+msgid "This is for Newsletter Template Widget Area."
+msgstr ""
+
+#: ../functions.php:727
+msgid "expand child menu"
+msgstr ""
+
+#: ../functions.php:728
+msgid "collapse child menu"
+msgstr ""
+
+#: ../functions.php:824 ../functions.php:859 ../functions.php:887
+#: ../inc/customizer/theme-options.php:266
+msgid "Continue reading"
+msgstr ""
+
+#: ../header.php:27
+msgid "Skip to content"
+msgstr ""
+
+#: ../header.php:51
+msgid "Site Overlay"
+msgstr ""
+
+#: ../header.php:60 ../inc/customizer/theme-options.php:348 ../inc/header-background-color.php:408
+#: ../inc/template-tags.php:232 ../index.php:25
+#: ../template-parts/recent-posts/front-recent-posts.php:13
+#: ../template-parts/recent-posts/front-recent-posts.php:28
+msgid "Blog"
+msgstr ""
+
+#: ../header.php:61 ../inc/customizer/theme-options.php:357 ../inc/template-tags.php:233
+#: ../index.php:26 ../template-parts/recent-posts/front-recent-posts.php:14
+#: ../template-parts/recent-posts/front-recent-posts.php:29
+msgid "Latest Updates"
+msgstr ""
+
+#: ../inc/about.php:31
+msgid "About Theme"
+msgstr ""
+
+#: ../inc/about.php:57
+msgid "Theme Info"
+msgstr ""
+
+#: ../inc/about.php:59 ../inc/customizer/custom-controls.php:23
+msgid "Theme Instructions"
+msgstr ""
+
+#: ../inc/about.php:61
+msgid "View Demo"
+msgstr ""
+
+#: ../inc/about.php:71
+msgid "Secondary menu"
+msgstr ""
+
+#: ../inc/about.php:72
+msgid "About"
+msgstr ""
+
+#: ../inc/about.php:74
+msgid "Free Vs Pro"
+msgstr ""
+
+#: ../inc/about.php:76 ../inc/customizer/custom-controls.php:31
+msgid "Changelog"
+msgstr ""
+
+#: ../inc/about.php:78
+msgid "Updating Pro Theme"
+msgstr ""
+
+#: ../inc/about.php:80 ../inc/about.php:651 ../inc/about.php:653
+msgid "Import Demo"
+msgstr ""
+
+#: ../inc/about.php:82
+msgid "License"
+msgstr ""
+
+#: ../inc/about.php:102
+msgid "Return to Updates"
+msgstr ""
+
+#: ../inc/about.php:102
+msgid "Return to Dashboard &rarr; Updates"
+msgstr ""
+
+#: ../inc/about.php:105
+msgid "Go to Dashboard &rarr; Home"
+msgstr ""
+
+#: ../inc/about.php:105
+msgid "Go to Dashboard"
+msgstr ""
+
+#: ../inc/about.php:119
+msgid "Theme Customizer"
+msgstr ""
+
+#: ../inc/about.php:120
+msgid "All Theme Options are available via Customize screen."
+msgstr ""
+
+#: ../inc/about.php:121
+msgid "Customize"
+msgstr ""
+
+#: ../inc/about.php:125
+msgid "Got theme support question?"
+msgstr ""
+
+#: ../inc/about.php:126
+msgid ""
+"Get genuine support from genuine people. Whether it's customization or compatibility, our seasoned "
+"developers deliver tailored solutions to your queries."
+msgstr ""
+
+#: ../inc/about.php:127
+msgid "Support Forum"
+msgstr ""
+
+#: ../inc/about.php:652 ../inc/about.php:671
+msgid "You can easily import the demo content using the Catch Themes Demo Import Plugin."
+msgstr ""
+
+#: ../inc/about.php:670
+msgid "Install Catch Themes Demo Import Plugin"
+msgstr ""
+
+#: ../inc/about.php:672
+msgid "Install Plugin"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:327
+msgid "Install Required Plugins"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:328
+msgid "Install Plugins"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:330
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:332
+#, php-format
+msgid "Updating Plugin: %s"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:333
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:336
+#, php-format
+msgid "This theme requires the following plugin: %1$s."
+msgid_plural "This theme requires the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-tgm-plugin-activation.php:342
+#, php-format
+msgid "This theme recommends the following plugin: %1$s."
+msgid_plural "This theme recommends the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-tgm-plugin-activation.php:348
+#, php-format
+msgid ""
+"The following plugin needs to be updated to its latest version to ensure maximum compatibility "
+"with this theme: %1$s."
+msgid_plural ""
+"The following plugins need to be updated to their latest version to ensure maximum compatibility "
+"with this theme: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-tgm-plugin-activation.php:354
+#, php-format
+msgid "There is an update available for: %1$s."
+msgid_plural "There are updates available for the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-tgm-plugin-activation.php:360
+#, php-format
+msgid "The following required plugin is currently inactive: %1$s."
+msgid_plural "The following required plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-tgm-plugin-activation.php:366
+#, php-format
+msgid "The following recommended plugin is currently inactive: %1$s."
+msgid_plural "The following recommended plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-tgm-plugin-activation.php:371
+msgid "Begin installing plugin"
+msgid_plural "Begin installing plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-tgm-plugin-activation.php:376
+msgid "Begin updating plugin"
+msgid_plural "Begin updating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-tgm-plugin-activation.php:381
+msgid "Begin activating plugin"
+msgid_plural "Begin activating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-tgm-plugin-activation.php:385
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:386 ../inc/class-tgm-plugin-activation.php:827
+#: ../inc/class-tgm-plugin-activation.php:2533 ../inc/class-tgm-plugin-activation.php:3580
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:387 ../inc/class-tgm-plugin-activation.php:3159
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:388 ../inc/class-tgm-plugin-activation.php:2952
+msgid "The following plugin was activated successfully:"
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-tgm-plugin-activation.php:390
+#, php-format
+msgid "No action taken. Plugin %1$s was already active."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:392
+#, php-format
+msgid ""
+"Plugin not activated. A higher version of %s is needed for this theme. Please update the plugin."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:394
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:395
+msgid "Dismiss this notice"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:396
+msgid "There are one or more required or recommended plugins to install, update or activate."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:397
+msgid "Please contact the administrator of this site for help."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:522
+msgid "This plugin needs to be updated to be compatible with your theme."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:523
+msgid "Update Required"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:934
+msgid ""
+"The remote plugin package does not contain a folder with the desired slug and renaming did not "
+"work."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:934 ../inc/class-tgm-plugin-activation.php:937
+msgid ""
+"Please contact the plugin provider and ask them to package their plugin according to the WordPress "
+"guidelines."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:937
+msgid ""
+"The remote plugin package consists of more than one file, but the files are not packaged in a "
+"folder."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:1982
+#, php-format
+msgid "TGMPA v%s"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2273
+msgid "Required"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2276
+msgid "Recommended"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2292
+msgid "WordPress Repository"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2295
+msgid "External Source"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2298
+msgid "Pre-Packaged"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2315
+msgid "Not Installed"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2319
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2321
+msgid "Active"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2327
+msgid "Required Update not Available"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2330
+msgid "Requires Update"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2333
+msgid "Update recommended"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2342
+#, php-format
+msgctxt "Install/Update Status"
+msgid "%1$s, %2$s"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2388
+#, php-format
+msgctxt "plugins"
+msgid "All <span class=\"count\">(%s)</span>"
+msgid_plural "All <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-tgm-plugin-activation.php:2392
+#, php-format
+msgid "To Install <span class=\"count\">(%s)</span>"
+msgid_plural "To Install <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-tgm-plugin-activation.php:2396
+#, php-format
+msgid "Update Available <span class=\"count\">(%s)</span>"
+msgid_plural "Update Available <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-tgm-plugin-activation.php:2400
+#, php-format
+msgid "To Activate <span class=\"count\">(%s)</span>"
+msgid_plural "To Activate <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-tgm-plugin-activation.php:2482
+msgctxt "as in: \"version nr unknown\""
+msgid "unknown"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2490
+msgid "Installed version:"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2498
+msgid "Minimum required version:"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2510
+msgid "Available version:"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2533
+msgid "No plugins to install, update or activate."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2547
+msgid "Plugin"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2548
+msgid "Source"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2549 ../inc/customizer/album.php:76
+#: ../inc/customizer/contact-info.php:168 ../inc/customizer/featured-content.php:96
+#: ../inc/customizer/gallery.php:130 ../inc/customizer/hero-content.php:123
+#: ../inc/customizer/playlist.php:62 ../inc/customizer/pricing.php:71
+#: ../inc/customizer/promotion-headline.php:37 ../inc/customizer/promotion-sale.php:37
+#: ../inc/customizer/reservation.php:161 ../inc/customizer/service.php:98
+#: ../inc/customizer/stats.php:72 ../inc/customizer/sticky-playlist.php:41
+#: ../inc/customizer/team.php:95 ../inc/customizer/venue.php:71
+#: ../inc/customizer/why-choose-us.php:102
+msgid "Type"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2553
+msgid "Version"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2554
+msgid "Status"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2603
+#, php-format
+msgid "Install %2$s"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2608
+#, php-format
+msgid "Update %2$s"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2614
+#, php-format
+msgid "Activate %2$s"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2684
+msgid "Upgrade message from the plugin author:"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2717
+msgid "Install"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2723
+msgid "Update"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2726
+msgid "Activate"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2757
+msgid "No plugins were selected to be installed. No action taken."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2759
+msgid "No plugins were selected to be updated. No action taken."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2800
+msgid "No plugins are available to be installed at this time."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2802
+msgid "No plugins are available to be updated at this time."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2908
+msgid "No plugins were selected to be activated. No action taken."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:2934
+msgid "No plugins are available to be activated at this time."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:3158
+msgid "Plugin activation failed."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:3498
+#, php-format
+msgid "Updating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:3501
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:3503
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:3507
+msgid ""
+"The installation and activation process is starting. This process may take a while on some hosts, "
+"so please be patient."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:3509
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:3509 ../inc/class-tgm-plugin-activation.php:3517
+msgid "Show Details"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:3509 ../inc/class-tgm-plugin-activation.php:3517
+msgid "Hide Details"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:3510
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:3512
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:3515
+msgid ""
+"The installation process is starting. This process may take a while on some hosts, so please be "
+"patient."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:3517
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:3518
+msgid "All installations have been completed."
+msgstr ""
+
+#: ../inc/class-tgm-plugin-activation.php:3520
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: ../inc/custom-header.php:294 ../inc/customizer/header-media.php:138
+#: ../inc/template-functions.php:60 ../inc/template-tags.php:238 ../inc/template-tags.php:272
+msgid "Spring Fantasy"
+msgstr ""
+
+#: ../inc/custom-header.php:295 ../inc/customizer/header-media.php:157
+#: ../inc/template-functions.php:61 ../inc/template-tags.php:236
+msgid "Women Collection"
+msgstr ""
+
+#: ../inc/custom-header.php:297 ../inc/customizer/header-media.php:176
+#: ../inc/template-functions.php:63 ../inc/template-tags.php:269
+msgid "#"
+msgstr ""
+
+#: ../inc/custom-header.php:298 ../inc/customizer/header-media.php:185
+#: ../inc/template-functions.php:64 ../inc/template-tags.php:272
+msgid "Shop Now"
+msgstr ""
+
+#: ../inc/customizer/album.php:16 ../inc/template-functions.php:1216
+msgid "Album"
+msgstr ""
+
+#: ../inc/customizer/album.php:27 ../inc/customizer/contact-info.php:26
+#: ../inc/customizer/countdown.php:26 ../inc/customizer/events.php:25
+#: ../inc/customizer/featured-content.php:41 ../inc/customizer/featured-slider.php:25
+#: ../inc/customizer/featured-video.php:27 ../inc/customizer/gallery.php:42
+#: ../inc/customizer/header-media.php:29 ../inc/customizer/hero-content.php:25
+#: ../inc/customizer/logo-slider.php:25 ../inc/customizer/playlist.php:25
+#: ../inc/customizer/portfolio.php:40 ../inc/customizer/pricing.php:26
+#: ../inc/customizer/promotion-headline.php:25 ../inc/customizer/promotion-sale.php:25
+#: ../inc/customizer/service.php:41 ../inc/customizer/skills.php:26 ../inc/customizer/stats.php:27
+#: ../inc/customizer/sticky-playlist.php:25 ../inc/customizer/team.php:27
+#: ../inc/customizer/testimonial.php:40 ../inc/customizer/timeline.php:25
+#: ../inc/customizer/venue.php:26 ../inc/customizer/why-choose-us.php:27
+#: ../inc/customizer/woo-products-showcase.php:22
+msgid "Enable on"
+msgstr ""
+
+#: ../inc/customizer/album.php:39 ../inc/customizer/featured-slider.php:38
+#: ../inc/customizer/helpers.php:120 ../inc/customizer/logo-slider.php:53
+#: ../inc/customizer/service.php:54 ../inc/customizer/team.php:39
+msgid "2 columns"
+msgstr ""
+
+#: ../inc/customizer/album.php:40 ../inc/customizer/featured-slider.php:39
+#: ../inc/customizer/helpers.php:121 ../inc/customizer/logo-slider.php:54
+#: ../inc/customizer/team.php:40
+msgid "3 columns"
+msgstr ""
+
+#: ../inc/customizer/album.php:41 ../inc/customizer/featured-slider.php:40
+#: ../inc/customizer/helpers.php:122 ../inc/customizer/logo-slider.php:55
+#: ../inc/customizer/team.php:41
+msgid "4 columns"
+msgstr ""
+
+#: ../inc/customizer/album.php:43 ../inc/customizer/featured-content.php:53
+msgid "Select Featured Content Layout"
+msgstr ""
+
+#: ../inc/customizer/album.php:51 ../template-parts/album/display-album.php:27
+msgid "Our Album"
+msgstr ""
+
+#: ../inc/customizer/album.php:54 ../inc/customizer/featured-content.php:64
+#: ../inc/customizer/portfolio.php:97 ../inc/customizer/pricing.php:49
+#: ../inc/customizer/service.php:67 ../inc/customizer/stats.php:50 ../inc/customizer/team.php:69
+#: ../inc/customizer/testimonial.php:180 ../inc/customizer/timeline.php:50
+#: ../inc/customizer/why-choose-us.php:38 ../inc/customizer/woo-products-showcase.php:103
+msgid "Headline"
+msgstr ""
+
+#: ../inc/customizer/album.php:64 ../inc/customizer/featured-content.php:75
+#: ../inc/customizer/gallery.php:164 ../inc/customizer/portfolio.php:107
+#: ../inc/customizer/pricing.php:59 ../inc/customizer/service.php:78 ../inc/customizer/stats.php:60
+#: ../inc/customizer/team.php:79 ../inc/customizer/testimonial.php:190
+#: ../inc/customizer/why-choose-us.php:48 ../inc/customizer/woo-products-showcase.php:114
+msgid "Sub headline"
+msgstr ""
+
+#: ../inc/customizer/album.php:88 ../inc/customizer/featured-content.php:140
+#: ../inc/customizer/featured-slider.php:55 ../inc/customizer/featured-slider.php:70
+#: ../inc/customizer/header-media.php:42 ../inc/customizer/header-media.php:56
+#: ../inc/customizer/header-media.php:72 ../inc/customizer/header-media.php:86
+#: ../inc/customizer/hero-content.php:215 ../inc/customizer/hero-content.php:230
+#: ../inc/customizer/playlist.php:130 ../inc/customizer/promotion-headline.php:129
+#: ../inc/customizer/promotion-headline.php:145 ../inc/customizer/promotion-sale.php:140
+#: ../inc/customizer/promotion-sale.php:155 ../inc/customizer/reservation.php:173
+#: ../inc/customizer/team.php:107 ../inc/customizer/why-choose-us.php:87
+msgid "Right"
+msgstr ""
+
+#: ../inc/customizer/album.php:89 ../inc/customizer/featured-content.php:141
+#: ../inc/customizer/featured-slider.php:54 ../inc/customizer/featured-slider.php:71
+#: ../inc/customizer/header-media.php:41 ../inc/customizer/header-media.php:57
+#: ../inc/customizer/header-media.php:71 ../inc/customizer/header-media.php:87
+#: ../inc/customizer/hero-content.php:231 ../inc/customizer/promotion-headline.php:131
+#: ../inc/customizer/promotion-headline.php:146 ../inc/customizer/promotion-sale.php:156
+#: ../inc/customizer/reservation.php:175 ../inc/customizer/team.php:108
+#: ../inc/customizer/why-choose-us.php:86
+msgid "Center"
+msgstr ""
+
+#: ../inc/customizer/album.php:90 ../inc/customizer/featured-content.php:142
+#: ../inc/customizer/featured-slider.php:56 ../inc/customizer/featured-slider.php:72
+#: ../inc/customizer/header-media.php:43 ../inc/customizer/header-media.php:58
+#: ../inc/customizer/header-media.php:73 ../inc/customizer/header-media.php:88
+#: ../inc/customizer/hero-content.php:216 ../inc/customizer/hero-content.php:232
+#: ../inc/customizer/playlist.php:131 ../inc/customizer/promotion-headline.php:130
+#: ../inc/customizer/promotion-headline.php:147 ../inc/customizer/promotion-sale.php:141
+#: ../inc/customizer/promotion-sale.php:157 ../inc/customizer/reservation.php:174
+#: ../inc/customizer/team.php:109 ../inc/customizer/why-choose-us.php:88
+msgid "Left"
+msgstr ""
+
+#: ../inc/customizer/album.php:92 ../inc/customizer/featured-content.php:144
+#: ../inc/customizer/featured-slider.php:74 ../inc/customizer/hero-content.php:234
+#: ../inc/customizer/promotion-headline.php:149 ../inc/customizer/promotion-sale.php:159
+#: ../inc/customizer/team.php:111
+msgid "Text Alignment"
+msgstr ""
+
+#: ../inc/customizer/album.php:103 ../inc/customizer/stats.php:83 ../inc/customizer/team.php:122
+#: ../inc/customizer/why-choose-us.php:113
+msgid "Save and refresh the page if No. of Items is changed"
+msgstr ""
+
+#: ../inc/customizer/album.php:108 ../inc/customizer/logo-slider.php:192
+#: ../inc/customizer/skills.php:63 ../inc/customizer/stats.php:88 ../inc/customizer/team.php:127
+#: ../inc/customizer/venue.php:87 ../inc/customizer/why-choose-us.php:118
+msgid "No of Items"
+msgstr ""
+
+#: ../inc/customizer/album.php:121 ../inc/customizer/events.php:72
+#: ../inc/customizer/featured-content.php:156 ../inc/customizer/featured-slider.php:212
+#: ../inc/customizer/hero-content.php:193 ../inc/customizer/logo-slider.php:215
+#: ../inc/customizer/pricing.php:100 ../inc/customizer/promotion-headline.php:117
+#: ../inc/customizer/promotion-sale.php:128 ../inc/customizer/service.php:142
+#: ../inc/customizer/stats.php:101 ../inc/customizer/team.php:140
+#: ../inc/customizer/testimonial.php:229 ../inc/customizer/timeline.php:110
+#: ../inc/customizer/venue.php:100 ../inc/customizer/why-choose-us.php:131
+msgid "Display Content"
+msgstr ""
+
+#: ../inc/customizer/album.php:133 ../inc/customizer/featured-content.php:168
+#: ../inc/customizer/portfolio.php:120 ../inc/customizer/pricing.php:112
+#: ../inc/customizer/service.php:154 ../inc/customizer/team.php:152
+msgid "Display Meta"
+msgstr ""
+
+#: ../inc/customizer/album.php:145 ../inc/customizer/events.php:83
+#: ../inc/customizer/featured-content.php:192 ../inc/customizer/featured-slider.php:233
+#: ../inc/customizer/logo-slider.php:226 ../inc/customizer/portfolio.php:150
+#: ../inc/customizer/pricing.php:124 ../inc/customizer/service.php:166
+#: ../inc/customizer/stats.php:112 ../inc/customizer/team.php:164
+#: ../inc/customizer/testimonial.php:240 ../inc/customizer/timeline.php:121
+#: ../inc/customizer/venue.php:111 ../inc/customizer/why-choose-us.php:142
+msgid "Select Categories"
+msgstr ""
+
+#: ../inc/customizer/album.php:164 ../inc/customizer/contact-info.php:182
+#: ../inc/customizer/events.php:102 ../inc/customizer/featured-content.php:211
+#: ../inc/customizer/featured-slider.php:262 ../inc/customizer/gallery.php:153
+#: ../inc/customizer/helpers.php:135 ../inc/customizer/hero-content.php:146
+#: ../inc/customizer/logo-slider.php:244 ../inc/customizer/playlist.php:84
+#: ../inc/customizer/portfolio.php:168 ../inc/customizer/pricing.php:182
+#: ../inc/customizer/promotion-headline.php:60 ../inc/customizer/promotion-sale.php:60
+#: ../inc/customizer/reservation.php:223 ../inc/customizer/service.php:185
+#: ../inc/customizer/stats.php:131 ../inc/customizer/sticky-playlist.php:63
+#: ../inc/customizer/team.php:183 ../inc/customizer/testimonial.php:258
+#: ../inc/customizer/timeline.php:150 ../inc/customizer/venue.php:129
+#: ../inc/customizer/why-choose-us.php:161
+msgid "Post"
+msgstr ""
+
+#: ../inc/customizer/album.php:175
+msgid "Album Page"
+msgstr ""
+
+#: ../inc/customizer/album.php:186
+msgid "Album #"
+msgstr ""
+
+#: ../inc/customizer/album.php:197 ../inc/customizer/events.php:148
+#: ../inc/customizer/featured-content.php:256 ../inc/customizer/featured-slider.php:297
+#: ../inc/customizer/hero-content.php:275 ../inc/customizer/logo-slider.php:279
+#: ../inc/customizer/portfolio.php:213 ../inc/customizer/pricing.php:216
+#: ../inc/customizer/promotion-headline.php:191 ../inc/customizer/promotion-sale.php:190
+#: ../inc/customizer/service.php:230 ../inc/customizer/skills.php:75 ../inc/customizer/stats.php:165
+#: ../inc/customizer/team.php:227 ../inc/customizer/testimonial.php:303
+#: ../inc/customizer/timeline.php:183 ../inc/customizer/venue.php:162
+#: ../inc/customizer/why-choose-us.php:194
+msgid "Image"
+msgstr ""
+
+#: ../inc/customizer/album.php:206 ../inc/customizer/contact-info.php:118
+#: ../inc/customizer/contact-info.php:225 ../inc/customizer/events.php:158
+#: ../inc/customizer/featured-content.php:265 ../inc/customizer/featured-slider.php:306
+#: ../inc/customizer/logo-slider.php:288 ../inc/customizer/portfolio.php:222
+#: ../inc/customizer/pricing.php:225 ../inc/customizer/service.php:239
+#: ../inc/customizer/stats.php:174 ../inc/customizer/team.php:236
+#: ../inc/customizer/testimonial.php:312 ../inc/customizer/timeline.php:193
+#: ../inc/customizer/venue.php:171 ../inc/customizer/why-choose-us.php:203
+msgid "Link"
+msgstr ""
+
+#: ../inc/customizer/album.php:215 ../inc/customizer/album.php:275
+#: ../inc/customizer/contact-info.php:127 ../inc/customizer/contact-info.php:234
+#: ../inc/customizer/events.php:197 ../inc/customizer/featured-content.php:274
+#: ../inc/customizer/featured-content.php:334 ../inc/customizer/featured-slider.php:315
+#: ../inc/customizer/header-media.php:195 ../inc/customizer/hero-content.php:293
+#: ../inc/customizer/logo-slider.php:297 ../inc/customizer/playlist.php:163
+#: ../inc/customizer/portfolio.php:231 ../inc/customizer/pricing.php:234
+#: ../inc/customizer/promotion-sale.php:208 ../inc/customizer/service.php:248
+#: ../inc/customizer/stats.php:183 ../inc/customizer/stats.php:233 ../inc/customizer/team.php:245
+#: ../inc/customizer/team.php:341 ../inc/customizer/testimonial.php:321
+#: ../inc/customizer/timeline.php:202 ../inc/customizer/venue.php:180 ../inc/customizer/venue.php:231
+#: ../inc/customizer/why-choose-us.php:212 ../inc/customizer/why-choose-us.php:272
+#: ../inc/customizer/woo-products-showcase.php:290
+msgid "Open Link in New Window/Tab"
+msgstr ""
+
+#: ../inc/customizer/album.php:225 ../inc/customizer/contact-info.php:37
+#: ../inc/customizer/countdown.php:37 ../inc/customizer/events.php:207
+#: ../inc/customizer/featured-content.php:284 ../inc/customizer/featured-slider.php:325
+#: ../inc/customizer/hero-content.php:244 ../inc/customizer/logo-slider.php:69
+#: ../inc/customizer/logo-slider.php:307 ../inc/customizer/portfolio.php:241
+#: ../inc/customizer/pricing.php:244 ../inc/customizer/promotion-headline.php:170
+#: ../inc/customizer/promotion-sale.php:169 ../inc/customizer/reservation.php:199
+#: ../inc/customizer/service.php:258 ../inc/customizer/skills.php:37 ../inc/customizer/skills.php:98
+#: ../inc/customizer/stats.php:193 ../inc/customizer/team.php:255 ../inc/customizer/timeline.php:212
+#: ../inc/customizer/venue.php:49 ../inc/customizer/venue.php:190
+#: ../inc/customizer/why-choose-us.php:222 ../inc/widget-social-icons.php:116
+msgid "Title"
+msgstr ""
+
+#: ../inc/customizer/album.php:235 ../inc/customizer/sticky-playlist.php:74
+#: ../inc/customizer/team.php:265 ../inc/customizer/testimonial.php:351
+msgid "Position"
+msgstr ""
+
+#: ../inc/customizer/album.php:245 ../inc/customizer/events.php:217
+#: ../inc/customizer/featured-content.php:294 ../inc/customizer/featured-slider.php:345
+#: ../inc/customizer/hero-content.php:264 ../inc/customizer/logo-slider.php:317
+#: ../inc/customizer/pricing.php:254 ../inc/customizer/promotion-headline.php:180
+#: ../inc/customizer/promotion-sale.php:179 ../inc/customizer/service.php:268
+#: ../inc/customizer/stats.php:203 ../inc/customizer/team.php:275 ../inc/customizer/timeline.php:254
+#: ../inc/customizer/venue.php:200 ../inc/customizer/why-choose-us.php:232
+msgid "Content"
+msgstr ""
+
+#: ../inc/customizer/album.php:256 ../inc/customizer/featured-content.php:315
+#: ../inc/customizer/featured-slider.php:354 ../inc/customizer/hero-content.php:303
+#: ../inc/customizer/playlist.php:144 ../inc/customizer/promotion-headline.php:200
+#: ../inc/customizer/promotion-sale.php:218 ../inc/customizer/skills.php:124
+#: ../inc/customizer/stats.php:214 ../inc/customizer/team.php:322 ../inc/customizer/venue.php:212
+#: ../inc/customizer/why-choose-us.php:253 ../inc/customizer/woo-products-showcase.php:268
+msgid "Button Text"
+msgstr ""
+
+#: ../inc/customizer/album.php:266 ../inc/customizer/featured-content.php:325
+#: ../inc/customizer/featured-slider.php:364 ../inc/customizer/hero-content.php:312
+#: ../inc/customizer/playlist.php:154 ../inc/customizer/promotion-headline.php:209
+#: ../inc/customizer/promotion-sale.php:227 ../inc/customizer/skills.php:133
+#: ../inc/customizer/stats.php:224 ../inc/customizer/team.php:332 ../inc/customizer/venue.php:222
+#: ../inc/customizer/why-choose-us.php:263 ../inc/customizer/woo-products-showcase.php:281
+msgid "Button Link"
+msgstr ""
+
+#: ../inc/customizer/color-scheme.php:23
+msgid "Base Color Scheme"
+msgstr ""
+
+#: ../inc/customizer/contact-info.php:15 ../inc/customizer/reservation.php:123
+#: ../inc/template-functions.php:1299
+msgid "Contact Info"
+msgstr ""
+
+#: ../inc/customizer/contact-info.php:34 ../template-parts/contact-info/display-contact-info.php:19
+msgid "Say Hello"
+msgstr ""
+
+#: ../inc/customizer/contact-info.php:47
+msgid "Description"
+msgstr ""
+
+#: ../inc/customizer/contact-info.php:58
+msgid "Email Label"
+msgstr ""
+
+#: ../inc/customizer/contact-info.php:68
+msgid "Email"
+msgstr ""
+
+#: ../inc/customizer/contact-info.php:78
+msgid "Phone Label"
+msgstr ""
+
+#: ../inc/customizer/contact-info.php:88
+msgid "Phone"
+msgstr ""
+
+#: ../inc/customizer/contact-info.php:98
+msgid "Address Label"
+msgstr ""
+
+#: ../inc/customizer/contact-info.php:108
+msgid "Address"
+msgstr ""
+
+#: ../inc/customizer/contact-info.php:138
+#, php-format
+msgid "Click %1$shere%2$s to set Social Menu"
+msgstr ""
+
+#: ../inc/customizer/contact-info.php:152
+msgid "Contact Form"
+msgstr ""
+
+#: ../inc/customizer/contact-info.php:193 ../inc/customizer/events.php:114
+#: ../inc/customizer/featured-slider.php:274 ../inc/customizer/gallery.php:141
+#: ../inc/customizer/helpers.php:136 ../inc/customizer/hero-content.php:134
+#: ../inc/customizer/logo-slider.php:256 ../inc/customizer/playlist.php:73
+#: ../inc/customizer/portfolio.php:191 ../inc/customizer/promotion-headline.php:48
+#: ../inc/customizer/promotion-sale.php:48 ../inc/customizer/reservation.php:234
+#: ../inc/customizer/sticky-playlist.php:52 ../inc/customizer/testimonial.php:281
+#: ../inc/customizer/timeline.php:161 ../inc/template-functions.php:683
+#: ../template-parts/hero-content/post-type-hero.php:104
+#: ../template-parts/promotion-sale/post-type-promotion-sale.php:100
+msgid "Page"
+msgstr ""
+
+#: ../inc/customizer/contact-info.php:203 ../inc/customizer/reservation.php:267
+msgid "Add custom shortcodes from Contact Form 7 or Jetpack"
+msgstr ""
+
+#: ../inc/customizer/contact-info.php:205 ../inc/customizer/reservation.php:269
+msgid "Custom Content"
+msgstr ""
+
+#: ../inc/customizer/contact-info.php:216
+msgid "Map Image"
+msgstr ""
+
+#: ../inc/customizer/countdown.php:15 ../inc/customizer/countdown.php:34
+#: ../inc/template-functions.php:1181 ../template-parts/countdown/display-countdown.php:17
+msgid "Countdown"
+msgstr ""
+
+#: ../inc/customizer/countdown.php:47 ../inc/customizer/featured-slider.php:335
+#: ../inc/customizer/logo-slider.php:79 ../inc/customizer/skills.php:47
+#: ../inc/customizer/venue.php:59
+msgid "Sub Title"
+msgstr ""
+
+#: ../inc/customizer/countdown.php:64
+msgid "End Date"
+msgstr ""
+
+#: ../inc/customizer/custom-controls.php:27
+msgid "Support"
+msgstr ""
+
+#: ../inc/customizer/custom-controls.php:35
+msgid "Facebook"
+msgstr ""
+
+#: ../inc/customizer/custom-controls.php:39
+msgid "Twitter"
+msgstr ""
+
+#: ../inc/customizer/custom-controls.php:43
+msgid "Google+"
+msgstr ""
+
+#: ../inc/customizer/custom-controls.php:47
+msgid "Pinterest"
+msgstr ""
+
+#: ../inc/customizer/custom-controls.php:69 ../inc/customizer/custom-controls.php:92
+msgid "All Categories"
+msgstr ""
+
+#: ../inc/customizer/custom-controls.php:76 ../inc/customizer/custom-controls.php:99
+msgid "Hold down the Ctrl (windows) / Command (Mac) button to select multiple options."
+msgstr ""
+
+#: ../inc/customizer/custom-controls.php:151 ../inc/template-tags.php:348
+#: ../inc/template-tags.php:379
+msgid "Edit"
+msgstr ""
+
+#: ../inc/customizer/customizer.php:35 ../inc/customizer/customizer.php:43
+msgid "Important Links"
+msgstr ""
+
+#: ../inc/customizer/events.php:16 ../inc/customizer/events.php:124
+#: ../inc/template-functions.php:1171
+msgid "Events"
+msgstr ""
+
+#: ../inc/customizer/events.php:33 ../inc/customizer/featured-content.php:83
+#: ../inc/customizer/portfolio.php:60 ../inc/customizer/service.php:86 ../inc/customizer/team.php:87
+#: ../inc/customizer/testimonial.php:143
+msgid "Custom Post Type"
+msgstr ""
+
+#: ../inc/customizer/events.php:41 ../inc/customizer/featured-slider.php:181
+msgid "Select Slider Type"
+msgstr ""
+
+#: ../inc/customizer/events.php:53 ../inc/customizer/featured-slider.php:193
+msgid "Save and refresh the page if No. of Slides is changed (Max no of slides is 20)"
+msgstr ""
+
+#: ../inc/customizer/events.php:60 ../inc/customizer/featured-slider.php:200
+msgid "No of Slides"
+msgstr ""
+
+#: ../inc/customizer/events.php:137 ../inc/customizer/featured-slider.php:286
+msgid "Slide #"
+msgstr ""
+
+#: ../inc/customizer/events.php:167
+msgid "Tab Heading"
+msgstr ""
+
+#: ../inc/customizer/events.php:177
+msgid "Event Date for item"
+msgstr ""
+
+#: ../inc/customizer/events.php:187
+msgid "Event Time for item"
+msgstr ""
+
+#: ../inc/customizer/featured-content.php:19
+#, php-format
+msgid "For all Featured Content Options for Chique Theme, go %1$shere%2$s"
+msgstr ""
+
+#: ../inc/customizer/featured-content.php:30 ../inc/customizer/featured-content.php:233
+#: ../inc/template-functions.php:1256
+msgid "Featured Content"
+msgstr ""
+
+#: ../inc/customizer/featured-content.php:61 ../template-parts/content/content.php:44
+#: ../template-parts/featured-content/display-featured.php:31
+#: ../template-parts/recent-posts/front-recent-posts.php:115
+msgid "Featured"
+msgstr ""
+
+#: ../inc/customizer/featured-content.php:72
+msgid "My Featured Articles "
+msgstr ""
+
+#: ../inc/customizer/featured-content.php:91
+#, php-format
+msgid ""
+"For Custom Post Type Content, install %1$sEssential Content Types%2$s Plugin with Featured Content "
+"Type Enabled"
+msgstr ""
+
+#: ../inc/customizer/featured-content.php:108 ../inc/customizer/portfolio.php:84
+#: ../inc/customizer/service.php:110 ../inc/customizer/testimonial.php:167
+#, php-format
+msgid "For CPT heading and sub-heading, go %1$shere%2$s"
+msgstr ""
+
+#: ../inc/customizer/featured-content.php:122
+msgid ""
+"Save and refresh the page if No. of Featured Content is changed (Max no of Featured Content is 20)"
+msgstr ""
+
+#: ../inc/customizer/featured-content.php:127 ../inc/customizer/pricing.php:87
+#: ../inc/customizer/service.php:129 ../inc/customizer/timeline.php:76
+msgid "No of items"
+msgstr ""
+
+#: ../inc/customizer/featured-content.php:180
+msgid "Display Category"
+msgstr ""
+
+#: ../inc/customizer/featured-content.php:222 ../inc/customizer/venue.php:140
+msgid "Featured Page"
+msgstr ""
+
+#: ../inc/customizer/featured-content.php:245
+msgid "Featured Content #"
+msgstr ""
+
+#: ../inc/customizer/featured-content.php:304 ../inc/customizer/pricing.php:264
+#: ../inc/customizer/service.php:278 ../inc/customizer/why-choose-us.php:242
+msgid "More Button Text"
+msgstr ""
+
+#: ../inc/customizer/featured-slider.php:16
+msgid "Featured Slider"
+msgstr ""
+
+#: ../inc/customizer/featured-slider.php:37 ../inc/customizer/helpers.php:119
+#: ../inc/customizer/logo-slider.php:52 ../inc/customizer/service.php:53
+msgid "1 column"
+msgstr ""
+
+#: ../inc/customizer/featured-slider.php:42 ../inc/customizer/featured-video.php:50
+#: ../inc/customizer/logo-slider.php:58 ../inc/customizer/pricing.php:38
+#: ../inc/customizer/service.php:56 ../inc/customizer/team.php:43
+#: ../inc/customizer/why-choose-us.php:74
+msgid "Select Layout"
+msgstr ""
+
+#: ../inc/customizer/featured-slider.php:58 ../inc/customizer/hero-content.php:218
+#: ../inc/customizer/promotion-headline.php:133 ../inc/customizer/promotion-sale.php:143
+#: ../inc/customizer/why-choose-us.php:90
+msgid "Content Position"
+msgstr ""
+
+#: ../inc/customizer/featured-slider.php:86 ../inc/customizer/logo-slider.php:91
+#: ../inc/customizer/testimonial.php:64
+msgid "Transition In"
+msgstr ""
+
+#: ../inc/customizer/featured-slider.php:98 ../inc/customizer/logo-slider.php:103
+#: ../inc/customizer/testimonial.php:76
+msgid "Transition Out"
+msgstr ""
+
+#: ../inc/customizer/featured-slider.php:109 ../inc/customizer/logo-slider.php:114
+#: ../inc/customizer/testimonial.php:87
+msgid "Display nav arrows"
+msgstr ""
+
+#: ../inc/customizer/featured-slider.php:120 ../inc/customizer/logo-slider.php:125
+#: ../inc/customizer/testimonial.php:98
+msgid "Display nav dots"
+msgstr ""
+
+#: ../inc/customizer/featured-slider.php:131 ../inc/customizer/logo-slider.php:136
+#: ../inc/customizer/testimonial.php:109
+msgid "Autoplay"
+msgstr ""
+
+#: ../inc/customizer/featured-slider.php:141 ../inc/customizer/testimonial.php:120
+msgid "Loop (Last to first)"
+msgstr ""
+
+#: ../inc/customizer/featured-slider.php:156 ../inc/customizer/logo-slider.php:161
+#: ../inc/customizer/testimonial.php:135
+msgid "Transition timeout"
+msgstr ""
+
+#: ../inc/customizer/featured-slider.php:167
+msgid "Scroll Link"
+msgstr ""
+
+#: ../inc/customizer/featured-slider.php:222
+msgid "Exclude Slider post from Homepage posts"
+msgstr ""
+
+#: ../inc/customizer/featured-slider.php:249
+msgid "Slider Logo"
+msgstr ""
+
+#: ../inc/customizer/featured-video.php:16 ../inc/template-functions.php:1206
+msgid "Featured Video"
+msgstr ""
+
+#: ../inc/customizer/featured-video.php:38
+msgid "Section Background Image"
+msgstr ""
+
+#: ../inc/customizer/featured-video.php:60
+msgid "Featured Video Title"
+msgstr ""
+
+#: ../inc/customizer/featured-video.php:70
+msgid "Featured Content Archive Content"
+msgstr ""
+
+#: ../inc/customizer/featured-video.php:81
+msgid ""
+"Save and refresh the page if No. of Featured Video is changed (Max no of Featured Video is 20)"
+msgstr ""
+
+#: ../inc/customizer/featured-video.php:86
+msgid "No of Featured Video"
+msgstr ""
+
+#: ../inc/customizer/featured-video.php:100
+msgid "Video Url"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:19
+#, php-format
+msgid "For all Gallery Options, go %1$shere%2$s"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:32 ../inc/template-functions.php:1266
+msgid "Gallery"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:54 ../inc/customizer/hero-content.php:52
+#: ../inc/customizer/reservation.php:25 ../inc/customizer/woo-products-showcase.php:34
+msgid "Background Image"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:68 ../inc/customizer/hero-content.php:66
+#: ../inc/customizer/woo-products-showcase.php:48
+msgid "Background Image Position"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:80 ../inc/customizer/hero-content.php:78
+#: ../inc/customizer/woo-products-showcase.php:60
+msgid "In mobiles, Background Size is always cover"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:83 ../inc/customizer/hero-content.php:81
+#: ../inc/customizer/woo-products-showcase.php:63
+msgid "Desktop Background Image Size"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:87 ../inc/customizer/hero-content.php:85
+#: ../inc/customizer/woo-products-showcase.php:67
+msgid "Original"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:88 ../inc/customizer/hero-content.php:86
+#: ../inc/customizer/woo-products-showcase.php:68
+msgid "Fit to Screen"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:89 ../inc/customizer/hero-content.php:87
+#: ../inc/customizer/woo-products-showcase.php:69
+msgid "Fill Screen"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:98 ../inc/customizer/hero-content.php:96
+#: ../inc/customizer/woo-products-showcase.php:78
+msgid "Repeat Background Image"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:102 ../inc/customizer/hero-content.php:100
+#: ../inc/customizer/woo-products-showcase.php:82
+msgid "No Repeat"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:103 ../inc/customizer/hero-content.php:101
+#: ../inc/customizer/woo-products-showcase.php:83
+msgid "Repeat both vertically and horizontally (The last image will be clipped if it does not fit)"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:104 ../inc/customizer/hero-content.php:102
+#: ../inc/customizer/woo-products-showcase.php:84
+msgid "Repeat only horizontally"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:105 ../inc/customizer/hero-content.php:103
+#: ../inc/customizer/woo-products-showcase.php:85
+msgid "Repeat only vertically"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:114 ../inc/customizer/hero-content.php:112
+#: ../inc/customizer/woo-products-showcase.php:94
+msgid "Scroll with Page"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:173 ../inc/customizer/helpers.php:189
+#: ../inc/customizer/helpers.php:209 ../inc/customizer/hero-content.php:156
+#: ../inc/customizer/playlist.php:94 ../inc/customizer/promotion-headline.php:70
+#: ../inc/customizer/promotion-sale.php:91 ../inc/customizer/reservation.php:244
+#: ../inc/customizer/sticky-playlist.php:88
+msgid "-- Select --"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:186 ../inc/customizer/helpers.php:137
+#: ../inc/customizer/hero-content.php:169 ../inc/customizer/playlist.php:106
+#: ../inc/customizer/promotion-headline.php:83 ../inc/customizer/promotion-sale.php:104
+#: ../inc/customizer/reservation.php:257 ../inc/customizer/sticky-playlist.php:100
+#: ../inc/customizer/woo-products-showcase.php:257
+msgid "Category"
+msgstr ""
+
+#: ../inc/customizer/gallery.php:198 ../inc/customizer/hero-content.php:181
+#: ../inc/customizer/logo-slider.php:203 ../inc/customizer/promotion-headline.php:95
+#: ../inc/customizer/promotion-sale.php:116 ../inc/customizer/timeline.php:87
+msgid "Display Title"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:14
+msgid ""
+"If you add video, it will only show up on Homepage/FrontPage. Other Pages will use Header/Post/"
+"Page Image depending on your selection of option. Header Image will be used as a fallback while "
+"the video loads "
+msgstr ""
+
+#: ../inc/customizer/header-media.php:21 ../inc/customizer/helpers.php:105
+msgid "Homepage / Frontpage"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:22
+msgid "Excluding Homepage"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:23
+msgid "Excluding Homepage, Page/Post Featured Image"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:24 ../inc/customizer/helpers.php:106
+msgid "Entire Site"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:25
+msgid "Entire Site, Page/Post Featured Image"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:26
+msgid "Pages and Posts"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:27 ../inc/customizer/helpers.php:104
+#: ../inc/customizer/theme-options.php:233 ../inc/metabox/metabox.php:87
+msgid "Disabled"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:45
+msgid "Homepage Content Position"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:60
+msgid "Hompage Text Alignment"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:75
+msgid "Inner Pages Content Position"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:90
+msgid "Inner Pages Text Alignment"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:100
+msgid "Header Media Overlay"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:115
+msgid "Header Media Overlay (Except Homepage)"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:130
+msgid "Scroll Down Button"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:140
+msgid "Header Media Title"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:150
+msgid "Header Media Logo"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:159
+msgid "Header Media Sub Title"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:168
+msgid "Header Media Text"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:178
+msgid "Header Media Url"
+msgstr ""
+
+#: ../inc/customizer/header-media.php:187
+msgid "Header Media Url Text"
+msgstr ""
+
+#: ../inc/customizer/helpers.php:138
+msgid "Custom"
+msgstr ""
+
+#: ../inc/customizer/helpers.php:151
+msgid "Use WordPress Setting"
+msgstr ""
+
+#: ../inc/customizer/helpers.php:152
+msgid "Disable in Pages"
+msgstr ""
+
+#: ../inc/customizer/helpers.php:153
+msgid "Disable Completely"
+msgstr ""
+
+#: ../inc/customizer/helpers.php:166
+msgid "Default(Older Posts/Newer Posts)"
+msgstr ""
+
+#: ../inc/customizer/helpers.php:167
+msgid "Numeric"
+msgstr ""
+
+#: ../inc/customizer/helpers.php:193 ../inc/customizer/helpers.php:212
+#, php-format
+msgid "#%d (no title)"
+msgstr ""
+
+#: ../inc/customizer/helpers.php:238
+msgid "Show Excerpt"
+msgstr ""
+
+#: ../inc/customizer/helpers.php:239
+msgid "Full Content"
+msgstr ""
+
+#: ../inc/customizer/helpers.php:240
+msgid "Hide Content"
+msgstr ""
+
+#: ../inc/customizer/helpers.php:252
+msgid "Show Meta"
+msgstr ""
+
+#: ../inc/customizer/helpers.php:253
+msgid "Hide Meta"
+msgstr ""
+
+#: ../inc/customizer/helpers.php:265
+msgid "Show Category"
+msgstr ""
+
+#: ../inc/customizer/helpers.php:266
+msgid "Hide Category"
+msgstr ""
+
+#: ../inc/customizer/hero-content.php:15 ../inc/template-functions.php:1176
+msgid "Hero Content"
+msgstr ""
+
+#: ../inc/customizer/hero-content.php:36 ../inc/customizer/stats.php:39
+#: ../inc/customizer/venue.php:38
+msgid "Layout"
+msgstr ""
+
+#: ../inc/customizer/hero-content.php:40
+msgid "Boxed"
+msgstr ""
+
+#: ../inc/customizer/hero-content.php:41
+msgid "Fluid"
+msgstr ""
+
+#: ../inc/customizer/hero-content.php:203
+msgid "Add frame to content"
+msgstr ""
+
+#: ../inc/customizer/hero-content.php:254 ../inc/customizer/promotion-headline.php:105
+#: ../inc/customizer/promotion-sale.php:82 ../inc/customizer/reservation.php:209
+msgid "Subtitle"
+msgstr ""
+
+#: ../inc/customizer/hero-content.php:284 ../inc/customizer/promotion-sale.php:199
+msgid "Image Link"
+msgstr ""
+
+#: ../inc/customizer/hero-content.php:321 ../inc/customizer/promotion-headline.php:218
+#: ../inc/customizer/promotion-sale.php:236 ../inc/customizer/skills.php:142
+msgid "Open Button Link in New Window/Tab"
+msgstr ""
+
+#: ../inc/customizer/logo-slider.php:16 ../inc/customizer/logo-slider.php:66
+#: ../inc/template-functions.php:1294 ../template-parts/logo-slider/display-logo-slider.php:18
+msgid "Logo Slider"
+msgstr ""
+
+#: ../inc/customizer/logo-slider.php:37
+msgid "Scrollable Logo Slider"
+msgstr ""
+
+#: ../inc/customizer/logo-slider.php:38
+msgid "Static Logo Images"
+msgstr ""
+
+#: ../inc/customizer/logo-slider.php:40
+msgid "Select Logo Slider Design"
+msgstr ""
+
+#: ../inc/customizer/logo-slider.php:56
+msgid "5 columns"
+msgstr ""
+
+#: ../inc/customizer/logo-slider.php:146
+msgid "loop (Last to first)"
+msgstr ""
+
+#: ../inc/customizer/logo-slider.php:173 ../inc/customizer/portfolio.php:72
+#: ../inc/customizer/testimonial.php:155
+msgid "Select Type"
+msgstr ""
+
+#: ../inc/customizer/logo-slider.php:185
+msgid "Save and refresh the page if No. of Items is changed (Max no of slides is 20)"
+msgstr ""
+
+#: ../inc/customizer/logo-slider.php:268 ../inc/customizer/skills.php:88
+#: ../inc/customizer/venue.php:151
+msgid "Item #"
+msgstr ""
+
+#: ../inc/customizer/playlist.php:15 ../inc/template-functions.php:1276
+msgid "Playlist"
+msgstr ""
+
+#: ../inc/customizer/playlist.php:33
+msgid "New Releases"
+msgstr ""
+
+#: ../inc/customizer/playlist.php:36 ../inc/customizer/theme-options.php:769
+msgid "Section Title"
+msgstr ""
+
+#: ../inc/customizer/playlist.php:46
+msgid "Playlist Sub Title"
+msgstr ""
+
+#: ../inc/customizer/playlist.php:118
+msgid "Display title"
+msgstr ""
+
+#: ../inc/customizer/playlist.php:133
+msgid "Content Alignment"
+msgstr ""
+
+#: ../inc/customizer/portfolio.php:19
+#, php-format
+msgid "For Portfolio Options for Chique Theme, go %1$shere%2$s"
+msgstr ""
+
+#: ../inc/customizer/portfolio.php:31 ../inc/customizer/portfolio.php:95
+#: ../inc/customizer/portfolio.php:180 ../inc/template-functions.php:1196
+#: ../template-parts/portfolio/display-portfolio.php:20
+#: ../template-parts/portfolio/display-portfolio.php:23
+msgid "Portfolio"
+msgstr ""
+
+#: ../inc/customizer/portfolio.php:52
+msgid "Select Portfolio Layout"
+msgstr ""
+
+#: ../inc/customizer/portfolio.php:68
+#, php-format
+msgid ""
+"For Custom Post Type Content, install %1$sEssential Content Types%2$s Plugin with Portfolio "
+"Content Type Enabled"
+msgstr ""
+
+#: ../inc/customizer/portfolio.php:131
+msgid "Number of items to show"
+msgstr ""
+
+#: ../inc/customizer/portfolio.php:202
+msgid "Portfolio #"
+msgstr ""
+
+#: ../inc/customizer/pricing.php:15 ../inc/template-functions.php:1241
+msgid "Pricing"
+msgstr ""
+
+#: ../inc/customizer/pricing.php:46 ../template-parts/pricing/display-pricing.php:31
+msgid "Pricing Table"
+msgstr ""
+
+#: ../inc/customizer/pricing.php:82
+msgid "Save and refresh the page if No. of Pricing is changed (Max no of Pricing is 20)"
+msgstr ""
+
+#: ../inc/customizer/pricing.php:135
+msgid "Currency"
+msgstr ""
+
+#: ../inc/customizer/pricing.php:149
+msgid "Highlight item"
+msgstr ""
+
+#: ../inc/customizer/pricing.php:159
+msgid "Amount"
+msgstr ""
+
+#: ../inc/customizer/pricing.php:169
+msgid "Amount Remarks (per month)"
+msgstr ""
+
+#: ../inc/customizer/pricing.php:193
+msgid "Pricing Page"
+msgstr ""
+
+#: ../inc/customizer/pricing.php:205
+msgid "Pricing #"
+msgstr ""
+
+#: ../inc/customizer/promotion-headline.php:15 ../inc/template-functions.php:1226
+msgid "Promotion Headline"
+msgstr ""
+
+#: ../inc/customizer/promotion-headline.php:160
+msgid "Content Frame"
+msgstr ""
+
+#: ../inc/customizer/promotion-sale.php:15 ../inc/template-functions.php:1236
+msgid "Promotion Sale"
+msgstr ""
+
+#: ../inc/customizer/promotion-sale.php:72
+msgid "Title Image"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:15 ../inc/customizer/reservation.php:196
+#: ../inc/template-functions.php:1271 ../template-parts/reservation/display-reservation.php:98
+msgid "Reservation"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:35
+msgid "Reservation Info( Left Section )"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:46
+msgid "Enable Reservation Info on"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:54 ../template-parts/reservation/display-reservation.php:34
+msgid "Time"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:57
+msgid "Description Title"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:65 ../template-parts/reservation/display-reservation.php:35
+msgid "Open"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:68
+msgid "Description Subtitle"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:76 ../template-parts/reservation/display-reservation.php:38
+msgid "Mon-Fri"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:79
+msgid "Weekdays Title"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:87
+msgid "7AM - 11 AM (Breakfast)&#13;&#10;11AM - 10PM (Lunch/Dinner)"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:90
+msgid "Weekdays Description"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:98 ../template-parts/reservation/display-reservation.php:42
+msgid "Sat-Sun"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:101
+msgid "Weekends Title"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:109
+msgid "8AM - 1PM (Brunch)&#13;&#10;1PM - 9PM (Lunch/Dinner)"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:112
+msgid "Weekends Description"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:120 ../template-parts/reservation/display-reservation.php:46
+msgid "+1 3234 567 8901"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:135
+msgid "Reservation Form( Right Section )"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:145
+msgid "Enable Reservation Form on"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:177
+msgid "Reservation Form Position"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:185
+msgid "or call us at <span>+123456789</span>"
+msgstr ""
+
+#: ../inc/customizer/reservation.php:188
+msgid "Highlight Text"
+msgstr ""
+
+#: ../inc/customizer/reset.php:44
+msgid "Reset"
+msgstr ""
+
+#: ../inc/customizer/reset.php:45
+msgid "Caution: Reset all settings to default. Process is irreversible."
+msgstr ""
+
+#: ../inc/customizer/reset.php:49
+msgid "Reset section"
+msgstr ""
+
+#: ../inc/customizer/reset.php:50
+msgid "Caution: Reset section settings to default. Process is irreversible."
+msgstr ""
+
+#: ../inc/customizer/sanitize-functions.php:181 ../inc/customizer/sanitize-functions.php:199
+#: ../inc/customizer/sanitize-functions.php:217 ../inc/customizer/sanitize-functions.php:235
+msgid "Invalid value for background position X."
+msgstr ""
+
+#: ../inc/customizer/sanitize-functions.php:185 ../inc/customizer/sanitize-functions.php:203
+#: ../inc/customizer/sanitize-functions.php:221 ../inc/customizer/sanitize-functions.php:239
+msgid "Invalid value for background position Y."
+msgstr ""
+
+#: ../inc/customizer/sanitize-functions.php:188 ../inc/customizer/sanitize-functions.php:206
+#: ../inc/customizer/sanitize-functions.php:224 ../inc/customizer/sanitize-functions.php:242
+msgid "Unrecognized background setting."
+msgstr ""
+
+#: ../inc/customizer/service.php:19
+#, php-format
+msgid "For all Services Options for Chique Theme, go %1$shere%2$s"
+msgstr ""
+
+#: ../inc/customizer/service.php:30 ../inc/customizer/service.php:64
+#: ../inc/customizer/service.php:207 ../inc/template-functions.php:1211
+#: ../template-parts/pricing/display-pricing.php:28
+#: ../template-parts/services/display-services.php:20
+#: ../template-parts/services/display-services.php:23
+msgid "Services"
+msgstr ""
+
+#: ../inc/customizer/service.php:75 ../template-parts/services/display-services.php:24
+msgid "What We Do"
+msgstr ""
+
+#: ../inc/customizer/service.php:93
+#, php-format
+msgid ""
+"For Custom Post Type Content, install %1$sEssential Content Types%2$s Plugin with Services Type "
+"Enabled"
+msgstr ""
+
+#: ../inc/customizer/service.php:124
+msgid "Save and refresh the page if No. of Services is changed (Max no of Services is 20)"
+msgstr ""
+
+#: ../inc/customizer/service.php:196
+msgid "Services Page"
+msgstr ""
+
+#: ../inc/customizer/service.php:219
+msgid "Services #"
+msgstr ""
+
+#: ../inc/customizer/skills.php:15 ../inc/template-functions.php:1261
+msgid "Skills"
+msgstr ""
+
+#: ../inc/customizer/skills.php:34 ../template-parts/skills/custom-skills.php:18
+msgid "My Skills"
+msgstr ""
+
+#: ../inc/customizer/skills.php:58 ../inc/customizer/venue.php:82
+msgid "Save and refresh the page if No of items is changed"
+msgstr ""
+
+#: ../inc/customizer/skills.php:108
+msgid "Percentage"
+msgstr ""
+
+#: ../inc/customizer/stats.php:16 ../inc/customizer/stats.php:47 ../inc/template-functions.php:1201
+#: ../template-parts/stats/display-stats.php:29
+msgid "Stats"
+msgstr ""
+
+#: ../inc/customizer/stats.php:142
+msgid "Stats Page"
+msgstr ""
+
+#: ../inc/customizer/stats.php:154
+msgid "Stats #"
+msgstr ""
+
+#: ../inc/customizer/sticky-playlist.php:15
+msgid "Sticky Playlist"
+msgstr ""
+
+#: ../inc/customizer/sticky-playlist.php:79
+msgid "Top"
+msgstr ""
+
+#: ../inc/customizer/sticky-playlist.php:80
+msgid "Bottom"
+msgstr ""
+
+#: ../inc/customizer/team.php:16 ../inc/customizer/team.php:204 ../inc/template-functions.php:1251
+msgid "Team"
+msgstr ""
+
+#: ../inc/customizer/team.php:55
+msgid "Style 1"
+msgstr ""
+
+#: ../inc/customizer/team.php:56
+msgid "Style 2"
+msgstr ""
+
+#: ../inc/customizer/team.php:58 ../inc/customizer/why-choose-us.php:62
+msgid "Style"
+msgstr ""
+
+#: ../inc/customizer/team.php:66 ../template-parts/team/display-team.php:19
+msgid "Our Team"
+msgstr ""
+
+#: ../inc/customizer/team.php:194
+msgid "Team Page"
+msgstr ""
+
+#: ../inc/customizer/team.php:216 ../inc/customizer/team.php:285 ../inc/customizer/team.php:294
+#: ../inc/customizer/team.php:303 ../inc/customizer/team.php:312
+msgid "Team #"
+msgstr ""
+
+#: ../inc/customizer/team.php:285
+msgid ": Social Link #1"
+msgstr ""
+
+#: ../inc/customizer/team.php:294
+msgid ": Social Link #2"
+msgstr ""
+
+#: ../inc/customizer/team.php:303
+msgid ": Social Link #3"
+msgstr ""
+
+#: ../inc/customizer/team.php:312
+msgid ": Social Link #4"
+msgstr ""
+
+#: ../inc/customizer/testimonial.php:19
+#, php-format
+msgid "For Testimonial Options for Chique Theme, go %1$shere%2$s"
+msgstr ""
+
+#: ../inc/customizer/testimonial.php:31 ../inc/customizer/testimonial.php:178
+#: ../template-parts/testimonials/display-testimonial.php:22
+#: ../template-parts/testimonials/display-testimonial.php:28
+#: ../template-parts/testimonials/display-testimonial.php:31
+msgid "Testimonials"
+msgstr ""
+
+#: ../inc/customizer/testimonial.php:52
+msgid "Display slider"
+msgstr ""
+
+#: ../inc/customizer/testimonial.php:151
+#, php-format
+msgid ""
+"For Custom Post Type Content, install %1$sEssential Content Types%2$s Plugin with Testimonial "
+"Content Type Enabled"
+msgstr ""
+
+#: ../inc/customizer/testimonial.php:202
+msgid "Number of items"
+msgstr ""
+
+#: ../inc/customizer/testimonial.php:217
+msgid "Testimonial Title"
+msgstr ""
+
+#: ../inc/customizer/testimonial.php:270 ../inc/template-functions.php:1246
+msgid "Testimonial"
+msgstr ""
+
+#: ../inc/customizer/testimonial.php:292
+msgid "Testimonial #"
+msgstr ""
+
+#: ../inc/customizer/testimonial.php:331
+msgid "Testimonial Text"
+msgstr ""
+
+#: ../inc/customizer/testimonial.php:341
+msgid "Name"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:15
+msgid "Theme Options"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:22
+msgid "Font Family Options"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:50
+msgid "Footer Editor Options"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:51
+msgid ""
+"You can either add html or plain text or custom shortcodes, which will be automatically inserted "
+"into your theme. Some shorcodes: [the-year], [site-link] and [privacy-policy-link] for current "
+"year, site link and privacy policy link respectively."
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:59 ../template-parts/footer/site-info.php:10
+#, php-format
+msgctxt "1: Year, 2: Site Title with home URL, 3: Privacy Policy Link"
+msgid "Copyright &copy; %1$s %2$s. All Rights Reserved. %3$s"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:59 ../template-parts/footer/site-info.php:10
+msgid "by"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:61
+msgid "Footer Content"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:69
+msgid "Layout Options"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:78
+msgid "Header Sidebar Width ( 200px - 500px)"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:94
+msgid "Blog Style Grid"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:105
+msgid "Blog Style Grid - Fluid"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:116
+msgid "Default Layout"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:120 ../inc/customizer/theme-options.php:137
+#: ../inc/customizer/theme-options.php:154 ../inc/woocommerce.php:52
+msgid "Right Sidebar ( Content, Primary Sidebar )"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:121 ../inc/customizer/theme-options.php:138
+#: ../inc/customizer/theme-options.php:155 ../inc/woocommerce.php:53
+msgid "Left Sidebar ( Primary Sidebar, Content )"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:122 ../inc/customizer/theme-options.php:139
+#: ../inc/customizer/theme-options.php:156 ../inc/woocommerce.php:54
+msgid "No Sidebar"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:123 ../inc/customizer/theme-options.php:140
+#: ../inc/customizer/theme-options.php:157 ../inc/woocommerce.php:55
+msgid "No Sidebar: Full Width"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:133
+msgid "Homepage Layout"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:150
+msgid "Blog/Archive Layout"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:167
+msgid "Archive Content Layout"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:177
+msgid "Archive Meta"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:187
+msgid "Posted On"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:197
+msgid "Author"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:207
+msgid "Tags"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:217 ../inc/customizer/theme-options.php:368
+msgid "Categories"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:229 ../inc/metabox/metabox.php:132
+msgid "Single Page/Post Image"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:234
+msgid "Post Thumbnail (940x528)"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:235
+msgid "Featured (666x499)"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:236 ../inc/metabox/metabox.php:91
+msgid "Original Image Size"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:244
+msgid "Excerpt Options"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:251
+msgid "Excerpt length. Default is 55 words"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:258
+msgid "Excerpt Length (words)"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:268
+msgid "Read More Text"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:278
+msgid "Read More Icon"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:287
+msgid "Search Options"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:292 ../searchform.php:11
+msgid "Search ..."
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:294
+msgid "Search Text"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:302
+msgid "Comments can also be disabled on a per post/page basis when creating/editing posts/pages."
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:304
+msgid "Comment Options"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:312
+msgid "Comment Option"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:322
+msgid "Display Website Field"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:330
+msgid "Only posts that belong to the categories selected here will be displayed on the front page"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:332
+msgid "Homepage / Frontpage Options"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:339
+msgid "Display Recent Posts/Content on homepage"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:349
+msgid "Recent Posts Heading"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:358
+msgid "Recent Posts Sub Heading"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:378
+msgid "Enable Recent Posts on Static Page"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:385
+msgid "Menu Options"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:393 ../inc/customizer/why-choose-us.php:60
+msgid "Classic"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:394 ../inc/customizer/why-choose-us.php:61
+msgid "Modern"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:396
+msgid "Menu Style"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:406
+msgid "Show Submenu below Parent menu(Disable submenu hover popup)"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:416
+msgid "Display Search On Primary"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:424 ../inc/customizer/theme-options.php:764
+#: ../template-parts/header/site-navigation.php:8
+msgid "Menu"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:427
+msgid "Modern Menu Label"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:437
+msgid "Pagination Options"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:445
+msgid "Pagination type"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:454
+msgid "Scrollup Options"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:461
+msgid "Display Scroll Up"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:469
+msgid "Sections Sorter"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:470
+msgid "Drag and drop to sort your sections"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:477
+msgid "Sortable Sections"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:749 ../inc/header-background-color.php:219
+#: ../inc/metabox/metabox.php:81 ../inc/metabox/metabox.php:88
+msgid "Default"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:754
+msgid "Site Title"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:759
+msgid "Site Tagline"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:773
+msgid "Headings Tags from h1 to h6"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:778
+msgid "Button"
+msgstr ""
+
+#: ../inc/customizer/theme-options.php:782
+msgid "Slider & Custom Header"
+msgstr ""
+
+#: ../inc/customizer/timeline.php:16 ../inc/template-functions.php:1221
+msgid "Timeline"
+msgstr ""
+
+#: ../inc/customizer/timeline.php:39
+msgid "Select Content Type"
+msgstr ""
+
+#: ../inc/customizer/timeline.php:60
+msgid "Sub-headline"
+msgstr ""
+
+#: ../inc/customizer/timeline.php:71
+msgid "Save and refresh the page if No. of items"
+msgstr ""
+
+#: ../inc/customizer/timeline.php:98
+msgid "Display Date"
+msgstr ""
+
+#: ../inc/customizer/timeline.php:136
+msgid "Date #"
+msgstr ""
+
+#: ../inc/customizer/timeline.php:172
+msgid "Event #"
+msgstr ""
+
+#: ../inc/customizer/timeline.php:223
+msgid "Date Day"
+msgstr ""
+
+#: ../inc/customizer/timeline.php:239
+msgid "Date Month"
+msgstr ""
+
+#: ../inc/customizer/venue.php:15 ../inc/template-functions.php:1186
+msgid "Venue"
+msgstr ""
+
+#: ../inc/customizer/venue.php:46 ../template-parts/venue/display-venue.php:18
+msgid "Wedding Details"
+msgstr ""
+
+#: ../inc/customizer/venue.php:209 ../template-parts/venue/display-venue.php:62
+msgid "See Map Direction"
+msgstr ""
+
+#: ../inc/customizer/why-choose-us.php:16 ../inc/customizer/why-choose-us.php:35
+#: ../inc/template-functions.php:1191 ../template-parts/why-choose-us/display-choose.php:17
+msgid "Why Choose Us"
+msgstr ""
+
+#: ../inc/customizer/why-choose-us.php:172
+msgid "Why Choose Us Page"
+msgstr ""
+
+#: ../inc/customizer/why-choose-us.php:183
+msgid "Why Choose Us #"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:13
+msgid "WooCommerce Products Showcase"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:101
+#: ../template-parts/woo-products-showcase/display-products.php:70
+msgid "Our Store"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:112
+#: ../template-parts/woo-products-showcase/display-products.php:71
+msgid "Order Online"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:126
+msgid "Save and refresh the page if No. of Products is changed. Set -1 to display all"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:131
+msgid "No of Products"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:142
+msgid "Theme supports up to 6 columns"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:143
+msgid "No of Columns"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:159
+msgid "Paginate"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:163
+msgid "No"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:164
+msgid "Yes"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:174
+msgid "Order By"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:178
+msgid "Date - The date the product was published"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:179
+msgid "ID - The post ID of the product"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:180
+msgid "Menu Order - The Menu Order, if set (lower numbers display first)"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:181
+msgid "Popularity - The number of purchases"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:182
+msgid "Random"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:183
+msgid "Rating - The average product rating"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:184
+msgid "Title - The product title"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:194
+msgid "Products Filter"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:198
+msgid "None"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:199
+msgid "Retrieve on sale products"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:200
+msgid "Retrieve best selling products"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:201
+msgid "Retrieve top rated products"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:210
+msgid "Make product image round"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:220
+msgid "Show only Products that are marked as Featured Products"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:231
+msgid "Order"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:235
+msgid "Ascending"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:236
+msgid "Descending"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:243
+msgid "Comma separated list of product SKUs"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:246
+msgid "SKUs"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:254
+msgid "Comma separated list of category slugs"
+msgstr ""
+
+#: ../inc/customizer/woo-products-showcase.php:265
+#: ../template-parts/woo-products-showcase/display-products.php:120
+msgid "Go to Shop Page"
+msgstr ""
+
+#: ../inc/events.php:67
+msgid "View More"
+msgstr ""
+
+#: ../inc/header-background-color.php:80
+msgid "Page Background Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:84
+msgid "Secondary Background Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:88
+msgid "Main Text Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:92
+msgid "Heading Text Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:96
+msgid "Link Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:100
+msgid "Link Hover Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:104
+msgid "Secondary Link Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:108
+msgid "Button Background Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:112
+msgid "Button Text Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:116
+msgid "Button Hover Background Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:120
+msgid "Button Hover Text Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:124
+msgid "Border Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:128
+msgid "Tertiary Background Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:132
+msgid "Text Color with Background"
+msgstr ""
+
+#: ../inc/header-background-color.php:136
+msgid "Slider/Custom Header Text Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:140
+msgid "Slider/Custom Header Hover Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:144
+msgid "Slider/Custom Header Content Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:148
+msgid "Secondary Link Hover Color"
+msgstr ""
+
+#: ../inc/header-background-color.php:152
+msgid "Gradient Background Color First"
+msgstr ""
+
+#: ../inc/header-background-color.php:156
+msgid "Gradient Background Color Second"
+msgstr ""
+
+#: ../inc/header-background-color.php:246
+msgid "Dark"
+msgstr ""
+
+#: ../inc/header-background-color.php:273
+msgid "Photography"
+msgstr ""
+
+#: ../inc/header-background-color.php:300
+msgid "Corporate"
+msgstr ""
+
+#: ../inc/header-background-color.php:327
+msgid "eCommerce"
+msgstr ""
+
+#: ../inc/header-background-color.php:354
+msgid "Music"
+msgstr ""
+
+#: ../inc/header-background-color.php:381
+msgid "Wedding"
+msgstr ""
+
+#: ../inc/header-background-color.php:435
+msgid "Yellow"
+msgstr ""
+
+#: ../inc/metabox/metabox.php:74
+msgid "Default Sidebar"
+msgstr ""
+
+#: ../inc/metabox/metabox.php:77
+msgid "Optional Sidebar three"
+msgstr ""
+
+#: ../inc/metabox/metabox.php:82
+msgid "Enable"
+msgstr ""
+
+#: ../inc/metabox/metabox.php:83
+msgid "Disable"
+msgstr ""
+
+#: ../inc/metabox/metabox.php:89
+msgid "Post Thumbnail (1060x596)"
+msgstr ""
+
+#: ../inc/metabox/metabox.php:90
+msgid "Featured (664x373)"
+msgstr ""
+
+#: ../inc/metabox/metabox.php:99
+msgid "Select Sidebar"
+msgstr ""
+
+#: ../inc/metabox/metabox.php:115
+msgid "Header Featured Image Options"
+msgstr ""
+
+#: ../inc/metabox/metabox.php:192
+msgid "Chique Pro Options"
+msgstr ""
+
+#: ../inc/template-functions.php:650
+msgid "Scroll Up"
+msgstr ""
+
+#: ../inc/template-functions.php:681
+msgid "Previous"
+msgstr ""
+
+#: ../inc/template-functions.php:682 ../single.php:22
+msgid "Next"
+msgstr ""
+
+#: ../inc/template-functions.php:1161
+msgid "Header Media"
+msgstr ""
+
+#: ../inc/template-functions.php:1166
+msgid "Slider"
+msgstr ""
+
+#: ../inc/template-functions.php:1231
+msgid "Woo Products"
+msgstr ""
+
+#: ../inc/template-functions.php:1281
+msgid "Main Content"
+msgstr ""
+
+#: ../inc/template-functions.php:1284
+msgid "Recent Posts ( Only on homepage )"
+msgstr ""
+
+#: ../inc/template-tags.php:29 ../inc/template-tags.php:502
+#, php-format
+msgid "<span class=\"date-label\"> </span>%s"
+msgstr ""
+
+#: ../inc/template-tags.php:36
+#, php-format
+msgid "<span class=\"author-label screen-reader-text\">By </span>%s"
+msgstr ""
+
+#: ../inc/template-tags.php:59 ../inc/template-tags.php:71 ../inc/template-tags.php:97
+#: ../inc/template-tags.php:207
+msgctxt "Used before category names."
+msgid "<span class=\"cat-text screen-reader-text\">Categories</span>"
+msgstr ""
+
+#: ../inc/template-tags.php:107 ../inc/template-tags.php:195
+msgctxt "Used before tag names."
+msgid "<span class=\"tags-text screen-reader-text\">Tags</span>"
+msgstr ""
+
+#: ../inc/template-tags.php:136 ../template-parts/content/content-page.php:46
+#, php-format
+msgid "Edit <span class=\"screen-reader-text\">%s</span>"
+msgstr ""
+
+#: ../inc/template-tags.php:163
+#, php-format
+msgid "<span class=\"byline\"><span class=\"author-label screen-reader-text\">By </span>%s"
+msgstr ""
+
+#: ../inc/template-tags.php:184
+#, php-format
+msgid "<span class=\"posted-on\"><span class=\"date-label\"> </span>%s"
+msgstr ""
+
+#: ../inc/template-tags.php:245 ../search.php:26
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
+#: ../inc/template-tags.php:348
+msgid "Pingback:"
+msgstr ""
+
+#: ../inc/template-tags.php:365
+#, php-format
+msgid "%s <span class=\"says screen-reader-text\">says:</span>"
+msgstr ""
+
+#: ../inc/template-tags.php:373
+#, php-format
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: ../inc/template-tags.php:382
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: ../inc/template-tags.php:428 ../inc/template-tags.php:436
+msgctxt "Used before category names."
+msgid "Categories"
+msgstr ""
+
+#: ../inc/updater/theme-updater-admin.php:261 ../inc/updater/theme-updater-admin.php:315
+#: ../inc/updater/theme-updater-admin.php:367
+msgid "An error occurred, please try again."
+msgstr ""
+
+#: ../inc/updater/theme-updater-admin.php:281
+#, php-format
+msgid "Your license key expired on %s."
+msgstr ""
+
+#: ../inc/updater/theme-updater-admin.php:289
+msgid "Your license key has been disabled."
+msgstr ""
+
+#: ../inc/updater/theme-updater-admin.php:294
+msgid "Invalid license."
+msgstr ""
+
+#: ../inc/updater/theme-updater-admin.php:300
+msgid "Your license is not active for this URL."
+msgstr ""
+
+#: ../inc/updater/theme-updater-admin.php:305
+#, php-format
+msgid "This appears to be an invalid license key for %s."
+msgstr ""
+
+#: ../inc/updater/theme-updater-admin.php:310
+msgid "Your license key has reached its activation limit."
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:33
+msgid "Enter your theme license key."
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:34
+msgid "License Key"
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:35
+msgid "License Action"
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:36
+msgid "Deactivate License"
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:37
+msgid "Activate License"
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:38 ../inc/updater/theme-updater.php:51
+msgid "License status is unknown."
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:39
+msgid "Renew?"
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:40
+msgid "unlimited"
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:41
+msgid "License key is active."
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:42
+#, php-format
+msgid "Expires %s."
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:43
+msgid "Lifetime License."
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:44
+#, php-format
+msgid "You have %1$s / %2$s sites activated."
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:45
+#, php-format
+msgid "License key expired %s."
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:46
+msgid "License key has expired."
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:47
+msgid "License keys do not match."
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:48
+msgid "License is inactive."
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:49
+msgid "License key is disabled."
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:50
+msgid "Site is inactive."
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:52
+msgid ""
+"Updating this theme will lose any customizations you have made. 'Cancel' to stop, 'OK' to update."
+msgstr ""
+
+#: ../inc/updater/theme-updater.php:53
+#, php-format
+msgid ""
+"<strong>%1$s %2$s</strong> is available. <a href=\"%3$s\" class=\"thickbox\" title=\"%4$s\">Check "
+"out what's new</a> or <a href=\"%5$s\"%6$s>update now</a>."
+msgstr ""
+
+#: ../inc/widget-social-icons.php:33
+msgid "Use this widget to add short information and Social Menu"
+msgstr ""
+
+#: ../inc/widget-social-icons.php:42
+msgid "CT: Social Icons"
+msgstr ""
+
+#: ../inc/widget-social-icons.php:111
+#, php-format
+msgid "No menus have been created yet. <a href=\"%s\">Create some</a>."
+msgstr ""
+
+#: ../inc/widget-social-icons.php:120
+msgid "Select Menu:"
+msgstr ""
+
+#: ../inc/widget-social-icons.php:122
+msgid "&mdash; Select &mdash;"
+msgstr ""
+
+#: ../inc/woocommerce.php:47
+msgid "Layout for WooCommerce Pages"
+msgstr ""
+
+#: ../inc/woocommerce.php:48
+msgid "WooCommerce Layout"
+msgstr ""
+
+#: ../inc/woocommerce.php:62
+msgid "WooCommerce Options"
+msgstr ""
+
+#: ../inc/woocommerce.php:64
+msgid ""
+"Since these options are added via theme support, you will need to save and refresh the customizer "
+"to view the full effect."
+msgstr ""
+
+#: ../inc/woocommerce.php:70
+msgid "Shop Page Subtitle"
+msgstr ""
+
+#: ../inc/woocommerce.php:71 ../inc/woocommerce.php:152
+msgid "This is where you can add new products to your store."
+msgstr ""
+
+#: ../inc/woocommerce.php:82
+msgid "Product Gallery Zoom"
+msgstr ""
+
+#: ../inc/woocommerce.php:92
+msgid "Product Gallery Lightbox"
+msgstr ""
+
+#: ../inc/woocommerce.php:102
+msgid "Product Gallery Slider"
+msgstr ""
+
+#: ../inc/woocommerce.php:112
+msgid "Header Shopping Cart"
+msgstr ""
+
+#: ../inc/woocommerce.php:121
+msgid "Floating Shopping Cart"
+msgstr ""
+
+#: ../inc/woocommerce.php:130
+msgid "Full Width Layout"
+msgstr ""
+
+#: ../inc/woocommerce.php:268
+msgid "View your shopping cart"
+msgstr ""
+
+#: ../inc/woocommerce.php:268 ../inc/woocommerce.php:342
+#, php-format
+msgid "%d"
+msgid_plural "%d"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../searchform.php:17
+msgctxt "label"
+msgid "Search for:"
+msgstr ""
+
+#: ../single.php:21
+msgid "Prev"
+msgstr ""
+
+#: ../template-parts/biography.php:26
+msgid "Author:"
+msgstr ""
+
+#: ../template-parts/biography.php:31
+#, php-format
+msgid "View all posts by %s"
+msgstr ""
+
+#: ../template-parts/contact-info/display-contact-info.php:178
+#: ../template-parts/footer/social-footer.php:3 ../template-parts/header/site-navigation.php:47
+#: ../template-parts/header/social-header.php:11
+msgid "Social Links Menu"
+msgstr ""
+
+#: ../template-parts/content/content-none.php:14
+msgid "Nothing Found"
+msgstr ""
+
+#: ../template-parts/content/content-none.php:25
+#, php-format
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: ../template-parts/content/content-none.php:38
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr ""
+
+#: ../template-parts/content/content-none.php:44
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr ""
+
+#: ../template-parts/content/content-page.php:32 ../template-parts/content/content-single.php:52
+#: ../template-parts/hero-content/post-type-hero.php:100
+#: ../template-parts/promotion-sale/post-type-promotion-sale.php:96
+msgid "Pages:"
+msgstr ""
+
+#: ../template-parts/content/content-single.php:42
+#, php-format
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr ""
+
+#: ../template-parts/featured-content/display-featured.php:28
+msgid "Contents"
+msgstr ""
+
+#: ../template-parts/featured-content/display-featured.php:32
+msgid "My Featured Articles"
+msgstr ""
+
+#: ../template-parts/footer/site-info.php:16
+msgid "Y"
+msgstr ""
+
+#: ../template-parts/gallery/post-type-gallery.php:103
+#: ../template-parts/hero-content/post-type-hero.php:116
+#: ../template-parts/playlist/post-type-playlist.php:73
+#: ../template-parts/promotion-headline/post-type-promotion-headline.php:92
+#: ../template-parts/promotion-sale/post-type-promotion-sale.php:112
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#: ../template-parts/header/header-media.php:34 ../template-parts/slider/display-slider.php:44
+msgid "Scroll"
+msgstr ""
+
+#: ../template-parts/header/header-navigation.php:2 ../template-parts/header/header-navigation.php:13
+msgid "Primary Menu"
+msgstr ""
+
+#: ../template-parts/header/top-search.php:9 ../template-parts/header/top-search.php:10
+msgid "Search"
+msgstr ""
+
+#: ../template-parts/recent-posts/front-recent-posts.php:146
+msgid "More Posts"
+msgstr ""
+
+#: ../template-parts/reservation/display-reservation.php:12
+msgid "or call us at  <span>+123456789</span>"
+msgstr ""
+
+#: ../template-parts/reservation/display-reservation.php:39
+msgid "7AM - 11 AM (Breakfast 11AM - 10PM (Lunch/Dinner)"
+msgstr ""
+
+#: ../template-parts/reservation/display-reservation.php:43
+msgid "8AM - 1PM (Brunch) 1PM - 9PM (Lunch/Dinner)"
+msgstr ""

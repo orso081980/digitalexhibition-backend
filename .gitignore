@@ -1,0 +1,32 @@
+# === Secrets — never commit ===
+# Holds live DB credentials + auth salts. See wp-config.reference.php.
+wp-config.php
+
+# === OS / editor cruft ===
+.DS_Store
+._*
+*.swp
+Thumbs.db
+
+# === Logs ===
+*.log
+debug.log
+wp-content/debug.log
+wp-content/logs/
+
+# === WordPress transient / update state ===
+wp-content/upgrade/
+wp-content/upgrade-temp-backup/
+wp-content/umbrella-upgrade-temp-backup/
+wp-content/*-upgrade-temp-backup/
+wp-content/cache/
+wp-content/et-cache/
+wp-content/uploads/cache/
+
+# === Media ===
+# Currently tracked. Uncomment once uploads are served from Cloudflare R2
+# (migration plan task 4.1) so the repo stays lean.
+# wp-content/uploads/
+
+# Plugin-generated logs (mis-extensioned)
+wp-content/compressx/log/

@@ -1,0 +1,70 @@
+<?php
+/**
+ * Hero Content Options
+ *
+ * @package Chique
+ */
+
+/**
+ * Add hero content options to theme options
+ *
+ * @param WP_Customize_Manager $wp_customize Theme Customizer object.
+ */
+function chique_hero_content_options( $wp_customize ) {
+	$wp_customize->add_section( 'chique_hero_content_options', array(
+			'title' => esc_html__( 'Hero Content', 'chique' ),
+			'panel' => 'chique_theme_options',
+		)
+	);
+
+	chique_register_option( $wp_customize, array(
+			'name'              => 'chique_hero_content_visibility',
+			'default'           => 'disabled',
+			'sanitize_callback' => 'chique_sanitize_select',
+			'choices'           => chique_section_visibility_options(),
+			'label'             => esc_html__( 'Enable on', 'chique' ),
+			'section'           => 'chique_hero_content_options',
+			'type'              => 'select',
+		)
+	);
+
+	/* Hero Background */
+    chique_register_option( $wp_customize, array(
+            'name'              => 'chique_hero_content_bg_image',
+            'sanitize_callback' => 'esc_url_raw',
+            'active_callback'   => 'chique_is_hero_content_active',
+            'custom_control'    => 'WP_Customize_Image_Control',
+            'label'             => esc_html__( 'Background Image', 'chique' ),
+            'section'           => 'chique_hero_content_options',
+        )
+    );
+
+	chique_register_option( $wp_customize, array(
+			'name'              => 'chique_hero_content',
+			'default'           => '0',
+			'sanitize_callback' => 'chique_sanitize_post',
+			'active_callback'   => 'chique_is_hero_content_active',
+			'label'             => esc_html__( 'Page', 'chique' ),
+			'section'           => 'chique_hero_content_options',
+			'type'              => 'dropdown-pages',
+			'allow_addition'    => true,
+		)
+	);
+}
+add_action( 'customize_register', 'chique_hero_content_options' );
+
+/** Active Callback Functions **/
+if ( ! function_exists( 'chique_is_hero_content_active' ) ) :
+	/**
+	* Return true if hero content is active
+	*
+	* @since Chique 0.1
+	*/
+	function chique_is_hero_content_active( $control ) {
+		$enable = $control->manager->get_setting( 'chique_hero_content_visibility' )->value();
+
+		//return true only if previewed page on customizer matches the type of content option selected
+		return ( chique_check_section( $enable ) );
+	}
+endif;
+

@@ -1,0 +1,56 @@
+.devwebai-carousel-component {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 2rem;
+	margin-bottom: 2.5rem;
+}
+
+.devwebai-carousel__content {
+	flex: 1 1 300px;
+}
+
+.devwebai-carousel__swiper-container {
+	flex: 1 1 50%;
+	min-width: 0; /* Prevents flexbox overflow issues */
+}
+
+.devwebai-carousel__swiper-container .swiper-slide {
+	aspect-ratio: 450 / 300;
+	cursor: pointer;
+}
+
+.devwebai-carousel__swiper-container .swiper-slide img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.devwebai-carousel__swiper-container .swiper-button-next,
+.devwebai-carousel__swiper-container .swiper-button-prev {
+	color: #000; /* Usa un colore con più contrasto per default */
+}
+
+.devwebai-carousel__swiper-container .swiper-button-next::after,
+.devwebai-carousel__swiper-container .swiper-button-prev::after {
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.devwebai-carousel__swiper-container .swiper-pagination-bullet {
+	background: #000;
+	opacity: 0.2;
+}
+
+.devwebai-carousel__swiper-container .swiper-pagination-bullet-active {
+	background: #000;
+	opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+	.devwebai-carousel-component {
+		flex-direction: column;
+	}
+}
