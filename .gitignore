@@ -54,3 +54,13 @@ wp-content/uploads/cache/
 # Not tracked — uploads move to Cloudflare R2 (migration plan task 4.1).
 # The folder is kept locally (empty) so WordPress can write to it.
 wp-content/uploads/
+
+# === Third-party plugins ===
+# Not tracked. This repo version-controls our own code, not vendored plugin
+# code that also has to sit on the server unrelated to this repo. Kept on
+# localhost (and on the server) as plain files; reinstalled from scratch with
+# bin/install-plugins.sh. Only our own in-house plugins stay tracked.
+wp-content/plugins/*
+!wp-content/plugins/figuro-folder/
+!wp-content/plugins/custom_dashboard/
+!wp-content/plugins/index.php

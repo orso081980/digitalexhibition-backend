@@ -37,6 +37,22 @@ define( 'WP_CACHE_KEY_SALT', 'REPLACE_ME' );
 // ** Table prefix (must match the live database) ** //
 $table_prefix = '5U6Nk_';
 
+/* Advanced Media Offloader — Cloudflare R2 credentials (media → task 4.1).
+   Checked by the plugin before its DB option, so these never need re-entry
+   in wp-admin. Leave commented until real values are filled in — a
+   REPLACE_ME value still counts as "configured" and the plugin will start
+   making failing R2 API calls.
+   Token: https://developers.cloudflare.com/r2/api/tokens/ (scope it to this
+   bucket only). Endpoint: https://<account-id>.r2.cloudflarestorage.com
+   Domain: the bucket's r2.dev public URL for now (Settings > Public access
+   in the R2 dashboard) — swap to a custom domain later by changing only
+   this constant. */
+// define( 'ADVMO_CLOUDFLARE_R2_KEY', 'REPLACE_ME' );
+// define( 'ADVMO_CLOUDFLARE_R2_SECRET', 'REPLACE_ME' );
+// define( 'ADVMO_CLOUDFLARE_R2_ENDPOINT', 'REPLACE_ME' );
+// define( 'ADVMO_CLOUDFLARE_R2_BUCKET', 'REPLACE_ME' );
+// define( 'ADVMO_CLOUDFLARE_R2_DOMAIN', 'REPLACE_ME' );
+
 if ( ! defined( 'WP_DEBUG' ) ) {
 	define( 'WP_DEBUG', false );
 }
