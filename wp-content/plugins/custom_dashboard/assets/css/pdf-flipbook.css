@@ -1,9 +1,8 @@
 .pdf-flipbook {
-	--pdf-flipbook-ratio: 3 / 4;
 	position: relative;
 	width: 100%;
 	max-width: 550px;
-	aspect-ratio: var(--pdf-flipbook-ratio);
+	min-height: 300px;
 	margin: 0 auto;
 	background: #f3f3f3;
 	border-radius: 4px;
@@ -14,7 +13,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 300px;
 }
 
 .pdf-flipbook--loading::after {
@@ -44,25 +42,6 @@
 
 .pdf-flipbook--error::after {
 	content: "Couldn't load this PDF's preview — use the download link below.";
-}
-
-.pdf-flipbook__page img {
-	display: block;
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-	background: #fff;
-}
-
-.pdf-flipbook__page--pending {
-	background: linear-gradient(90deg, #eee 25%, #f6f6f6 37%, #eee 63%);
-	background-size: 400% 100%;
-	animation: pdf-flipbook-shimmer 1.4s ease infinite;
-}
-
-@keyframes pdf-flipbook-shimmer {
-	0% { background-position: 100% 50%; }
-	100% { background-position: 0 50%; }
 }
 
 .pdf-flipbook__controls {

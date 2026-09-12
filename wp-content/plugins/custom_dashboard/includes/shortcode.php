@@ -665,10 +665,20 @@ add_action( 'wp_footer', 'cd_inject_filter_link_script' );
 
 if (!function_exists("cd_enqueue_pdf_flipbook_assets")) {
     /**
-     * pdf.js (Apache-2.0) + page-flip (MIT), both vendored under
-     * assets/vendor/ — replaces the dflip plugin, which this site no
-     * longer runs. Guarded so it only enqueues once even if the shortcode
-     * appears more than once on a page.
+     * pdf.js 3.11.174 (Mozilla, Apache-2.0) + flipbook-viewer 1.6.1
+     * (MIT, github.com/theproductiveprogrammer/flipbook-viewer), both
+     * vendored under assets/vendor/ — replaces the dflip plugin, which
+     * this site no longer runs (its own free tier is CC BY-NC-ND,
+     * non-commercial only, not usable here).
+     *
+     * Both are plain classic scripts (window.pdfjsLib / window.flipbook)
+     * — pdf.js 3.x is the last version with a non-module build, picked
+     * specifically to avoid ES modules entirely: a real bug hit here
+     * once already (browsers strictly enforce MIME type on module
+     * imports, and Apache has no default mapping for .mjs).
+     *
+     * Guarded so it only enqueues once even if the shortcode appears
+     * more than once on a page.
      */
     function cd_enqueue_pdf_flipbook_assets()
     {
@@ -680,18 +690,13 @@ if (!function_exists("cd_enqueue_pdf_flipbook_assets")) {
 
         wp_enqueue_style("cd-pdf-flipbook", CD_PLUGIN_URL . "assets/css/pdf-flipbook.css", [], "1.0");
 
-        wp_enqueue_script("cd-pageflip", CD_PLUGIN_URL . "assets/vendor/pageflip/page-flip.browser.js", [], "2.0.7", true);
-        wp_add_inline_script("cd-pageflip", "window.CD_PDF_FLIPBOOK_CFG = " . wp_json_encode([
-            "pdfjsUrl"  => CD_PLUGIN_URL . "assets/vendor/pdfjs/pdf.min.mjs",
-            "workerUrl" => CD_PLUGIN_URL . "assets/vendor/pdfjs/pdf.worker.min.mjs",
-        ]) . ";", "after");
+        wp_enqueue_script("cd-pdfjs", CD_PLUGIN_URL . "assets/vendor/pdfjs/pdf.min.js", [], "3.11.174", true);
+        wp_enqueue_script("cd-flipbook-viewer", CD_PLUGIN_URL . "assets/vendor/flipbook-viewer/flipbook-viewer.js", ["cd-pdfjs"], "1.6.1", true);
+        wp_add_inline_script("cd-flipbook-viewer", "window.CD_PDF_FLIPBOOK_CFG = " . wp_json_encode([
+            "workerUrl" => CD_PLUGIN_URL . "assets/vendor/pdfjs/pdf.worker.min.js",
+        ]) . ";", "before");
 
-        // type="module" so it can import() pdf.js's ESM build; module
-        // scripts always run after document parsing regardless of where
-        // they land relative to the classic script above.
-        if (function_exists("wp_enqueue_script_module")) {
-            wp_enqueue_script_module("cd-pdf-flipbook-init", CD_PLUGIN_URL . "assets/js/pdf-flipbook.js", [], "1.0");
-        }
+        wp_enqueue_script("cd-pdf-flipbook-init", CD_PLUGIN_URL . "assets/js/pdf-flipbook.js", ["cd-flipbook-viewer"], "2.0", true);
     }
 }
 

@@ -1,7 +1,0 @@
-# Apache has no default MIME mapping for .mjs, so browsers refuse to run
-# the pdf.js ES module (strict MIME checking on <script type="module"> and
-# dynamic import()). This is Apache-only — nginx (the production TU/e
-# server) needs the equivalent added to its server config when this is
-# deployed there: `types { text/javascript mjs; }` in the relevant
-# location block, or a line in nginx's mime.types.
-AddType text/javascript .mjs
