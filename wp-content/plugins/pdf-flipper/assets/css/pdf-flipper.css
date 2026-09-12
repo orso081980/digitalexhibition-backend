@@ -1,5 +1,10 @@
-.pdf-flipper-item {
-	box-sizing: border-box;
+/* pdf-flipper prepends this into whatever [data-pdf] element it finds;
+   any existing content in that element (e.g. a plain download link,
+   meant as a no-JS fallback) stays after it — style it minimally so it
+   doesn't collide visually with the book above it. */
+[data-pdf] > :not(.pdf-flipper) {
+	display: block;
+	margin-top: 8px;
 }
 
 .pdf-flipper {
@@ -46,7 +51,7 @@
 }
 
 .pdf-flipper--error::after {
-	content: "Couldn't load this PDF's preview — use the download link below.";
+	content: "Couldn't load this PDF's preview — use the link below.";
 }
 
 .pdf-flipper__page img {
@@ -68,9 +73,9 @@
 	100% { background-position: 0 50%; }
 }
 
-/* Floating bottom toolbar — styled after the page-flip viewer this site
-   used before (DearFlip): a small white rounded bar, centered, floating
-   over the bottom edge of the book. */
+/* Floating bottom toolbar — inspired by dflip's own (checked its CSS
+   directly): a small white rounded bar, centered, floating over the
+   bottom edge of the book. Own icons/markup, not copied assets. */
 .pdf-flipper__bar {
 	position: absolute;
 	bottom: 10px;
@@ -128,9 +133,4 @@
 .pdf-flipper-label {
 	margin-bottom: 6px;
 	font-weight: 600;
-}
-
-.pdf-flipper-download {
-	display: inline-block;
-	margin-top: 8px;
 }
