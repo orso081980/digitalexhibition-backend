@@ -708,18 +708,14 @@ if (!function_exists("acf_list_pdf_shortocde")) {
                     }
                     ?>
                     <div class="acf-pdf-list-item">
-                        <?php if (shortcode_exists('pdf_flipper')):
-                            // PDF Flipper plugin owns rendering + assets from here.
-                            echo do_shortcode('[pdf_flipper src="' . esc_attr($pdf_url) . '" label="' . esc_attr($nome_pdf) . '"]');
-                        else:
-                            // Plugin missing/deactivated — plain link keeps PDFs usable.
-                            if ($nome_pdf): ?>
-                                <div class="acf-pdf-label"><?php echo esc_html($nome_pdf); ?></div>
-                            <?php endif; ?>
+                        <?php if ($nome_pdf): ?>
+                            <div class="acf-pdf-label"><?php echo esc_html($nome_pdf); ?></div>
+                        <?php endif; ?>
+                        <figure class="acf-pdf-item" data-pdf="<?php echo esc_url($pdf_url); ?>">
                             <a class="acf-pdf-open" href="<?php echo esc_url($pdf_url); ?>" target="_blank" rel="noopener">
                                 <?php esc_html_e('Open PDF', 'custom_dashboard'); ?>
                             </a>
-                        <?php endif; ?>
+                        </figure>
                     </div><?php
                 endwhile; ?>
             </div><?php else: ?>
