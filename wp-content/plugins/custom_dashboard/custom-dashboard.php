@@ -1252,5 +1252,9 @@ require_once CD_PLUGIN_DIR . "includes/shortcode.php";
 require_once CD_PLUGIN_DIR . "includes/sceltaposizione.php";
 require_once CD_PLUGIN_DIR . "includes/ruolo.php";
 require_once CD_PLUGIN_DIR . "includes/cpt.php";
-require_once CD_PLUGIN_DIR . "includes/fnpdf.php";
+// fnpdf.php added a "Create New FlipPDF" button next to the pdf_post
+// repeater's shortcode_pdf field, opening a modal to create a dflip CPT
+// post and copy its shortcode back in. That whole workflow is gone now
+// that pdf_post uses a plain ACF File field (pdf_file) instead — editors
+// just pick a PDF from the media library. File kept for reference.
 require_once CD_PLUGIN_DIR . "includes/switch-post-type.php";
