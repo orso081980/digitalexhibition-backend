@@ -1,0 +1,69 @@
+.pdf-flipbook {
+	position: relative;
+	width: 100%;
+	max-width: 550px;
+	min-height: 300px;
+	margin: 0 auto;
+	background: #f3f3f3;
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.pdf-flipbook--loading::after {
+	content: "Loading PDF…";
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 300px;
+	color: #666;
+	font-size: 14px;
+}
+
+.pdf-flipbook--error::after {
+	content: "Couldn't load this PDF's preview — use the download link below.";
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 120px;
+	padding: 0 16px;
+	text-align: center;
+	color: #a33;
+	font-size: 14px;
+}
+
+.pdf-flipbook__page img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	background: #fff;
+}
+
+.pdf-flipbook__nav {
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+	margin-top: 8px;
+}
+
+.pdf-flipbook__prev,
+.pdf-flipbook__next {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	border: 1px solid #ccc;
+	background: #fff;
+	font-size: 18px;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.pdf-flipbook__prev:hover,
+.pdf-flipbook__next:hover {
+	background: #eee;
+}
+
+.acf-pdf-open {
+	display: inline-block;
+	margin-top: 8px;
+}
