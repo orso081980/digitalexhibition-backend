@@ -1,34 +1,49 @@
 .pdf-flipbook {
+	--pdf-flipbook-ratio: 3 / 4;
 	position: relative;
 	width: 100%;
 	max-width: 550px;
-	min-height: 300px;
+	aspect-ratio: var(--pdf-flipbook-ratio);
 	margin: 0 auto;
 	background: #f3f3f3;
 	border-radius: 4px;
 	overflow: hidden;
 }
 
-.pdf-flipbook--loading::after {
-	content: "Loading PDF…";
+.pdf-flipbook--loading {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 300px;
-	color: #666;
+	min-height: 300px;
+}
+
+.pdf-flipbook--loading::after {
+	content: "";
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	border: 3px solid #ddd;
+	border-top-color: #666;
+	animation: pdf-flipbook-spin 0.8s linear infinite;
+}
+
+@keyframes pdf-flipbook-spin {
+	to { transform: rotate(360deg); }
+}
+
+.pdf-flipbook--error {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 120px;
+	padding: 0 16px;
+	text-align: center;
+	color: #a33;
 	font-size: 14px;
 }
 
 .pdf-flipbook--error::after {
 	content: "Couldn't load this PDF's preview — use the download link below.";
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 120px;
-	padding: 0 16px;
-	text-align: center;
-	color: #a33;
-	font-size: 14px;
 }
 
 .pdf-flipbook__page img {
@@ -39,28 +54,51 @@
 	background: #fff;
 }
 
-.pdf-flipbook__nav {
+.pdf-flipbook__page--pending {
+	background: linear-gradient(90deg, #eee 25%, #f6f6f6 37%, #eee 63%);
+	background-size: 400% 100%;
+	animation: pdf-flipbook-shimmer 1.4s ease infinite;
+}
+
+@keyframes pdf-flipbook-shimmer {
+	0% { background-position: 100% 50%; }
+	100% { background-position: 0 50%; }
+}
+
+.pdf-flipbook__controls {
 	display: flex;
+	align-items: center;
 	justify-content: center;
-	gap: 12px;
+	gap: 8px;
 	margin-top: 8px;
 }
 
-.pdf-flipbook__prev,
-.pdf-flipbook__next {
-	width: 36px;
-	height: 36px;
+.pdf-flipbook__btn {
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 32px;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	margin: 0;
 	border-radius: 50%;
 	border: 1px solid #ccc;
 	background: #fff;
-	font-size: 18px;
-	line-height: 1;
+	color: #444;
 	cursor: pointer;
 }
 
-.pdf-flipbook__prev:hover,
-.pdf-flipbook__next:hover {
+.pdf-flipbook__btn:hover {
 	background: #eee;
+}
+
+.pdf-flipbook__counter {
+	min-width: 56px;
+	text-align: center;
+	font-size: 13px;
+	color: #555;
 }
 
 .acf-pdf-open {
