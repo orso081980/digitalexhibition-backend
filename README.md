@@ -9,7 +9,7 @@ workspace) for the full picture.
 
 ## What's tracked
 
-- `wp-content/plugins/figuro-folder` (Figuro Media), `wp-content/plugins/custom_dashboard`, and `wp-content/plugins/pdf-flipper` — **our own code only.** Every other plugin is gitignored; see below.
+- `wp-content/plugins/figuro-folder` (Figuro Media) and `wp-content/plugins/custom_dashboard` — **our own code only.** Every other plugin is gitignored; see below.
 - `wp-content/themes/digital/` — the active theme (only)
 - `wp-content/mu-plugins/`
 - `wp-content/maintenance*`
@@ -41,7 +41,7 @@ by our own Figuro Media.
 | --- | --- |
 | `wp-admin/`, `wp-includes/`, root `wp-*.php`, `.htaccess`, `index.php` | WordPress core — needed to run the site locally, but vendor code. Restore with `wp core download` or from the host. |
 | `wp-config.php` | Live DB credentials + auth salts. Use `wp-config.reference.php`. |
-| `wp-content/plugins/*` (except figuro-folder, custom_dashboard, pdf-flipper) | Third-party plugins — see above. Reinstall with `bin/install-plugins.sh`. |
+| `wp-content/plugins/*` (except figuro-folder, custom_dashboard) | Third-party plugins — see above. Reinstall with `bin/install-plugins.sh`. |
 | `wp-content/ngg/` | NextGEN Gallery module cache |
 | `wp-content/themes/{chique,chique-pro,twentytwentyfive}` | Inactive themes — removed |
 | `wp-content/uploads/` | Media — moves to Cloudflare R2 (plan task 4.1) via the `advanced-media-offloader` plugin. Credentials live as `ADVMO_CLOUDFLARE_R2_*` constants in `wp-config.php` (template in `wp-config.reference.php`), never in the DB option. Folder kept locally (empty) so WP can still write to it before offload. |

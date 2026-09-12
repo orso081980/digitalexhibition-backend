@@ -63,5 +63,4 @@ wp-content/uploads/
 wp-content/plugins/*
 !wp-content/plugins/figuro-folder/
 !wp-content/plugins/custom_dashboard/
-!wp-content/plugins/pdf-flipper/
 !wp-content/plugins/index.php

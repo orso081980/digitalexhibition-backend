@@ -700,22 +700,18 @@ if (!function_exists("acf_list_pdf_shortocde")) {
 </style>
             <div class="acf-pdf-list-container">
                 <?php while (have_rows("pdf_post")):
-                    the_row();
-                    $nome_pdf = get_sub_field("nome_pdf");
-                    $pdf_url  = get_sub_field("pdf_file"); // ACF File field, return_format=url — already an R2 URL once offloaded
-                    if (!$pdf_url) {
-                        continue; // nothing to show for this row yet
-                    }
-                    ?>
+                    the_row(); ?>
                     <div class="acf-pdf-list-item">
-                        <?php if ($nome_pdf): ?>
+                        <?php
+                        $nome_pdf = get_sub_field("nome_pdf");
+                        if ($nome_pdf): ?>
                             <div class="acf-pdf-label"><?php echo esc_html($nome_pdf); ?></div>
-                        <?php endif; ?>
-                        <figure class="acf-pdf-item" data-pdf="<?php echo esc_url($pdf_url); ?>">
-                            <a class="acf-pdf-open" href="<?php echo esc_url($pdf_url); ?>" target="_blank" rel="noopener">
-                                <?php esc_html_e('Open PDF', 'custom_dashboard'); ?>
-                            </a>
-                        </figure>
+                        <?php endif;
+                        $shortcode_pdf_content = get_sub_field("shortcode_pdf");
+                        if ($shortcode_pdf_content):
+                            echo do_shortcode($shortcode_pdf_content);
+                        endif;
+                        ?>
                     </div><?php
                 endwhile; ?>
             </div><?php else: ?>
