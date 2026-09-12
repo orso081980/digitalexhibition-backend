@@ -22,7 +22,11 @@ $header_nav_menu = wp_nav_menu( [
 <div class="wrapper">	<div class="site-header-main">
 
 <div class="site-branding">
-	<a href="https://digitalexhibition.arch.tue.nl/" class="custom-logo-link" rel="home" aria-current="page"><img width="1350" height="840" src="/wp-content/uploads/2025/12/DigitalExhibition_New_Logo-scaled.png" class="custom-logo" alt="Digital Exhibition" decoding="async" ></a>
+	<?php if ( has_custom_logo() ) : ?>
+		<?php the_custom_logo(); ?>
+	<?php else : ?>
+		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link" rel="home"><?php echo esc_html( $site_name ); ?></a>
+	<?php endif; ?>
 	</div>
 
 
