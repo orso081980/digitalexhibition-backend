@@ -663,43 +663,6 @@ function cd_inject_filter_link_script() {
 }
 add_action( 'wp_footer', 'cd_inject_filter_link_script' );
 
-if (!function_exists("cd_enqueue_pdf_flipbook_assets")) {
-    /**
-     * pdf.js 3.11.174 (Mozilla, Apache-2.0) + flipbook-viewer 1.6.1
-     * (MIT, github.com/theproductiveprogrammer/flipbook-viewer), both
-     * vendored under assets/vendor/ — replaces the dflip plugin, which
-     * this site no longer runs (its own free tier is CC BY-NC-ND,
-     * non-commercial only, not usable here).
-     *
-     * Both are plain classic scripts (window.pdfjsLib / window.flipbook)
-     * — pdf.js 3.x is the last version with a non-module build, picked
-     * specifically to avoid ES modules entirely: a real bug hit here
-     * once already (browsers strictly enforce MIME type on module
-     * imports, and Apache has no default mapping for .mjs).
-     *
-     * Guarded so it only enqueues once even if the shortcode appears
-     * more than once on a page.
-     */
-    function cd_enqueue_pdf_flipbook_assets()
-    {
-        static $done = false;
-        if ($done) {
-            return;
-        }
-        $done = true;
-
-        wp_enqueue_style("cd-pdf-flipbook", CD_PLUGIN_URL . "assets/css/pdf-flipbook.css", [], "1.0");
-
-        wp_enqueue_script("cd-pdfjs", CD_PLUGIN_URL . "assets/vendor/pdfjs/pdf.min.js", [], "3.11.174", true);
-        wp_enqueue_script("cd-flipbook-viewer", CD_PLUGIN_URL . "assets/vendor/flipbook-viewer/flipbook-viewer.js", ["cd-pdfjs"], "1.6.1", true);
-        wp_add_inline_script("cd-flipbook-viewer", "window.CD_PDF_FLIPBOOK_CFG = " . wp_json_encode([
-            "workerUrl" => CD_PLUGIN_URL . "assets/vendor/pdfjs/pdf.worker.min.js",
-        ]) . ";", "before");
-
-        wp_enqueue_script("cd-pdf-flipbook-init", CD_PLUGIN_URL . "assets/js/pdf-flipbook.js", ["cd-flipbook-viewer"], "2.0", true);
-    }
-}
-
 if (!function_exists("acf_list_pdf_shortocde")) {
     function acf_list_pdf_shortocde($atts)
     {
@@ -711,8 +674,7 @@ if (!function_exists("acf_list_pdf_shortocde")) {
         // 	'some_attribute' => 'default_value',
         // ), $atts, 'acf_list_pdf' );
 
-        if (have_rows("pdf_post")):
-            cd_enqueue_pdf_flipbook_assets(); ?>
+        if (have_rows("pdf_post")): ?>
 
 <style>
     .acf-pdf-list-container {
@@ -746,15 +708,18 @@ if (!function_exists("acf_list_pdf_shortocde")) {
                     }
                     ?>
                     <div class="acf-pdf-list-item">
-                        <?php if ($nome_pdf): ?>
-                            <div class="acf-pdf-label"><?php echo esc_html($nome_pdf); ?></div>
-                        <?php endif; ?>
-                        <figure class="acf-pdf-item" data-pdf="<?php echo esc_url($pdf_url); ?>">
-                            <div class="pdf-flipbook" data-pdf-src="<?php echo esc_url($pdf_url); ?>"></div>
+                        <?php if (shortcode_exists('pdf_flipper')):
+                            // PDF Flipper plugin owns rendering + assets from here.
+                            echo do_shortcode('[pdf_flipper src="' . esc_attr($pdf_url) . '" label="' . esc_attr($nome_pdf) . '"]');
+                        else:
+                            // Plugin missing/deactivated — plain link keeps PDFs usable.
+                            if ($nome_pdf): ?>
+                                <div class="acf-pdf-label"><?php echo esc_html($nome_pdf); ?></div>
+                            <?php endif; ?>
                             <a class="acf-pdf-open" href="<?php echo esc_url($pdf_url); ?>" target="_blank" rel="noopener">
-                                <?php esc_html_e('Download PDF', 'custom_dashboard'); ?>
+                                <?php esc_html_e('Open PDF', 'custom_dashboard'); ?>
                             </a>
-                        </figure>
+                        <?php endif; ?>
                     </div><?php
                 endwhile; ?>
             </div><?php else: ?>
