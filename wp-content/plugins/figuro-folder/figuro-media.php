@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'FIGURO_MEDIA_VERSION', '1.0.1' );
+define( 'FIGURO_MEDIA_VERSION', '1.3.0' );
 define( 'FIGURO_MEDIA_FILE', __FILE__ );
 define( 'FIGURO_MEDIA_DIR', plugin_dir_path( __FILE__ ) );
 define( 'FIGURO_MEDIA_URL', plugin_dir_url( __FILE__ ) );

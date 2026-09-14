@@ -27,35 +27,40 @@ class Figuro_Admin_Page {
 			return;
 		}
 
+		wp_enqueue_media();
+		wp_enqueue_script( 'media-grid' );
+
 		wp_enqueue_style( 'dashicons' );
 		wp_enqueue_style( 'figuro-media', FIGURO_MEDIA_URL . 'assets/css/figuro-media.css', array(), FIGURO_MEDIA_VERSION );
-		wp_enqueue_script( 'figuro-media', FIGURO_MEDIA_URL . 'assets/js/figuro-media.js', array( 'jquery' ), FIGURO_MEDIA_VERSION, true );
+		wp_enqueue_script( 'figuro-media', FIGURO_MEDIA_URL . 'assets/js/figuro-media.js', array( 'jquery', 'media-grid' ), FIGURO_MEDIA_VERSION, true );
 
 		wp_localize_script(
 			'figuro-media',
 			'FiguroMedia',
 			array(
-				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => wp_create_nonce( 'figuro_media_nonce' ),
-				'i18n'    => array(
-					'allFiles'      => __( 'All Files', 'figuro-media' ),
-					'uncategorized' => __( 'Uncategorized', 'figuro-media' ),
-					'newFolder'     => __( 'New folder', 'figuro-media' ),
-					'newFolderName' => __( 'Folder name:', 'figuro-media' ),
-					'rename'        => __( 'Rename', 'figuro-media' ),
-					'renamePrompt'  => __( 'New name:', 'figuro-media' ),
-					'delete'        => __( 'Delete', 'figuro-media' ),
-					'deleteConfirm' => __( 'Delete this folder? Files inside become Uncategorized. Subfolders move up one level.', 'figuro-media' ),
-					'noItems'       => __( 'No files in this folder.', 'figuro-media' ),
-					'loading'       => __( 'Loading…', 'figuro-media' ),
-					'selected'      => __( 'selected', 'figuro-media' ),
-					'moveSelected'  => __( 'Move selected to…', 'figuro-media' ),
-					'error'         => __( 'Something went wrong. Please try again.', 'figuro-media' ),
-					'toggle'        => __( 'Toggle subfolders', 'figuro-media' ),
-					'file'          => __( 'file', 'figuro-media' ),
-					'files'         => __( 'files', 'figuro-media' ),
-					'prevPage'      => __( 'Previous page', 'figuro-media' ),
-					'nextPage'      => __( 'Next page', 'figuro-media' ),
+				'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
+				'nonce'         => wp_create_nonce( 'figuro_media_nonce' ),
+				'maxUploadSize' => (int) wp_max_upload_size(),
+				'i18n'          => array(
+					'allFiles'        => __( 'All Files', 'figuro-media' ),
+					'uncategorized'   => __( 'Uncategorized', 'figuro-media' ),
+					'newFolder'       => __( 'New folder', 'figuro-media' ),
+					'newFolderName'   => __( 'Folder name:', 'figuro-media' ),
+					'rename'          => __( 'Rename', 'figuro-media' ),
+					'renamePrompt'    => __( 'New name:', 'figuro-media' ),
+					'delete'          => __( 'Delete', 'figuro-media' ),
+					'deleteConfirm'   => __( 'Delete this folder? Files inside become Uncategorized. Subfolders move up one level.', 'figuro-media' ),
+					'noItems'         => __( 'No files in this folder.', 'figuro-media' ),
+					'loading'         => __( 'Loading…', 'figuro-media' ),
+					'error'           => __( 'Something went wrong. Please try again.', 'figuro-media' ),
+					'toggle'          => __( 'Toggle subfolders', 'figuro-media' ),
+					'file'            => __( 'file', 'figuro-media' ),
+					'files'           => __( 'files', 'figuro-media' ),
+					'prevPage'        => __( 'Previous page', 'figuro-media' ),
+					'nextPage'        => __( 'Next page', 'figuro-media' ),
+					'uploading'       => __( 'Uploading…', 'figuro-media' ),
+					'uploadDone'      => __( 'Uploaded', 'figuro-media' ),
+					'fileTooBig'      => __( 'This file is larger than the server allows.', 'figuro-media' ),
 				),
 			)
 		);
@@ -69,7 +74,16 @@ class Figuro_Admin_Page {
 		$status = get_option( Figuro_Migration::OPTION_KEY );
 		?>
 		<div class="wrap figuro-media-wrap">
-			<h1><?php esc_html_e( 'Figuro Folders', 'figuro-media' ); ?></h1>
+			<h1 class="wp-heading-inline"><?php esc_html_e( 'Figuro Folders', 'figuro-media' ); ?></h1>
+			<button type="button" class="page-title-action" id="figuro-add-media"><?php esc_html_e( 'Add Media File', 'figuro-media' ); ?></button>
+			<input type="file" id="figuro-file-input" multiple hidden />
+			<hr class="wp-header-end" />
+
+			<div class="figuro-dropzone" id="figuro-dropzone">
+				<div class="figuro-dropzone-inner"><?php esc_html_e( 'Drop files to upload', 'figuro-media' ); ?></div>
+			</div>
+
+			<div class="figuro-upload-log" id="figuro-upload-log"></div>
 
 			<?php if ( $status && 'done' === $status['status'] ) : ?>
 				<div class="figuro-migration-status">
@@ -107,8 +121,10 @@ class Figuro_Admin_Page {
 							<span id="figuro-folder-count" class="figuro-folder-count"></span>
 						</div>
 						<div class="figuro-toolbar-actions">
-							<span id="figuro-selection-info" class="figuro-selection-info"></span>
-							<select id="figuro-move-target" class="figuro-select"></select>
+							<div class="figuro-toolbar-filters">
+								<div id="figuro-filter-type"></div>
+								<div id="figuro-filter-date"></div>
+							</div>
 							<div class="figuro-search-wrap">
 								<span class="dashicons dashicons-search"></span>
 								<input type="search" id="figuro-search" placeholder="<?php esc_attr_e( 'Search files…', 'figuro-media' ); ?>" />

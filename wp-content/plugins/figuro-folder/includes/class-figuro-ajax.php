@@ -7,14 +7,15 @@ class Figuro_Ajax {
 
 	public static function init() {
 		$actions = array(
-			'figuro_get_tree'         => 'get_tree',
-			'figuro_create_folder'    => 'create_folder',
-			'figuro_rename_folder'    => 'rename_folder',
-			'figuro_move_folder'      => 'move_folder',
-			'figuro_delete_folder'    => 'delete_folder',
-			'figuro_get_attachments'  => 'get_attachments',
-			'figuro_move_attachments' => 'move_attachments',
-			'figuro_rerun_migration'  => 'rerun_migration',
+			'figuro_get_tree'          => 'get_tree',
+			'figuro_create_folder'     => 'create_folder',
+			'figuro_rename_folder'     => 'rename_folder',
+			'figuro_move_folder'       => 'move_folder',
+			'figuro_delete_folder'     => 'delete_folder',
+			'figuro_get_attachments'   => 'get_attachments',
+			'figuro_move_attachments'  => 'move_attachments',
+			'figuro_upload_attachment' => 'upload_attachment',
+			'figuro_rerun_migration'   => 'rerun_migration',
 		);
 
 		foreach ( $actions as $action => $method ) {
@@ -31,7 +32,12 @@ class Figuro_Ajax {
 
 	public static function get_tree() {
 		self::check();
-		wp_send_json_success( array( 'tree' => Figuro_Taxonomy::get_tree() ) );
+		wp_send_json_success(
+			array(
+				'tree'   => Figuro_Taxonomy::get_tree(),
+				'counts' => Figuro_Taxonomy::get_totals(),
+			)
+		);
 	}
 
 	public static function create_folder() {
@@ -106,7 +112,16 @@ class Figuro_Ajax {
 
 		$folder_arg = ( 'uncategorized' === $folder ) ? 'uncategorized' : ( '' === $folder ? '' : absint( $folder ) );
 
-		$query = Figuro_Taxonomy::get_attachments( $folder_arg, $paged, 60, $search );
+		// Mirrors the core Media Library's "All media items" / "All dates" filters.
+		$filters = array(
+			'mime_type'   => isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : '',
+			'uploaded_to' => isset( $_POST['uploadedTo'] ) && '' !== $_POST['uploadedTo'] ? absint( $_POST['uploadedTo'] ) : null,
+			'author'      => isset( $_POST['author'] ) ? absint( $_POST['author'] ) : 0,
+			'year'        => isset( $_POST['year'] ) ? absint( $_POST['year'] ) : 0,
+			'monthnum'    => isset( $_POST['monthnum'] ) ? absint( $_POST['monthnum'] ) : 0,
+		);
+
+		$query = Figuro_Taxonomy::get_attachments( $folder_arg, $paged, 60, $search, $filters );
 
 		$items = array();
 		foreach ( $query->posts as $post ) {
@@ -148,6 +163,44 @@ class Figuro_Ajax {
 		}
 
 		wp_send_json_success( array( 'moved' => $moved ) );
+	}
+
+	/**
+	 * Uploads a single file (via the "Add Media File" button or dropping it
+	 * onto the page) straight into the currently browsed folder, using the
+	 * same core pipeline as a normal Media Library upload.
+	 */
+	public static function upload_attachment() {
+		self::check();
+
+		if ( empty( $_FILES['file'] ) ) {
+			wp_send_json_error( array( 'message' => __( 'No file received.', 'figuro-media' ) ) );
+		}
+
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/media.php';
+
+		$attachment_id = media_handle_upload( 'file', 0 );
+
+		if ( is_wp_error( $attachment_id ) ) {
+			wp_send_json_error( array( 'message' => $attachment_id->get_error_message() ) );
+		}
+
+		$folder = isset( $_POST['folder'] ) ? sanitize_text_field( wp_unslash( $_POST['folder'] ) ) : '';
+		if ( '' !== $folder && 'uncategorized' !== $folder ) {
+			Figuro_Taxonomy::set_attachment_folder( $attachment_id, absint( $folder ) );
+		}
+
+		$thumb = wp_get_attachment_image_src( $attachment_id, 'thumbnail' );
+
+		wp_send_json_success(
+			array(
+				'id'    => $attachment_id,
+				'title' => get_the_title( $attachment_id ),
+				'thumb' => $thumb ? $thumb[0] : wp_mime_type_icon( $attachment_id ),
+			)
+		);
 	}
 
 	public static function rerun_migration() {

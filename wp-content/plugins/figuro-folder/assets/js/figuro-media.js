@@ -3,10 +3,11 @@
 
 	var state = {
 		tree: [],
+		counts: { all: 0, uncategorized: 0 },
 		currentFolder: '', // '' = All Files, 'uncategorized', or a numeric term id (as string)
 		page: 1,
 		search: '',
-		selected: {},
+		gridItemIds: [], // ids currently shown in the grid, in display order — powers modal prev/next
 		expanded: {} // term id (string) => true, when its children are visible
 	};
 
@@ -16,9 +17,14 @@
 	var $pagination    = $( '#figuro-pagination' );
 	var $heading       = $( '#figuro-current-folder-name' );
 	var $folderCount   = $( '#figuro-folder-count' );
-	var $selectionInfo = $( '#figuro-selection-info' );
-	var $moveTarget    = $( '#figuro-move-target' );
 	var $search        = $( '#figuro-search' );
+	var $dropzone      = $( '#figuro-dropzone' );
+	var $uploadLog     = $( '#figuro-upload-log' );
+	var $fileInput     = $( '#figuro-file-input' );
+	var $addMediaBtn   = $( '#figuro-add-media' );
+
+	var editFrame; // Reused wp.media "edit attachment details" frame — same UI as the core Media Library.
+	var filterProps; // Backbone model behind the "All media items" / "All dates" selects (see initFilters()).
 
 	function ajax( action, data ) {
 		return $.post( FiguroMedia.ajaxUrl, $.extend( { action: action, nonce: FiguroMedia.nonce }, data || {} ) );
@@ -54,23 +60,14 @@
 		return null;
 	}
 
-	function renderMoveTarget() {
-		var flat = flatten( state.tree );
-		var html = '<option value="">' + escapeHtml( FiguroMedia.i18n.moveSelected ) + '</option>';
-		html += '<option value="uncategorized">' + escapeHtml( FiguroMedia.i18n.uncategorized ) + '</option>';
-		flat.forEach( function ( node ) {
-			html += '<option value="' + node.id + '">' + new Array( node.depth + 1 ).join( ' ' ) + escapeHtml( node.name ) + '</option>';
-		} );
-		$moveTarget.html( html );
-	}
-
-	function pinnedNodeHtml( id, name, icon ) {
+	function pinnedNodeHtml( id, name, icon, count ) {
 		return (
 			'<li>' +
 			'<div class="figuro-node figuro-node-pinned" data-id="' + id + '">' +
 			'<span class="figuro-node-toggle figuro-node-toggle-spacer"></span>' +
 			'<span class="dashicons ' + icon + ' figuro-node-icon"></span>' +
 			'<span class="figuro-node-name">' + escapeHtml( name ) + '</span>' +
+			'<span class="figuro-node-count">' + count + '</span>' +
 			'</div>' +
 			'</li>'
 		);
@@ -78,9 +75,10 @@
 
 	function renderPinned() {
 		var html = '';
-		html += pinnedNodeHtml( '', FiguroMedia.i18n.allFiles, 'dashicons-admin-media' );
-		html += pinnedNodeHtml( 'uncategorized', FiguroMedia.i18n.uncategorized, 'dashicons-media-default' );
+		html += pinnedNodeHtml( '', FiguroMedia.i18n.allFiles, 'dashicons-admin-media', state.counts.all );
+		html += pinnedNodeHtml( 'uncategorized', FiguroMedia.i18n.uncategorized, 'dashicons-media-default', state.counts.uncategorized );
 		$treePinned.html( html );
+		highlightActive();
 	}
 
 	function nodeHtml( node, hasChildren ) {
@@ -147,8 +145,9 @@
 		return ajax( 'figuro_get_tree' ).done( function ( res ) {
 			if ( res.success ) {
 				state.tree = res.data.tree;
+				state.counts = res.data.counts || { all: 0, uncategorized: 0 };
 				renderTree();
-				renderMoveTarget();
+				renderPinned();
 			}
 		} );
 	}
@@ -166,21 +165,34 @@
 	function selectFolder( id ) {
 		state.currentFolder = id;
 		state.page = 1;
-		state.selected = {};
 		$heading.text( folderName( id ) );
 		expandAncestorsOf( id );
 		renderTree();
 		loadGrid();
 	}
 
+	// The shared model behind the "All media items" / "All dates" selects
+	// (see initFilters()) is treated as unset when a prop is null/false —
+	// that's how the core AttachmentFilters views represent "no filter".
+	function filterVal( v ) {
+		return ( null === v || undefined === v || false === v ) ? '' : v;
+	}
+
 	function loadGrid() {
 		$grid.html( '<div class="figuro-loading">' + escapeHtml( FiguroMedia.i18n.loading ) + '</div>' );
 		$pagination.empty();
 
+		var filters = filterProps ? filterProps.toJSON() : {};
+
 		ajax( 'figuro_get_attachments', {
 			folder: state.currentFolder,
 			paged: state.page,
-			search: state.search
+			search: state.search,
+			type: filterVal( filters.type ),
+			uploadedTo: filterVal( filters.uploadedTo ),
+			author: filterVal( filters.author ),
+			year: filterVal( filters.year ),
+			monthnum: filterVal( filters.monthnum )
 		} ).done( function ( res ) {
 			if ( ! res.success ) {
 				$grid.html( '<div class="figuro-empty">' + escapeHtml( FiguroMedia.i18n.error ) + '</div>' );
@@ -193,6 +205,8 @@
 					: ''
 			);
 
+			state.gridItemIds = res.data.items.map( function ( item ) { return item.id; } );
+
 			if ( ! res.data.items.length ) {
 				$grid.html( '<div class="figuro-empty"><span class="dashicons dashicons-portfolio"></span><p>' + escapeHtml( FiguroMedia.i18n.noItems ) + '</p></div>' );
 				return;
@@ -202,14 +216,12 @@
 			res.data.items.forEach( function ( item ) {
 				html +=
 					'<div class="figuro-item" data-id="' + item.id + '" draggable="true">' +
-					'<label class="figuro-item-check-wrap"><input type="checkbox" class="figuro-item-check" /></label>' +
-					'<div class="figuro-item-thumb"><img src="' + escapeHtml( item.thumb ) + '" alt="" loading="lazy" /></div>' +
+					'<div class="figuro-item-thumb"><img src="' + escapeHtml( item.thumb ) + '" alt="" loading="lazy" draggable="false" /></div>' +
 					'<div class="figuro-item-title" title="' + escapeHtml( item.title ) + '">' + escapeHtml( item.title ) + '</div>' +
 					'</div>';
 			} );
 			$grid.html( html );
 			renderPagination( res.data.page, res.data.totalPages );
-			updateSelectionInfo();
 		} );
 	}
 
@@ -259,10 +271,168 @@
 		$pagination.html( html );
 	}
 
-	function updateSelectionInfo() {
-		var count = Object.keys( state.selected ).length;
-		$selectionInfo.text( count ? count + ' ' + FiguroMedia.i18n.selected : '' );
-		$selectionInfo.toggleClass( 'has-selection', !! count );
+	// Renders the same "All media items" / "All dates" selects shown on the
+	// core Media Library screen, by reusing WordPress's own Backbone filter
+	// views (and their localized option lists) rather than hand-building
+	// <select> markup. They share one model; picking a value in either
+	// reloads the grid with that filter applied server-side.
+	function initFilters() {
+		if ( ! window.wp || ! wp.media || ! wp.media.view.AttachmentFilters || ! wp.media.view.AttachmentFilters.All || ! wp.media.view.DateFilter ) {
+			return;
+		}
+
+		filterProps = new Backbone.Model( {
+			status:     null,
+			type:       null,
+			uploadedTo: null,
+			orderby:    'date',
+			order:      'DESC',
+			author:     null,
+			monthnum:   false,
+			year:       false
+		} );
+
+		// AttachmentFilters.All only reaches into its controller to decide
+		// whether to show a "Trashed" filter for grid mode, which our custom
+		// query doesn't support — keep it hidden by always reporting false.
+		var fakeFilterController = {
+			isModeActive: function () {
+				return false;
+			}
+		};
+
+		var typeFilter = new wp.media.view.AttachmentFilters.All( {
+			controller: fakeFilterController,
+			model: filterProps,
+			priority: -80
+		} );
+
+		var dateFilter = new wp.media.view.DateFilter( {
+			controller: fakeFilterController,
+			model: filterProps,
+			priority: -75
+		} );
+
+		$( '#figuro-filter-type' ).empty().append(
+			new wp.media.view.Label( {
+				value: wp.media.view.l10n.filterByType,
+				attributes: { 'for': 'media-attachment-filters' }
+			} ).render().el,
+			typeFilter.el
+		);
+
+		$( '#figuro-filter-date' ).empty().append(
+			new wp.media.view.Label( {
+				value: wp.media.view.l10n.filterByDate,
+				attributes: { 'for': 'media-attachment-date-filters' }
+			} ).render().el,
+			dateFilter.el
+		);
+
+		filterProps.on( 'change', function () {
+			state.page = 1;
+			loadGrid();
+		} );
+	}
+
+	// The frame already navigates on Alt+Left/Alt+Right (core's own handler,
+	// bound as soon as the modal opens). Plain arrow keys are added here so
+	// navigation works without the modifier too; modified presses are left
+	// alone so the two handlers don't both fire and skip two items at once.
+	function onModalKeydown( e ) {
+		var tag = e.target.nodeName;
+		if ( ( 'INPUT' === tag || 'TEXTAREA' === tag || 'SELECT' === tag ) && ! e.target.disabled ) {
+			return;
+		}
+		if ( e.altKey || e.metaKey || e.ctrlKey ) {
+			return;
+		}
+		if ( 37 === e.keyCode ) {
+			e.preventDefault();
+			editFrame.previousMediaItem();
+		} else if ( 39 === e.keyCode ) {
+			e.preventDefault();
+			editFrame.nextMediaItem();
+		}
+	}
+
+	function bindModalKeyNav() {
+		$( document ).off( 'keydown.figuro-media-nav' ).on( 'keydown.figuro-media-nav', onModalKeydown );
+	}
+
+	function unbindModalKeyNav() {
+		$( document ).off( 'keydown.figuro-media-nav' );
+	}
+
+	// Opens the same "Attachment Details" modal used by the core Media Library
+	// (title, caption, alt text, description, file URL, edit image, delete
+	// permanently, …) via WordPress's own wp.media Backbone views/models —
+	// no custom edit UI or endpoints needed.
+	function openAttachmentModal( id ) {
+		if ( ! window.wp || ! wp.media || ! wp.media.view.MediaFrame.EditAttachments ) {
+			return;
+		}
+
+		// Build the modal's prev/next set from whatever is currently on
+		// screen, in the same order, and fetch it as one batch. A library
+		// with a single item (or unfetched attachments) leaves the arrows
+		// permanently disabled and, worse, can fire a `change:status` once
+		// the fetch lands after the frame is already listening — which the
+		// frame reads as "this attachment changed under me" and immediately
+		// closes the modal it just opened. Loading everything up front (as
+		// core's own grid router does before ever opening the frame) avoids
+		// both problems.
+		var ids = state.gridItemIds.length ? state.gridItemIds : [ id ];
+
+		var library = wp.media.query( {
+			post__in: ids,
+			orderby: 'post__in',
+			posts_per_page: ids.length
+		} );
+
+		library.more().done( function () {
+			var attachment = library.get( id ) || wp.media.attachment( id );
+
+			if ( editFrame ) {
+				editFrame.library = library;
+				editFrame.open().trigger( 'refresh', attachment );
+				bindModalKeyNav();
+				return;
+			}
+
+			// EditAttachments normally runs inside the core Manage (grid) frame;
+			// it only reaches back into that frame's controller on modal close,
+			// to read the current search term for the URL. Stub that out since
+			// we have no such frame here.
+			var fakeController = {
+				gridRouter: new wp.media.view.MediaFrame.Manage.Router(),
+				browserView: {
+					toolbar: {
+						get: function () {
+							return { $el: { val: function () { return ''; } } };
+						}
+					}
+				}
+			};
+
+			editFrame = wp.media( {
+				frame: 'edit-attachments',
+				controller: fakeController,
+				library: library,
+				model: attachment
+			} );
+
+			// Refresh the grid/tree after the modal closes — covers edits and deletes.
+			editFrame.on( 'close', function () {
+				unbindModalKeyNav();
+				loadTree();
+				loadGrid();
+			} );
+
+			bindModalKeyNav();
+		} ).fail( function () {
+			window.alert( FiguroMedia.i18n.error );
+		} );
 	}
 
 	function moveAttachments( ids, folderId ) {
@@ -274,6 +444,69 @@
 				window.alert( res.data && res.data.message ? res.data.message : FiguroMedia.i18n.error );
 			}
 		} );
+	}
+
+	// --- Upload: "Add Media File" button and drop-anywhere-on-the-page -------
+	// Uploads land in whichever folder is currently open, same as dropping a
+	// file into a real folder. This is a separate system from the internal
+	// drag-and-drop above: that one moves an existing grid item onto a folder
+	// (custom "text/figuro-*" drag data); this one reacts only to an actual
+	// OS file drag (dataTransfer.types includes "Files"), so the two never
+	// interfere with each other even though both ride on the same native
+	// drag events.
+	function isFileDrag( e ) {
+		var dt = e.originalEvent && e.originalEvent.dataTransfer;
+		return !! ( dt && $.inArray( 'Files', dt.types || [] ) > -1 );
+	}
+
+	function addUploadStatus( name ) {
+		var $status = $(
+			'<div class="figuro-upload-status">' +
+			'<span class="dashicons dashicons-upload"></span>' +
+			'<span class="figuro-upload-status-name" title="' + escapeHtml( name ) + '">' + escapeHtml( name ) + '</span>' +
+			'</div>'
+		).appendTo( $uploadLog );
+		return $status;
+	}
+
+	function uploadOneFile( file ) {
+		var $status = addUploadStatus( file.name );
+
+		if ( FiguroMedia.maxUploadSize && file.size > FiguroMedia.maxUploadSize ) {
+			$status.addClass( 'is-error' );
+			$status.find( '.figuro-upload-status-name' ).text( file.name + ' — ' + FiguroMedia.i18n.fileTooBig );
+			return;
+		}
+
+		var formData = new FormData();
+		formData.append( 'action', 'figuro_upload_attachment' );
+		formData.append( 'nonce', FiguroMedia.nonce );
+		formData.append( 'folder', state.currentFolder );
+		formData.append( 'file', file );
+
+		$.ajax( {
+			url: FiguroMedia.ajaxUrl,
+			type: 'POST',
+			data: formData,
+			processData: false,
+			contentType: false
+		} ).done( function ( res ) {
+			if ( res.success ) {
+				$status.remove();
+				loadTree();
+				loadGrid();
+			} else {
+				$status.addClass( 'is-error' );
+				$status.find( '.figuro-upload-status-name' ).text( ( res.data && res.data.message ) || FiguroMedia.i18n.error );
+			}
+		} ).fail( function () {
+			$status.addClass( 'is-error' );
+			$status.find( '.figuro-upload-status-name' ).text( FiguroMedia.i18n.error );
+		} );
+	}
+
+	function uploadFiles( fileList ) {
+		Array.prototype.forEach.call( fileList || [], uploadOneFile );
 	}
 
 	// --- Tree interactions -------------------------------------------------
@@ -403,28 +636,13 @@
 
 	// --- Grid interactions ---------------------------------------------------
 
-	$grid.on( 'click', '.figuro-item', function ( e ) {
-		if ( ! $( e.target ).is( '.figuro-item-check' ) ) {
-			var $check = $( this ).find( '.figuro-item-check' );
-			$check.prop( 'checked', ! $check.prop( 'checked' ) );
-		}
-
-		var id = $( this ).data( 'id' );
-		var checked = $( this ).find( '.figuro-item-check' ).prop( 'checked' );
-		$( this ).toggleClass( 'is-selected', checked );
-
-		if ( checked ) {
-			state.selected[ id ] = true;
-		} else {
-			delete state.selected[ id ];
-		}
-		updateSelectionInfo();
+	$grid.on( 'click', '.figuro-item', function () {
+		openAttachmentModal( $( this ).data( 'id' ) );
 	} );
 
 	$grid.on( 'dragstart', '.figuro-item', function ( e ) {
 		var id = $( this ).data( 'id' ).toString();
-		var ids = state.selected[ id ] ? Object.keys( state.selected ) : [ id ];
-		e.originalEvent.dataTransfer.setData( 'text/figuro-attachments', JSON.stringify( ids ) );
+		e.originalEvent.dataTransfer.setData( 'text/figuro-attachments', JSON.stringify( [ id ] ) );
 	} );
 
 	$pagination.on( 'click', 'button:not(:disabled)', function () {
@@ -444,19 +662,51 @@
 		}, 350 );
 	} );
 
-	$moveTarget.on( 'change', function () {
-		var folderId = $( this ).val();
-		var ids = Object.keys( state.selected );
-		if ( ! folderId || ! ids.length ) {
-			$( this ).val( '' );
-			return;
+	$addMediaBtn.on( 'click', function () {
+		$fileInput.trigger( 'click' );
+	} );
+
+	$fileInput.on( 'change', function () {
+		uploadFiles( this.files );
+		this.value = ''; // allow re-selecting the same file(s) later
+	} );
+
+	// A running counter, not a boolean, because the browser fires dragenter/
+	// dragleave for every element the pointer crosses while hovering — only
+	// hitting zero really means the drag left the window.
+	var dragDepth = 0;
+
+	$( window ).on( 'dragenter', function ( e ) {
+		if ( ! isFileDrag( e ) ) return;
+		e.preventDefault();
+		dragDepth++;
+		$dropzone.addClass( 'is-active' );
+	} );
+
+	$( window ).on( 'dragover', function ( e ) {
+		if ( ! isFileDrag( e ) ) return;
+		e.preventDefault(); // required for 'drop' to fire at all
+	} );
+
+	$( window ).on( 'dragleave', function ( e ) {
+		if ( ! isFileDrag( e ) ) return;
+		dragDepth = Math.max( 0, dragDepth - 1 );
+		if ( 0 === dragDepth ) {
+			$dropzone.removeClass( 'is-active' );
 		}
-		moveAttachments( ids, folderId );
-		$( this ).val( '' );
+	} );
+
+	$( window ).on( 'drop', function ( e ) {
+		if ( ! isFileDrag( e ) ) return;
+		e.preventDefault();
+		dragDepth = 0;
+		$dropzone.removeClass( 'is-active' );
+		uploadFiles( e.originalEvent.dataTransfer.files );
 	} );
 
 	$( function () {
 		renderPinned();
+		initFilters();
 		loadTree();
 		selectFolder( '' );
 	} );

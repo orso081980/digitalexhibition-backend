@@ -12,6 +12,12 @@ class Figuro_Taxonomy {
 
 	public static function init() {
 		add_action( 'init', array( __CLASS__, 'register' ) );
+
+		// Adds a "Folder" <select> to the core Attachment Details view (the
+		// same modal figuro-media.js opens), so the folder can be changed
+		// from there like any other attachment field.
+		add_filter( 'attachment_fields_to_edit', array( __CLASS__, 'add_folder_field' ), 10, 2 );
+		add_filter( 'attachment_fields_to_save', array( __CLASS__, 'save_folder_field' ), 10, 2 );
 	}
 
 	public static function register() {
@@ -170,9 +176,46 @@ class Figuro_Taxonomy {
 	}
 
 	/**
-	 * @param int|string $folder_id '' for all, 'uncategorized', or a term_id.
+	 * Counts for the pinned "All Files" and "Uncategorized" views.
+	 *
+	 * @return array{all:int,uncategorized:int}
 	 */
-	public static function get_attachments( $folder_id, $paged = 1, $per_page = 60, $search = '' ) {
+	public static function get_totals() {
+		global $wpdb;
+
+		$all = (int) $wpdb->get_var(
+			"SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'attachment' AND post_status = 'inherit'"
+		);
+
+		$uncategorized = (int) $wpdb->get_var(
+			$wpdb->prepare(
+				"
+				SELECT COUNT(*) FROM {$wpdb->posts} p
+				WHERE p.post_type = 'attachment' AND p.post_status = 'inherit'
+				AND NOT EXISTS (
+					SELECT 1 FROM {$wpdb->term_relationships} tr
+					INNER JOIN {$wpdb->term_taxonomy} tt ON tt.term_taxonomy_id = tr.term_taxonomy_id
+					WHERE tr.object_id = p.ID AND tt.taxonomy = %s
+				)
+				",
+				FIGURO_MEDIA_TAXONOMY
+			)
+		);
+
+		return array(
+			'all'           => $all,
+			'uncategorized' => $uncategorized,
+		);
+	}
+
+	/**
+	 * @param int|string $folder_id '' for all, 'uncategorized', or a term_id.
+	 * @param array      $filters   Optional. Mirrors the core Media Library's
+	 *                              "All media items" / "All dates" dropdowns:
+	 *                              mime_type (string), uploaded_to (int, 0 = unattached),
+	 *                              author (int), year (int), monthnum (int).
+	 */
+	public static function get_attachments( $folder_id, $paged = 1, $per_page = 60, $search = '', array $filters = array() ) {
 		$args = array(
 			'post_type'      => 'attachment',
 			'post_status'    => 'inherit',
@@ -184,6 +227,26 @@ class Figuro_Taxonomy {
 
 		if ( '' !== $search ) {
 			$args['s'] = $search;
+		}
+
+		if ( ! empty( $filters['mime_type'] ) ) {
+			$args['post_mime_type'] = $filters['mime_type'];
+		}
+
+		if ( isset( $filters['uploaded_to'] ) && null !== $filters['uploaded_to'] ) {
+			$args['post_parent'] = (int) $filters['uploaded_to'];
+		}
+
+		if ( ! empty( $filters['author'] ) ) {
+			$args['author'] = (int) $filters['author'];
+		}
+
+		if ( ! empty( $filters['year'] ) ) {
+			$args['year'] = (int) $filters['year'];
+		}
+
+		if ( ! empty( $filters['monthnum'] ) ) {
+			$args['monthnum'] = (int) $filters['monthnum'];
 		}
 
 		if ( 'uncategorized' === $folder_id ) {
@@ -223,5 +286,86 @@ class Figuro_Taxonomy {
 		}
 
 		return wp_set_object_terms( $attachment_id, array( (int) $folder_id ), FIGURO_MEDIA_TAXONOMY );
+	}
+
+	/**
+	 * Injects a "Folder" <select> into the Attachment Details view (core's
+	 * `attachment_fields_to_edit` extension point). Named `figuro_folder_id`
+	 * rather than the taxonomy's own slug so core's generic, comma-separated
+	 * taxonomy-field handling in wp_ajax_save_attachment_compat() doesn't
+	 * also try to process it — save_folder_field() below handles it instead.
+	 *
+	 * @param array   $form_fields
+	 * @param WP_Post $post
+	 * @return array
+	 */
+	public static function add_folder_field( $form_fields, $post ) {
+		if ( 'attachment' !== $post->post_type ) {
+			return $form_fields;
+		}
+
+		$current  = wp_get_object_terms( $post->ID, FIGURO_MEDIA_TAXONOMY, array( 'fields' => 'ids' ) );
+		$current  = is_wp_error( $current ) ? array() : $current;
+		$selected = ! empty( $current ) ? (int) $current[0] : 0;
+
+		$options = '<option value="0"' . selected( $selected, 0, false ) . '>' . esc_html__( 'Uncategorized', 'figuro-media' ) . '</option>';
+
+		foreach ( self::flatten_tree( self::get_tree() ) as $node ) {
+			$options .= sprintf(
+				'<option value="%1$d"%2$s>%3$s%4$s</option>',
+				$node['id'],
+				selected( $selected, $node['id'], false ),
+				str_repeat( '&nbsp;&nbsp;&nbsp;', $node['depth'] ),
+				esc_html( $node['name'] )
+			);
+		}
+
+		$form_fields['figuro_folder_id'] = array(
+			'label' => __( 'Folder', 'figuro-media' ),
+			'input' => 'html',
+			'html'  => '<select name="attachments[' . (int) $post->ID . '][figuro_folder_id]" id="attachments-' . (int) $post->ID . '-figuro_folder_id">' . $options . '</select>',
+		);
+
+		return $form_fields;
+	}
+
+	/**
+	 * Persists the "Folder" field added by add_folder_field() above.
+	 *
+	 * @param array $post
+	 * @param array $attachment
+	 * @return array
+	 */
+	public static function save_folder_field( $post, $attachment ) {
+		if ( isset( $attachment['figuro_folder_id'] ) ) {
+			self::set_attachment_folder( $post['ID'], absint( $attachment['figuro_folder_id'] ) );
+		}
+
+		return $post;
+	}
+
+	/**
+	 * Flattens the nested folder tree into a depth-ordered list for <option> rendering.
+	 *
+	 * @param array $nodes
+	 * @param int   $depth
+	 * @return array
+	 */
+	private static function flatten_tree( $nodes, $depth = 0 ) {
+		$flat = array();
+
+		foreach ( $nodes as $node ) {
+			$flat[] = array(
+				'id'    => $node['id'],
+				'name'  => $node['name'],
+				'depth' => $depth,
+			);
+
+			if ( ! empty( $node['children'] ) ) {
+				$flat = array_merge( $flat, self::flatten_tree( $node['children'], $depth + 1 ) );
+			}
+		}
+
+		return $flat;
 	}
 }
