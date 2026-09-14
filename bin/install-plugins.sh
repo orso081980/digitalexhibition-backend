@@ -13,15 +13,20 @@
 # already there.
 
 # --- Free, wordpress.org-hosted plugins -------------------------------------
+wp plugin install advanced-custom-fields-pro --activate
 wp plugin install advanced-media-offloader --activate
+wp plugin install aryo-activity-log --activate
+wp plugin install dflip --activate
 wp plugin install duplicate-page --activate
 wp plugin install elementor --activate
+wp plugin install header-footer-elementor --activate
 wp plugin install post-grid-elementor-addon --activate
 wp plugin install post-type-switcher --activate
 wp plugin install regenerate-thumbnails --activate
-wp plugin install header-footer-elementor --activate
-wp plugin install wp-mail-smtp --activate
+wp plugin install wordpress-importer --activate
 wp plugin install wordpress-seo --activate
+wp plugin install wp-health --activate
+wp plugin install wp-mail-smtp --activate
 
 echo
 echo "== Manual steps — premium plugins (not on wordpress.org, need a license) =="
