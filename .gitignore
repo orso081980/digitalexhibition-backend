@@ -33,6 +33,7 @@ wp-content/ngg/
 ._*
 *.swp
 Thumbs.db
+.vscode/
 
 # === Logs ===
 *.log
