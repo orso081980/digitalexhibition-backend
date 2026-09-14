@@ -45,7 +45,7 @@ function cd_error_log($message)
 		error_log("[CUSTOM DASHBOARD DEBUG] " . $message);
 	}
 }
-//https://digitalexhibition.arch.tue.nl/wp-admin/post.php?post=16227&action=edit
+//https://staging.digitalexhibition.arch.tue.nl/wp-admin/post.php?post=16227&action=edit
 // --- CUSTOM DASHBOARD WIDGETS ---
 function cd_remove_default_dashboard_widgets()
 {
@@ -1246,6 +1246,7 @@ function force_acf_taxonomy_context_robust( $field ) {
     return $field;
 }
 
+require_once CD_PLUGIN_DIR . "includes/settings.php";
 require_once CD_PLUGIN_DIR . "includes/style.php";
 require_once CD_PLUGIN_DIR . "includes/extra.php";
 require_once CD_PLUGIN_DIR . "includes/shortcode.php";

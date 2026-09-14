@@ -1493,11 +1493,17 @@ function crea_shortcode_projects_integrato() {
             <div class="grid-sizer-integrato"></div>
             <div class="loader-container-integrato"><div class="loader-integrato"></div></div>
             <?php
-            $args = array('post_type' => 'post', 'posts_per_page' => -1, 'post_status' => 'publish');
+            $args = array('post_type' => 'post', 'posts_per_page' => -1, 'post_status' => 'publish', 'post__not_in' => cd_get_hidden_project_ids());
             $query = new WP_Query($args);
+
+            // Deduplica anche la vista ALL iniziale: stesso trattamento della query AJAX filtrata,
+            // altrimenti un progetto ripetuto ogni anno appare una volta per ogni edizione pubblicata.
+            $all_ids_initial = wp_list_pluck( $query->posts, 'ID' );
+            $filtered_ids_initial_flip = array_flip( cd_filter_group_years_dedup( $all_ids_initial ) );
 
             if ($query->have_posts()) :
                 while ($query->have_posts()) : $query->the_post();
+                    if ( ! isset( $filtered_ids_initial_flip[ get_the_ID() ] ) ) continue;
                     // HTML render iniziale
                     ?>
                     <article id="post-<?php the_ID(); ?>" <?php post_class('grid-item-integrato'); ?>>
@@ -1742,6 +1748,7 @@ function ajax_filtra_projects_integrato_handler() {
         'post_type'      => 'post',
         'posts_per_page' => -1,
         'post_status'    => 'publish',
+        'post__not_in'   => cd_get_hidden_project_ids(),
         'tax_query'      => array('relation' => 'AND'),
     );
 
