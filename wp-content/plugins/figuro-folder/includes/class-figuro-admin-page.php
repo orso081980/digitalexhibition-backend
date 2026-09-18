@@ -61,6 +61,12 @@ class Figuro_Admin_Page {
 					'uploading'       => __( 'Uploading…', 'figuro-media' ),
 					'uploadDone'      => __( 'Uploaded', 'figuro-media' ),
 					'fileTooBig'      => __( 'This file is larger than the server allows.', 'figuro-media' ),
+					'bulkSelect'      => __( 'Bulk select', 'figuro-media' ),
+					'cancel'          => __( 'Cancel', 'figuro-media' ),
+					'deletePermanently' => __( 'Delete permanently', 'figuro-media' ),
+					'itemSelected'    => __( 'item selected', 'figuro-media' ),
+					'itemsSelected'   => __( 'items selected', 'figuro-media' ),
+					'bulkDeleteConfirm' => __( "You are about to permanently delete these items from your site.\nThis action cannot be undone.", 'figuro-media' ),
 				),
 			)
 		);
@@ -125,6 +131,12 @@ class Figuro_Admin_Page {
 								<div id="figuro-filter-type"></div>
 								<div id="figuro-filter-date"></div>
 							</div>
+							<div class="figuro-bulk-bar" id="figuro-bulk-bar" hidden>
+								<span class="figuro-bulk-count" id="figuro-bulk-count"></span>
+								<button type="button" class="button button-link-delete" id="figuro-bulk-delete" disabled><?php esc_html_e( 'Delete permanently', 'figuro-media' ); ?></button>
+								<button type="button" class="button" id="figuro-bulk-cancel"><?php esc_html_e( 'Cancel', 'figuro-media' ); ?></button>
+							</div>
+							<button type="button" class="button" id="figuro-bulk-toggle"><?php esc_html_e( 'Bulk select', 'figuro-media' ); ?></button>
 							<div class="figuro-search-wrap">
 								<span class="dashicons dashicons-search"></span>
 								<input type="search" id="figuro-search" placeholder="<?php esc_attr_e( 'Search files…', 'figuro-media' ); ?>" />

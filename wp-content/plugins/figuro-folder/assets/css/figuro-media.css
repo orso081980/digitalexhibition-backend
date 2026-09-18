@@ -464,6 +464,63 @@
 	margin-right: 6px;
 }
 
+/* --- Bulk select --------------------------------------------------------- */
+
+.figuro-bulk-bar {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.figuro-bulk-bar[hidden] {
+	display: none;
+}
+
+.figuro-bulk-count {
+	font-size: 12px;
+	color: var(--figuro-text-muted);
+	white-space: nowrap;
+}
+
+.figuro-item-check {
+	position: absolute;
+	top: 6px;
+	left: 6px;
+	z-index: 2;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.92);
+	border: 1px solid var(--figuro-border);
+	display: none;
+	align-items: center;
+	justify-content: center;
+	color: transparent;
+	transition: background-color 0.12s ease, border-color 0.12s ease, transform 0.12s ease;
+}
+
+.figuro-item-check .dashicons {
+	font-size: 14px;
+	width: 14px;
+	height: 14px;
+}
+
+.is-bulk-mode .figuro-item-check {
+	display: flex;
+}
+
+.figuro-item.is-selected {
+	border-color: var(--figuro-accent);
+	box-shadow: 0 0 0 1px var(--figuro-accent);
+}
+
+.figuro-item.is-selected .figuro-item-check {
+	background: var(--figuro-accent);
+	border-color: var(--figuro-accent);
+	color: #fff;
+	transform: scale(1.08);
+}
+
 .figuro-search-wrap {
 	position: relative;
 	display: flex;
@@ -520,10 +577,47 @@
 }
 
 .figuro-item-thumb {
+	position: relative;
 	aspect-ratio: 4 / 3;
 	border-radius: 4px;
 	overflow: hidden;
 	background: var(--figuro-bg);
+}
+
+/* Immediate feedback while the attachment modal's data is still loading —
+   opening it can take a moment on a slow connection, and without this a
+   click can feel like it did nothing. */
+.figuro-item.is-opening {
+	pointer-events: none;
+	opacity: 0.7;
+}
+
+.figuro-item.is-opening .figuro-item-thumb::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: rgba(255, 255, 255, 0.55);
+}
+
+.figuro-item.is-opening .figuro-item-thumb::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 22px;
+	height: 22px;
+	margin: -11px 0 0 -11px;
+	border: 2px solid var(--figuro-accent-bg);
+	border-top-color: var(--figuro-accent);
+	border-radius: 50%;
+	z-index: 1;
+	animation: figuro-spin 0.7s linear infinite;
+}
+
+@keyframes figuro-spin {
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 .figuro-item-thumb img {

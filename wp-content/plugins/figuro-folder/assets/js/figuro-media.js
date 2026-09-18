@@ -8,7 +8,9 @@
 		page: 1,
 		search: '',
 		gridItemIds: [], // ids currently shown in the grid, in display order — powers modal prev/next
-		expanded: {} // term id (string) => true, when its children are visible
+		expanded: {}, // term id (string) => true, when its children are visible
+		bulkMode: false,
+		selected: {} // id (string) => true, only meaningful while bulkMode is on
 	};
 
 	var $treePinned    = $( '#figuro-tree-pinned' );
@@ -22,6 +24,12 @@
 	var $uploadLog     = $( '#figuro-upload-log' );
 	var $fileInput     = $( '#figuro-file-input' );
 	var $addMediaBtn   = $( '#figuro-add-media' );
+	var $mediaApp      = $( '#figuro-media-app' );
+	var $bulkToggle    = $( '#figuro-bulk-toggle' );
+	var $bulkBar       = $( '#figuro-bulk-bar' );
+	var $bulkCount     = $( '#figuro-bulk-count' );
+	var $bulkDelete    = $( '#figuro-bulk-delete' );
+	var $bulkCancel    = $( '#figuro-bulk-cancel' );
 
 	var editFrame; // Reused wp.media "edit attachment details" frame — same UI as the core Media Library.
 	var filterProps; // Backbone model behind the "All media items" / "All dates" selects (see initFilters()).
@@ -141,13 +149,21 @@
 		} );
 	}
 
+	// Renders tree/counts data returned by figuro_get_tree — or embedded
+	// straight in a mutation's own response (create/rename/move/delete folder,
+	// move/delete/upload attachments), which saves a whole extra admin-ajax.php
+	// round trip (and its full WordPress bootstrap) after every action.
+	function applyTreeData( data ) {
+		state.tree = data.tree;
+		state.counts = data.counts || { all: 0, uncategorized: 0 };
+		renderTree();
+		renderPinned();
+	}
+
 	function loadTree() {
 		return ajax( 'figuro_get_tree' ).done( function ( res ) {
 			if ( res.success ) {
-				state.tree = res.data.tree;
-				state.counts = res.data.counts || { all: 0, uncategorized: 0 };
-				renderTree();
-				renderPinned();
+				applyTreeData( res.data );
 			}
 		} );
 	}
@@ -165,6 +181,8 @@
 	function selectFolder( id ) {
 		state.currentFolder = id;
 		state.page = 1;
+		state.selected = {};
+		updateBulkBar();
 		$heading.text( folderName( id ) );
 		expandAncestorsOf( id );
 		renderTree();
@@ -178,13 +196,42 @@
 		return ( null === v || undefined === v || false === v ) ? '' : v;
 	}
 
+	function applyGridData( data ) {
+		$folderCount.text(
+			data.total
+				? data.total + ' ' + ( 1 === data.total ? FiguroMedia.i18n.file : FiguroMedia.i18n.files )
+				: ''
+		);
+
+		state.gridItemIds = data.items.map( function ( item ) { return item.id; } );
+
+		if ( ! data.items.length ) {
+			$grid.html( '<div class="figuro-empty"><span class="dashicons dashicons-portfolio"></span><p>' + escapeHtml( FiguroMedia.i18n.noItems ) + '</p></div>' );
+			$pagination.empty();
+			return;
+		}
+
+		var html = '';
+		data.items.forEach( function ( item ) {
+			var isSelected = !! state.selected[ item.id.toString() ];
+			html +=
+				'<div class="figuro-item' + ( isSelected ? ' is-selected' : '' ) + '" data-id="' + item.id + '" draggable="true">' +
+				'<span class="figuro-item-check"><span class="dashicons dashicons-yes"></span></span>' +
+				'<div class="figuro-item-thumb"><img src="' + escapeHtml( item.thumb ) + '" alt="" loading="lazy" draggable="false" /></div>' +
+				'<div class="figuro-item-title" title="' + escapeHtml( item.title ) + '">' + escapeHtml( item.title ) + '</div>' +
+				'</div>';
+		} );
+		$grid.html( html );
+		renderPagination( data.page, data.totalPages );
+	}
+
 	function loadGrid() {
 		$grid.html( '<div class="figuro-loading">' + escapeHtml( FiguroMedia.i18n.loading ) + '</div>' );
 		$pagination.empty();
 
 		var filters = filterProps ? filterProps.toJSON() : {};
 
-		ajax( 'figuro_get_attachments', {
+		return ajax( 'figuro_get_attachments', {
 			folder: state.currentFolder,
 			paged: state.page,
 			search: state.search,
@@ -198,30 +245,25 @@
 				$grid.html( '<div class="figuro-empty">' + escapeHtml( FiguroMedia.i18n.error ) + '</div>' );
 				return;
 			}
+			applyGridData( res.data );
+		} );
+	}
 
-			$folderCount.text(
-				res.data.total
-					? res.data.total + ' ' + ( 1 === res.data.total ? FiguroMedia.i18n.file : FiguroMedia.i18n.files )
-					: ''
-			);
+	// Initial page load: tree + "All Files" grid in one admin-ajax.php request
+	// instead of two, since each admin-ajax.php call re-bootstraps all of
+	// WordPress — firing it twice just to paint the first screen is the
+	// single biggest thing slowing this page down versus core's Media Library.
+	function loadBootstrap() {
+		$grid.html( '<div class="figuro-loading">' + escapeHtml( FiguroMedia.i18n.loading ) + '</div>' );
 
-			state.gridItemIds = res.data.items.map( function ( item ) { return item.id; } );
-
-			if ( ! res.data.items.length ) {
-				$grid.html( '<div class="figuro-empty"><span class="dashicons dashicons-portfolio"></span><p>' + escapeHtml( FiguroMedia.i18n.noItems ) + '</p></div>' );
+		return ajax( 'figuro_bootstrap' ).done( function ( res ) {
+			if ( ! res.success ) {
+				loadTree();
+				loadGrid();
 				return;
 			}
-
-			var html = '';
-			res.data.items.forEach( function ( item ) {
-				html +=
-					'<div class="figuro-item" data-id="' + item.id + '" draggable="true">' +
-					'<div class="figuro-item-thumb"><img src="' + escapeHtml( item.thumb ) + '" alt="" loading="lazy" draggable="false" /></div>' +
-					'<div class="figuro-item-title" title="' + escapeHtml( item.title ) + '">' + escapeHtml( item.title ) + '</div>' +
-					'</div>';
-			} );
-			$grid.html( html );
-			renderPagination( res.data.page, res.data.totalPages );
+			applyTreeData( res.data );
+			applyGridData( res.data.attachments );
 		} );
 	}
 
@@ -313,24 +355,13 @@
 			priority: -75
 		} );
 
-		$( '#figuro-filter-type' ).empty().append(
-			new wp.media.view.Label( {
-				value: wp.media.view.l10n.filterByType,
-				attributes: { 'for': 'media-attachment-filters' }
-			} ).render().el,
-			typeFilter.el
-		);
-
-		$( '#figuro-filter-date' ).empty().append(
-			new wp.media.view.Label( {
-				value: wp.media.view.l10n.filterByDate,
-				attributes: { 'for': 'media-attachment-date-filters' }
-			} ).render().el,
-			dateFilter.el
-		);
+		$( '#figuro-filter-type' ).empty().append( typeFilter.el );
+		$( '#figuro-filter-date' ).empty().append( dateFilter.el );
 
 		filterProps.on( 'change', function () {
 			state.page = 1;
+			state.selected = {};
+			updateBulkBar();
 			loadGrid();
 		} );
 	}
@@ -368,9 +399,16 @@
 	// (title, caption, alt text, description, file URL, edit image, delete
 	// permanently, …) via WordPress's own wp.media Backbone views/models —
 	// no custom edit UI or endpoints needed.
-	function openAttachmentModal( id ) {
+	function openAttachmentModal( id, $item ) {
 		if ( ! window.wp || ! wp.media || ! wp.media.view.MediaFrame.EditAttachments ) {
 			return;
+		}
+
+		// Fetching the library (below) can take a moment on a slow connection;
+		// give the clicked card an immediate "opening" state so the click
+		// doesn't feel unresponsive while we wait for it.
+		if ( $item ) {
+			$item.addClass( 'is-opening' );
 		}
 
 		// Build the modal's prev/next set from whatever is currently on
@@ -391,6 +429,10 @@
 		} );
 
 		library.more().done( function () {
+			if ( $item ) {
+				$item.removeClass( 'is-opening' );
+			}
+
 			var attachment = library.get( id ) || wp.media.attachment( id );
 
 			if ( editFrame ) {
@@ -431,6 +473,9 @@
 
 			bindModalKeyNav();
 		} ).fail( function () {
+			if ( $item ) {
+				$item.removeClass( 'is-opening' );
+			}
 			window.alert( FiguroMedia.i18n.error );
 		} );
 	}
@@ -438,10 +483,62 @@
 	function moveAttachments( ids, folderId ) {
 		ajax( 'figuro_move_attachments', { ids: ids, folder: folderId } ).done( function ( res ) {
 			if ( res.success ) {
-				loadTree();
+				applyTreeData( res.data );
 				loadGrid();
 			} else {
 				window.alert( res.data && res.data.message ? res.data.message : FiguroMedia.i18n.error );
+			}
+		} );
+	}
+
+	// --- Bulk select ---------------------------------------------------------
+
+	function setBulkMode( on ) {
+		state.bulkMode = on;
+		state.selected = {};
+		$mediaApp.toggleClass( 'is-bulk-mode', on );
+		$bulkToggle.prop( 'hidden', on );
+		$bulkBar.prop( 'hidden', ! on );
+		$grid.find( '.figuro-item' ).removeClass( 'is-selected' );
+		updateBulkBar();
+	}
+
+	function updateBulkBar() {
+		var count = 0;
+		for ( var id in state.selected ) {
+			if ( state.selected.hasOwnProperty( id ) ) count++;
+		}
+		$bulkCount.text( count ? count + ' ' + ( 1 === count ? FiguroMedia.i18n.itemSelected : FiguroMedia.i18n.itemsSelected ) : '' );
+		$bulkDelete.prop( 'disabled', ! count );
+	}
+
+	function toggleItemSelected( id, $item ) {
+		id = id.toString();
+		if ( state.selected[ id ] ) {
+			delete state.selected[ id ];
+			$item.removeClass( 'is-selected' );
+		} else {
+			state.selected[ id ] = true;
+			$item.addClass( 'is-selected' );
+		}
+		updateBulkBar();
+	}
+
+	function deleteSelectedAttachments() {
+		var ids = Object.keys( state.selected );
+		if ( ! ids.length ) return;
+		if ( ! window.confirm( FiguroMedia.i18n.bulkDeleteConfirm ) ) return;
+
+		$bulkDelete.prop( 'disabled', true );
+
+		ajax( 'figuro_delete_attachments', { ids: ids } ).done( function ( res ) {
+			if ( res.success ) {
+				setBulkMode( false );
+				applyTreeData( res.data );
+				loadGrid();
+			} else {
+				window.alert( res.data && res.data.message ? res.data.message : FiguroMedia.i18n.error );
+				updateBulkBar();
 			}
 		} );
 	}
@@ -493,7 +590,7 @@
 		} ).done( function ( res ) {
 			if ( res.success ) {
 				$status.remove();
-				loadTree();
+				applyTreeData( res.data );
 				loadGrid();
 			} else {
 				$status.addClass( 'is-error' );
@@ -535,7 +632,7 @@
 		if ( ! name ) return;
 		ajax( 'figuro_create_folder', { name: name, parent: 0 } ).done( function ( res ) {
 			if ( res.success ) {
-				loadTree();
+				applyTreeData( res.data );
 			} else {
 				window.alert( res.data && res.data.message ? res.data.message : FiguroMedia.i18n.error );
 			}
@@ -551,7 +648,7 @@
 		ajax( 'figuro_create_folder', { name: name, parent: parentId } ).done( function ( res ) {
 			if ( res.success ) {
 				state.expanded[ parentId.toString() ] = true;
-				loadTree();
+				applyTreeData( res.data );
 			} else {
 				window.alert( res.data && res.data.message ? res.data.message : FiguroMedia.i18n.error );
 			}
@@ -567,11 +664,10 @@
 		if ( ! name || name === current ) return;
 		ajax( 'figuro_rename_folder', { id: id, name: name } ).done( function ( res ) {
 			if ( res.success ) {
-				loadTree().done( function () {
-					if ( state.currentFolder.toString() === id.toString() ) {
-						$heading.text( name );
-					}
-				} );
+				applyTreeData( res.data );
+				if ( state.currentFolder.toString() === id.toString() ) {
+					$heading.text( name );
+				}
 			} else {
 				window.alert( res.data && res.data.message ? res.data.message : FiguroMedia.i18n.error );
 			}
@@ -587,7 +683,7 @@
 				if ( state.currentFolder.toString() === id.toString() ) {
 					selectFolder( '' );
 				}
-				loadTree();
+				applyTreeData( res.data );
 			} else {
 				window.alert( res.data && res.data.message ? res.data.message : FiguroMedia.i18n.error );
 			}
@@ -626,7 +722,7 @@
 			var parent = ( '' === targetId || 'uncategorized' === targetId ) ? 0 : targetId;
 			ajax( 'figuro_move_folder', { id: folderId, parent: parent } ).done( function ( res ) {
 				if ( res.success ) {
-					loadTree();
+					applyTreeData( res.data );
 				} else {
 					window.alert( res.data && res.data.message ? res.data.message : FiguroMedia.i18n.error );
 				}
@@ -637,16 +733,37 @@
 	// --- Grid interactions ---------------------------------------------------
 
 	$grid.on( 'click', '.figuro-item', function () {
-		openAttachmentModal( $( this ).data( 'id' ) );
+		var id = $( this ).data( 'id' );
+		if ( state.bulkMode ) {
+			toggleItemSelected( id, $( this ) );
+			return;
+		}
+		openAttachmentModal( id, $( this ) );
 	} );
 
 	$grid.on( 'dragstart', '.figuro-item', function ( e ) {
+		if ( state.bulkMode ) {
+			e.preventDefault();
+			return;
+		}
 		var id = $( this ).data( 'id' ).toString();
 		e.originalEvent.dataTransfer.setData( 'text/figuro-attachments', JSON.stringify( [ id ] ) );
 	} );
 
+	$bulkToggle.on( 'click', function () {
+		setBulkMode( ! state.bulkMode );
+	} );
+
+	$bulkCancel.on( 'click', function () {
+		setBulkMode( false );
+	} );
+
+	$bulkDelete.on( 'click', deleteSelectedAttachments );
+
 	$pagination.on( 'click', 'button:not(:disabled)', function () {
 		state.page = parseInt( $( this ).data( 'page' ), 10 );
+		state.selected = {};
+		updateBulkBar();
 		loadGrid();
 		$( 'html, body' ).animate( { scrollTop: $grid.offset().top - 100 }, 200 );
 	} );
@@ -658,6 +775,8 @@
 		searchTimer = setTimeout( function () {
 			state.search = val;
 			state.page = 1;
+			state.selected = {};
+			updateBulkBar();
 			loadGrid();
 		}, 350 );
 	} );
@@ -707,7 +826,7 @@
 	$( function () {
 		renderPinned();
 		initFilters();
-		loadTree();
-		selectFolder( '' );
+		$heading.text( folderName( '' ) );
+		loadBootstrap();
 	} );
 } )( jQuery );
