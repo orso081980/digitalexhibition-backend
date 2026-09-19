@@ -2,8 +2,8 @@
 #
 # Reinstalls the third-party plugins that are gitignored from this repo
 # (wp-content/plugins/ tracks only our own in-house plugins — figuro-folder,
-# custom_dashboard). Run this after a fresh clone / on a new server, from the
-# WordPress root:
+# custom_dashboard, cloudflare-deploy-trigger). Run this after a fresh clone /
+# on a new server, from the WordPress root:
 #
 #   bin/install-plugins.sh
 #
