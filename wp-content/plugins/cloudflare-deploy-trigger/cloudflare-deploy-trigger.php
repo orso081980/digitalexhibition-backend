@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Cloudflare Deploy Trigger
- * Description: Adds a "Deploy Frontend" button to the admin bar. Editors click it once they're done making changes, and it triggers a Cloudflare Workers Build deploy hook — the Nuxt frontend re-fetches everything from this site's REST API and redeploys as a static build.
+ * Description: Adds a "Deploy Frontend" button to Settings → Deploy Frontend. Click it once you're done making changes, and it triggers a Cloudflare Workers Build deploy hook — the Nuxt frontend re-fetches everything from this site's REST API and redeploys as a static build.
  * Version: 1.0
  * Author: Digital Exhibition
  */
@@ -14,7 +14,9 @@ define('CFDT_OPTION_HOOK_URL', 'cfdt_deploy_hook_url');
 define('CFDT_OPTION_LAST_RUN', 'cfdt_last_run');
 define('CFDT_NONCE_ACTION', 'cfdt_trigger_deploy');
 define('CFDT_COOLDOWN_SECONDS', 60);
-// The capability required to see the button and trigger a deploy.
+// The capability required to trigger a deploy. The settings page itself is
+// already gated to `manage_options` (see `add_options_page` below), so in
+// practice only administrators ever reach the button.
 define('CFDT_CAPABILITY', 'edit_posts');
 
 /**
@@ -61,21 +63,31 @@ function cfdt_register_settings_page() {
 }
 add_action('admin_menu', 'cfdt_register_settings_page');
 
+/**
+ * Settings page markup: the URL field (rendered by the Settings API above),
+ * then the "Deploy Frontend" button right after it — before the "Save
+ * Changes" submit button — then the Save button, then a last-triggered line.
+ */
 function cfdt_render_settings_page() {
 	if (!current_user_can('manage_options')) {
 		return;
 	}
 	$last_run = get_option(CFDT_OPTION_LAST_RUN);
+	$ajax_url = admin_url('admin-ajax.php');
+	$nonce = wp_create_nonce(CFDT_NONCE_ACTION);
 	?>
 	<div class="wrap">
 		<h1>Deploy Frontend</h1>
-		<p>Configures the "Deploy Frontend" button in the admin bar (top of every admin page). Clicking it triggers a Cloudflare Workers Build, which rebuilds and redeploys the Nuxt frontend with whatever is currently published here.</p>
+		<p>Clicking "Deploy Frontend" below triggers a Cloudflare Workers Build, which rebuilds and redeploys the Nuxt frontend with whatever is currently published here.</p>
 		<form method="post" action="options.php">
 			<?php
 			settings_fields('cfdt_settings');
 			do_settings_sections('cfdt_settings');
-			submit_button('Save');
 			?>
+			<p>
+				<button type="button" id="cfdt-deploy-button" class="button button-secondary">🚀 Deploy Frontend</button>
+			</p>
+			<?php submit_button('Save'); ?>
 		</form>
 		<?php if (!empty($last_run) && !empty($last_run['time'])) : ?>
 			<p>
@@ -85,88 +97,49 @@ function cfdt_render_settings_page() {
 			</p>
 		<?php endif; ?>
 	</div>
-	<?php
-}
-
-/**
- * Admin bar button, visible to anyone who can edit content — not just admins,
- * since any editor finishing up changes should be able to trigger a deploy.
- */
-function cfdt_add_admin_bar_button($wp_admin_bar) {
-	if (!current_user_can(CFDT_CAPABILITY) || !is_admin_bar_showing()) {
-		return;
-	}
-	$wp_admin_bar->add_node([
-		'id' => 'cfdt-deploy',
-		'title' => '🚀 Deploy Frontend',
-		'href' => '#',
-		'meta' => ['class' => 'cfdt-deploy-button'],
-	]);
-}
-add_action('admin_bar_menu', 'cfdt_add_admin_bar_button', 90);
-
-/**
- * Inline script for the admin bar button: confirm, disable while in flight,
- * call the AJAX handler below, show the result. No build step / dependency
- * on anything beyond what wp-admin already loads.
- */
-function cfdt_print_admin_bar_script() {
-	if (!current_user_can(CFDT_CAPABILITY) || !is_admin_bar_showing()) {
-		return;
-	}
-	$ajax_url = admin_url('admin-ajax.php');
-	$nonce = wp_create_nonce(CFDT_NONCE_ACTION);
-	?>
 	<script>
 	(function () {
-		document.addEventListener('DOMContentLoaded', function () {
-			var link = document.getElementById('wp-admin-bar-cfdt-deploy');
-			if (!link) return;
-			var anchor = link.querySelector('a');
-			if (!anchor) return;
+		var button = document.getElementById('cfdt-deploy-button');
+		if (!button) return;
 
-			anchor.addEventListener('click', function (e) {
-				e.preventDefault();
-				if (anchor.dataset.busy === '1') return;
-				if (!window.confirm('Deploy the frontend now with everything currently published?')) return;
+		button.addEventListener('click', function () {
+			if (button.dataset.busy === '1') return;
+			if (!window.confirm('Deploy the frontend now with everything currently published?')) return;
 
-				anchor.dataset.busy = '1';
-				var original = anchor.textContent;
-				anchor.textContent = 'Deploying…';
+			button.dataset.busy = '1';
+			var original = button.textContent;
+			button.textContent = 'Deploying…';
 
-				var body = new URLSearchParams();
-				body.set('action', 'cfdt_trigger_deploy');
-				body.set('nonce', <?php echo wp_json_encode($nonce); ?>);
+			var body = new URLSearchParams();
+			body.set('action', 'cfdt_trigger_deploy');
+			body.set('nonce', <?php echo wp_json_encode($nonce); ?>);
 
-				fetch(<?php echo wp_json_encode($ajax_url); ?>, {
-					method: 'POST',
-					credentials: 'same-origin',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-					body: body.toString(),
+			fetch(<?php echo wp_json_encode($ajax_url); ?>, {
+				method: 'POST',
+				credentials: 'same-origin',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				body: body.toString(),
+			})
+				.then(function (r) { return r.json(); })
+				.then(function (res) {
+					button.dataset.busy = '';
+					button.textContent = original;
+					if (res && res.success) {
+						window.alert('Deploy triggered. The frontend will be live again in a couple of minutes.');
+					} else {
+						window.alert('Could not trigger the deploy: ' + ((res && res.data && res.data.message) || 'unknown error'));
+					}
 				})
-					.then(function (r) { return r.json(); })
-					.then(function (res) {
-						anchor.dataset.busy = '';
-						anchor.textContent = original;
-						if (res && res.success) {
-							window.alert('Deploy triggered. The frontend will be live again in a couple of minutes.');
-						} else {
-							window.alert('Could not trigger the deploy: ' + ((res && res.data && res.data.message) || 'unknown error'));
-						}
-					})
-					.catch(function (err) {
-						anchor.dataset.busy = '';
-						anchor.textContent = original;
-						window.alert('Could not trigger the deploy: ' + err.message);
-					});
-			});
+				.catch(function (err) {
+					button.dataset.busy = '';
+					button.textContent = original;
+					window.alert('Could not trigger the deploy: ' + err.message);
+				});
 		});
 	})();
 	</script>
 	<?php
 }
-add_action('wp_footer', 'cfdt_print_admin_bar_script');
-add_action('admin_footer', 'cfdt_print_admin_bar_script');
 
 /**
  * AJAX handler: verifies the nonce + capability, enforces a short cooldown
