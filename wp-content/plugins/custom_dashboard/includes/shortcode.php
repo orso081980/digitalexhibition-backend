@@ -708,9 +708,26 @@ if (!function_exists("acf_list_pdf_shortocde")) {
                             <div class="acf-pdf-label"><?php echo esc_html($nome_pdf); ?></div>
                         <?php endif;
                         $shortcode_pdf_content = get_sub_field("shortcode_pdf");
-                        if ($shortcode_pdf_content):
+                        if ($shortcode_pdf_content) {
+                            // Legacy rows: a hand-written [dflip id="..."] pointing at a
+                            // pre-created dflip catalog entry. Left untouched.
                             echo do_shortcode($shortcode_pdf_content);
-                        endif;
+                        } else {
+                            // New rows: no shortcode, just a PDF uploaded straight to this
+                            // repeater row. dFlip's own shortcode accepts a raw `source`
+                            // URL (see DFlip_ShortCode::book()) so this renders a flipbook
+                            // without needing a dflip catalog post at all — this is the
+                            // path new entries should use going forward, per the plan to
+                            // eventually drop the shortcode field entirely.
+                            $pdf_file_url = get_sub_field("pdf_file");
+                            if ($pdf_file_url) {
+                                echo do_shortcode(
+                                    '[dflip source="' . esc_url($pdf_file_url) . '"]' .
+                                    esc_html($nome_pdf) .
+                                    '[/dflip]'
+                                );
+                            }
+                        }
                         ?>
                     </div><?php
                 endwhile; ?>
