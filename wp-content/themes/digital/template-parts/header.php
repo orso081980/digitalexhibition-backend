@@ -116,7 +116,7 @@ $header_nav_menu = wp_nav_menu( [
 <footer>
 <div class="box_platform">
 	A platform from
-	<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/logo_tue.png " alt="Logo TUE" />
+	<img style="padding-top:10px; padding-bottom:10px;" src="<?php echo content_url("plugins/custom_dashboard/images/tue-black.svg"); ?>" alt="Logo TUE" />
 </div>
 
 

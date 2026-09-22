@@ -77,7 +77,7 @@ function custom_change_posts_menu_label()
 add_action("admin_bar_menu", "replace_wp_logo", 999);
 function replace_wp_logo($wp_admin_bar)
 {
-	$logo_url = plugins_url("../images/logo_tue.png", __FILE__);
+	$logo_url = plugins_url("../images/tue-logo.svg", __FILE__);
 	$wp_admin_bar->add_node([
 		"id" => "wp-logo",
 		"meta" => [
@@ -91,7 +91,7 @@ function replace_wp_logo($wp_admin_bar)
 add_action("admin_head", "custom_wp_admin_bar_css");
 function custom_wp_admin_bar_css()
 {
-	$url = plugins_url("../images/logo_tue.png", __FILE__);
+	$url = plugins_url("../images/tue-logo.svg", __FILE__);
 	echo '<style>
     #wp-admin-bar-wp-logo {
         width: 180px!important;
@@ -116,7 +116,7 @@ function custom_wp_admin_bar_css()
 add_action("login_enqueue_scripts", "custom_login_logo");
 function custom_login_logo()
 {
-	$url = plugins_url("../images/logo_tue.png", __FILE__);
+	$url = plugins_url("../images/tue-logo.svg", __FILE__);
 	echo '<style>
 
          #login h1 a {

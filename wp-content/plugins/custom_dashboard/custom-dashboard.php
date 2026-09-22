@@ -147,28 +147,6 @@ function cd_render_my_custom_another_widget()
 		"</p>";
 }
 
-function cd_add_dashboard_widgets()
-{
-	wp_add_dashboard_widget(
-		"cd_dashboard_analytics", // ID univoco del widget.
-		"Analytics", // Titolo del widget mostrato nella bacheca.
-		"cd_dashboard_widget_display" // Funzione di callback per renderizzare l'HTML del widget.
-	);
-}
-add_action("wp_dashboard_setup", "cd_add_dashboard_widgets");
-
-function cd_dashboard_widget_display()
-{
-	// --- Annotazione Chiave ---
-	$image_url = plugins_url("images/analyst.png", __FILE__);
-
-	echo '<div style="text-align: center;">';
-	echo '<img src="' .
-		esc_url($image_url) .
-		'" alt="Analyst Image" style="max-width: 100%; height: auto;">';
-	echo "</div>";
-}
-
 // --- ACF DEPENDENCY CHECK & POST EDITOR MODIFICATIONS ---
 add_action(
 	"init",
