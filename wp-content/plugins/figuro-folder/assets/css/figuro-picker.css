@@ -1,0 +1,187 @@
+/* Folder sidebar inside the media popup (see assets/js/figuro-picker.js). */
+
+@media (min-width: 901px) {
+	/* Show the popup's left column and widen it (single-state frames such as
+	   ACF's file picker hide it with `.hide-menu`), then push the rest of the
+	   frame across. The extra `.media-frame` keeps this above core's rules. */
+	.media-modal .media-frame.figuro-has-sidebar .media-frame-menu {
+		display: flex;
+		flex-direction: column;
+		width: 280px;
+	}
+
+	.media-modal .media-frame.figuro-has-sidebar .media-frame-title,
+	.media-modal .media-frame.figuro-has-sidebar .media-frame-router,
+	.media-modal .media-frame.figuro-has-sidebar .media-frame-content,
+	.media-modal .media-frame.figuro-has-sidebar .media-frame-toolbar {
+		left: 280px;
+	}
+
+	/* Core stretches the menu over the whole column (position: absolute,
+	   top/bottom 0), which would cover the sidebar — let it take just the
+	   height of its own items instead. */
+	.media-modal .media-frame.figuro-has-sidebar .media-frame-menu > .media-menu {
+		position: relative;
+		top: auto;
+		bottom: auto;
+		flex: 0 0 auto;
+		padding-bottom: 8px;
+	}
+}
+
+@media (max-width: 900px) {
+	.figuro-picker {
+		display: none;
+	}
+}
+
+.figuro-picker {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	min-height: 0;
+	padding: 12px 12px 8px;
+	border-top: 1px solid #dcdcde;
+	font-size: 13px;
+}
+
+.figuro-picker-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	margin-bottom: 10px;
+}
+
+.figuro-picker-title {
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.figuro-picker-actions {
+	display: flex;
+	gap: 6px;
+	margin-bottom: 10px;
+}
+
+.figuro-picker-actions .button[disabled] {
+	opacity: 0.5;
+}
+
+.figuro-picker-list,
+.figuro-picker-list ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.figuro-picker-pinned {
+	margin-bottom: 8px;
+}
+
+.figuro-picker-search {
+	width: 100%;
+	margin: 0 0 8px;
+}
+
+.figuro-picker-scroll {
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow-y: auto;
+}
+
+.figuro-picker-row {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 8px;
+	border-radius: 3px;
+	color: #1d2327;
+	cursor: pointer;
+}
+
+.figuro-picker-row:hover {
+	background: #f0f0f1;
+}
+
+.figuro-picker-row.is-selected {
+	background: #f0f6fc;
+	color: #2271b1;
+}
+
+.figuro-picker-row:focus {
+	outline: 2px solid #2271b1;
+	outline-offset: -2px;
+}
+
+/* Disclosure arrow — only folders with subfolders get one. */
+.figuro-picker-toggle {
+	flex: 0 0 16px;
+	width: 16px;
+	height: 16px;
+}
+
+.figuro-picker-row.has-children .figuro-picker-toggle {
+	cursor: pointer;
+}
+
+.figuro-picker-row.has-children .figuro-picker-toggle::before {
+	content: '';
+	display: block;
+	width: 0;
+	height: 0;
+	margin: 4px 0 0 5px;
+	border-top: 4px solid transparent;
+	border-bottom: 4px solid transparent;
+	border-left: 5px solid #787c82;
+	transform: rotate(90deg);
+	transition: transform 0.15s;
+}
+
+.figuro-picker-row.has-children.is-collapsed .figuro-picker-toggle::before {
+	transform: none;
+}
+
+.figuro-picker-icon {
+	flex: 0 0 20px;
+	width: 20px;
+	height: 20px;
+	font-size: 20px;
+	color: #787c82;
+}
+
+.figuro-picker-row.is-selected .figuro-picker-icon {
+	color: #2271b1;
+}
+
+.figuro-picker-row.is-all .figuro-picker-icon::before {
+	content: '\f102'; /* dashicons-admin-home */
+}
+
+.figuro-picker-row.is-uncategorized .figuro-picker-icon::before {
+	content: '\f534'; /* dashicons-warning */
+}
+
+.figuro-picker-row.is-folder .figuro-picker-icon::before {
+	content: '\f318'; /* dashicons-category */
+}
+
+.figuro-picker-name {
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.figuro-picker-count {
+	flex: 0 0 auto;
+	min-width: 24px;
+	padding: 1px 6px;
+	border-radius: 3px;
+	background: #fff;
+	font-size: 12px;
+	text-align: center;
+}

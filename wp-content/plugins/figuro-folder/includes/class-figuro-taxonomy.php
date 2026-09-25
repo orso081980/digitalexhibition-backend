@@ -336,7 +336,14 @@ class Figuro_Taxonomy {
 
 		$options = '<option value="0"' . selected( $selected, 0, false ) . '>' . esc_html__( 'Uncategorized', 'figuro-media' ) . '</option>';
 
-		foreach ( self::flatten_tree( self::get_tree() ) as $node ) {
+		// Core builds this field for every attachment in a listing (up to 80 per
+		// request), so the tree is fetched once and reused, not once per file.
+		static $flat = null;
+		if ( null === $flat ) {
+			$flat = self::flatten_tree( self::get_tree() );
+		}
+
+		foreach ( $flat as $node ) {
 			$options .= sprintf(
 				'<option value="%1$d"%2$s>%3$s%4$s</option>',
 				$node['id'],
