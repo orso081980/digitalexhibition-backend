@@ -329,3 +329,55 @@ add_action('admin_menu', function() {
 		 $query->set( 'meta_query', $meta_query );
 		 $query->set( 'post_type', array( 'post', 'courses', 'archiprix', 'seminars' ) );
  }, 20 );
+
+ // --- 9. REST: HOME FEED (per il front-end headless) ---
+ // Elenco pubblico delle voci con "Show on Homepage" attivo, nello stesso formato
+ // di wp/v2 (con _embed di term e immagine in evidenza). Il meta è protetto
+ // (prefisso "_"), quindi non è filtrabile dalle route standard.
+ add_action('rest_api_init', function () {
+		 register_rest_route('cd/v1', '/home', [
+				 'methods'             => 'GET',
+				 'callback'            => 'cd_rest_home_callback',
+				 'permission_callback' => '__return_true',
+		 ]);
+ });
+
+ function cd_rest_home_callback() {
+		 $ids_by_type = [];
+		 foreach (['post', 'courses', 'archiprix', 'seminars'] as $type) {
+				 $ids = get_posts([
+						 'post_type'   => $type,
+						 'post_status' => 'publish',
+						 'numberposts' => -1,
+						 'fields'      => 'ids',
+						 'meta_key'    => CD_META_KEY_SHOW_PAGE,
+						 'meta_value'  => '1',
+				 ]);
+				 if ($ids) $ids_by_type[$type] = $ids;
+		 }
+
+		 $out = [];
+		 foreach ($ids_by_type as $type => $ids) {
+				 $object = get_post_type_object($type);
+				 $base   = ($object && $object->rest_base) ? $object->rest_base : $type;
+
+				 $req = new WP_REST_Request('GET', '/wp/v2/' . $base);
+				 $req->set_query_params([
+						 'include'  => $ids,
+						 'per_page' => 100,
+						 'orderby'  => 'date',
+						 'order'    => 'desc',
+				 ]);
+				 $res = rest_do_request($req);
+				 if ($res->is_error()) continue;
+
+				 $data = rest_get_server()->response_to_data($res, ['wp:term', 'wp:featuredmedia']);
+				 $out  = array_merge($out, $data);
+		 }
+
+		 usort($out, function ($a, $b) {
+				 return strcmp($b['date'], $a['date']);
+		 });
+
+		 return rest_ensure_response($out);
+ }
