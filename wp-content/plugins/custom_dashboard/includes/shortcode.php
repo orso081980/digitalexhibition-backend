@@ -707,26 +707,21 @@ if (!function_exists("acf_list_pdf_shortocde")) {
                         if ($nome_pdf): ?>
                             <div class="acf-pdf-label"><?php echo esc_html($nome_pdf); ?></div>
                         <?php endif;
-                        $shortcode_pdf_content = get_sub_field("shortcode_pdf");
-                        if ($shortcode_pdf_content) {
-                            // Legacy rows: a hand-written [dflip id="..."] pointing at a
-                            // pre-created dflip catalog entry. Left untouched.
-                            echo do_shortcode($shortcode_pdf_content);
-                        } else {
-                            // New rows: no shortcode, just a PDF uploaded straight to this
-                            // repeater row. dFlip's own shortcode accepts a raw `source`
-                            // URL (see DFlip_ShortCode::book()) so this renders a flipbook
-                            // without needing a dflip catalog post at all — this is the
-                            // path new entries should use going forward, per the plan to
-                            // eventually drop the shortcode field entirely.
-                            $pdf_file_url = get_sub_field("pdf_file");
-                            if ($pdf_file_url) {
-                                echo do_shortcode(
-                                    '[dflip source="' . esc_url($pdf_file_url) . '"]' .
-                                    esc_html($nome_pdf) .
-                                    '[/dflip]'
-                                );
-                            }
+                        // Each row is bound straight to a PDF uploaded to the media
+                        // library — the shortcode field is gone. `pdf_file` returns the
+                        // attachment ID, so resolve it to a URL before handing it to
+                        // dFlip's own shortcode, which accepts a raw `source` URL (see
+                        // DFlip_ShortCode::book()) and renders a flipbook without needing
+                        // a dflip catalog post at all.
+                        $pdf_file = get_sub_field("pdf_file");
+                        $pdf_file_id = is_array($pdf_file) ? ($pdf_file['ID'] ?? $pdf_file['id'] ?? null) : $pdf_file;
+                        $pdf_file_url = $pdf_file_id ? wp_get_attachment_url($pdf_file_id) : '';
+                        if ($pdf_file_url) {
+                            echo do_shortcode(
+                                '[dflip source="' . esc_url($pdf_file_url) . '"]' .
+                                esc_html($nome_pdf) .
+                                '[/dflip]'
+                            );
                         }
                         ?>
                     </div><?php
