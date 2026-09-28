@@ -708,14 +708,12 @@ if (!function_exists("acf_list_pdf_shortocde")) {
                             <div class="acf-pdf-label"><?php echo esc_html($nome_pdf); ?></div>
                         <?php endif;
                         // Each row is bound straight to a PDF uploaded to the media
-                        // library — the shortcode field is gone. `pdf_file` returns the
-                        // attachment ID, so resolve it to a URL before handing it to
-                        // dFlip's own shortcode, which accepts a raw `source` URL (see
-                        // DFlip_ShortCode::book()) and renders a flipbook without needing
-                        // a dflip catalog post at all.
-                        $pdf_file = get_sub_field("pdf_file");
-                        $pdf_file_id = is_array($pdf_file) ? ($pdf_file['ID'] ?? $pdf_file['id'] ?? null) : $pdf_file;
-                        $pdf_file_url = $pdf_file_id ? wp_get_attachment_url($pdf_file_id) : '';
+                        // library — the shortcode field is gone. `pdf_file`'s return
+                        // format is "url" (see its field settings), so this is already
+                        // the file URL — hand it straight to dFlip's own shortcode,
+                        // which accepts a raw `source` URL (see DFlip_ShortCode::book())
+                        // and renders a flipbook without needing a dflip catalog post.
+                        $pdf_file_url = get_sub_field("pdf_file");
                         if ($pdf_file_url) {
                             echo do_shortcode(
                                 '[dflip source="' . esc_url($pdf_file_url) . '"]' .
