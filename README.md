@@ -48,13 +48,6 @@ by our own Figuro Media.
 | `*.log`, `wp-content/logs/`, `wp-content/compressx/log/` | Runtime logs |
 | `wp-content/upgrade*/`, `*-upgrade-temp-backup/` | WordPress update scratch dirs |
 
-## Restoring something that was removed
-
-Everything deleted here is still in the initial import (commit `35c6d25`):
-
-```
-git checkout 35c6d25 -- wp-content/themes/chique
-```
 
 ## Deploy
 
