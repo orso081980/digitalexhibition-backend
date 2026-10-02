@@ -7,7 +7,6 @@ class Figuro_Ajax {
 
 	public static function init() {
 		$actions = array(
-			'figuro_bootstrap'         => 'bootstrap',
 			'figuro_get_tree'          => 'get_tree',
 			'figuro_create_folder'     => 'create_folder',
 			'figuro_rename_folder'     => 'rename_folder',
@@ -15,7 +14,6 @@ class Figuro_Ajax {
 			'figuro_delete_folder'     => 'delete_folder',
 			'figuro_get_attachments'   => 'get_attachments',
 			'figuro_move_attachments'  => 'move_attachments',
-			'figuro_delete_attachments' => 'delete_attachments',
 			'figuro_upload_attachment' => 'upload_attachment',
 			'figuro_rerun_migration'   => 'rerun_migration',
 		);
@@ -34,36 +32,10 @@ class Figuro_Ajax {
 
 	public static function get_tree() {
 		self::check();
-		wp_send_json_success( self::tree_payload() );
-	}
-
-	/**
-	 * Folder tree + counts, as a plain array (not a JSON response) so it can
-	 * be reused both by get_tree() and embedded in other endpoints' payloads
-	 * to save a follow-up round trip.
-	 */
-	private static function tree_payload() {
-		return array(
-			'tree'   => Figuro_Taxonomy::get_tree(),
-			'counts' => Figuro_Taxonomy::get_totals(),
-		);
-	}
-
-	/**
-	 * The initial "Folders" screen needs the tree and the default "All Files"
-	 * grid before it can render anything useful. Fetching both in one request
-	 * avoids paying admin-ajax.php's full WordPress bootstrap twice just to
-	 * paint the first screen.
-	 */
-	public static function bootstrap() {
-		self::check();
-
-		$query = Figuro_Taxonomy::get_attachments( '', 1, 60, '', array() );
-
 		wp_send_json_success(
-			array_merge(
-				self::tree_payload(),
-				array( 'attachments' => self::attachments_payload( $query, 1 ) )
+			array(
+				'tree'   => Figuro_Taxonomy::get_tree(),
+				'counts' => Figuro_Taxonomy::get_totals(),
 			)
 		);
 	}
@@ -80,7 +52,7 @@ class Figuro_Ajax {
 			wp_send_json_error( array( 'message' => $result->get_error_message() ) );
 		}
 
-		wp_send_json_success( array_merge( array( 'id' => (int) $result['term_id'] ), self::tree_payload() ) );
+		wp_send_json_success( array( 'id' => (int) $result['term_id'] ) );
 	}
 
 	public static function rename_folder() {
@@ -95,7 +67,7 @@ class Figuro_Ajax {
 			wp_send_json_error( array( 'message' => $result->get_error_message() ) );
 		}
 
-		wp_send_json_success( self::tree_payload() );
+		wp_send_json_success();
 	}
 
 	public static function move_folder() {
@@ -110,7 +82,7 @@ class Figuro_Ajax {
 			wp_send_json_error( array( 'message' => $result->get_error_message() ) );
 		}
 
-		wp_send_json_success( self::tree_payload() );
+		wp_send_json_success();
 	}
 
 	public static function delete_folder() {
@@ -128,7 +100,7 @@ class Figuro_Ajax {
 			);
 		}
 
-		wp_send_json_success( self::tree_payload() );
+		wp_send_json_success();
 	}
 
 	public static function get_attachments() {
@@ -151,18 +123,9 @@ class Figuro_Ajax {
 
 		$query = Figuro_Taxonomy::get_attachments( $folder_arg, $paged, 60, $search, $filters );
 
-		wp_send_json_success( self::attachments_payload( $query, $paged ) );
-	}
-
-	/**
-	 * @param WP_Query $query
-	 * @param int      $paged
-	 * @return array{items:array,page:int,totalPages:int,total:int}
-	 */
-	private static function attachments_payload( WP_Query $query, $paged ) {
 		$items = array();
 		foreach ( $query->posts as $post ) {
-			$thumb   = wp_get_attachment_image_src( $post->ID, 'thumbnail' );
+			$thumb     = wp_get_attachment_image_src( $post->ID, 'thumbnail' );
 			$items[] = array(
 				'id'    => $post->ID,
 				'title' => get_the_title( $post ),
@@ -170,11 +133,13 @@ class Figuro_Ajax {
 			);
 		}
 
-		return array(
-			'items'      => $items,
-			'page'       => $paged,
-			'totalPages' => (int) $query->max_num_pages,
-			'total'      => (int) $query->found_posts,
+		wp_send_json_success(
+			array(
+				'items'      => $items,
+				'page'       => $paged,
+				'totalPages' => (int) $query->max_num_pages,
+				'total'      => (int) $query->found_posts,
+			)
 		);
 	}
 
@@ -197,38 +162,7 @@ class Figuro_Ajax {
 			}
 		}
 
-		wp_send_json_success( array_merge( array( 'moved' => $moved ), self::tree_payload() ) );
-	}
-
-	/**
-	 * Permanently deletes one or more attachments (bulk select action).
-	 */
-	public static function delete_attachments() {
-		self::check();
-
-		$ids = isset( $_POST['ids'] ) ? array_map( 'absint', (array) $_POST['ids'] ) : array();
-
-		if ( empty( $ids ) ) {
-			wp_send_json_error( array( 'message' => __( 'No files selected.', 'figuro-media' ) ) );
-		}
-
-		require_once ABSPATH . 'wp-admin/includes/image.php';
-
-		$deleted = 0;
-		foreach ( $ids as $id ) {
-			if ( ! current_user_can( 'delete_post', $id ) ) {
-				continue;
-			}
-			if ( wp_delete_attachment( $id, true ) ) {
-				$deleted++;
-			}
-		}
-
-		if ( ! $deleted ) {
-			wp_send_json_error( array( 'message' => __( 'Could not delete the selected files.', 'figuro-media' ) ) );
-		}
-
-		wp_send_json_success( array_merge( array( 'deleted' => $deleted ), self::tree_payload() ) );
+		wp_send_json_success( array( 'moved' => $moved ) );
 	}
 
 	/**
@@ -261,13 +195,10 @@ class Figuro_Ajax {
 		$thumb = wp_get_attachment_image_src( $attachment_id, 'thumbnail' );
 
 		wp_send_json_success(
-			array_merge(
-				array(
-					'id'    => $attachment_id,
-					'title' => get_the_title( $attachment_id ),
-					'thumb' => $thumb ? $thumb[0] : wp_mime_type_icon( $attachment_id ),
-				),
-				self::tree_payload()
+			array(
+				'id'    => $attachment_id,
+				'title' => get_the_title( $attachment_id ),
+				'thumb' => $thumb ? $thumb[0] : wp_mime_type_icon( $attachment_id ),
 			)
 		);
 	}

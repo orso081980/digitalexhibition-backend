@@ -18,32 +18,6 @@ class Figuro_Taxonomy {
 		// from there like any other attachment field.
 		add_filter( 'attachment_fields_to_edit', array( __CLASS__, 'add_folder_field' ), 10, 2 );
 		add_filter( 'attachment_fields_to_save', array( __CLASS__, 'save_folder_field' ), 10, 2 );
-
-		// Core's "All media items" / "Documents" filter already matches PDFs
-		// (they're bundled together with Word docs, RTF, etc.), but there's no
-		// way to filter for just PDFs on their own. Add a dedicated entry —
-		// this feeds both our own type filter and the core Media Library's.
-		add_filter( 'post_mime_types', array( __CLASS__, 'add_pdf_mime_type' ) );
-	}
-
-	/**
-	 * @param array $post_mime_types
-	 * @return array
-	 */
-	public static function add_pdf_mime_type( $post_mime_types ) {
-		if ( ! isset( $post_mime_types['application/pdf'] ) ) {
-			$post_mime_types['application/pdf'] = array(
-				__( 'PDFs', 'figuro-media' ),
-				__( 'Manage PDFs', 'figuro-media' ),
-				_n_noop(
-					'PDF <span class="count">(%s)</span>',
-					'PDFs <span class="count">(%s)</span>',
-					'figuro-media'
-				),
-			);
-		}
-
-		return $post_mime_types;
 	}
 
 	public static function register() {
@@ -336,14 +310,7 @@ class Figuro_Taxonomy {
 
 		$options = '<option value="0"' . selected( $selected, 0, false ) . '>' . esc_html__( 'Uncategorized', 'figuro-media' ) . '</option>';
 
-		// Core builds this field for every attachment in a listing (up to 80 per
-		// request), so the tree is fetched once and reused, not once per file.
-		static $flat = null;
-		if ( null === $flat ) {
-			$flat = self::flatten_tree( self::get_tree() );
-		}
-
-		foreach ( $flat as $node ) {
+		foreach ( self::flatten_tree( self::get_tree() ) as $node ) {
 			$options .= sprintf(
 				'<option value="%1$d"%2$s>%3$s%4$s</option>',
 				$node['id'],
