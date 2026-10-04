@@ -51,6 +51,6 @@ by our own Figuro Media.
 
 ## Deploy
 
-Not wired yet — planned as GitHub Actions → SSH/rsync to the TU/e server, on
+Not wired yet — planned as GitHub Actions → SSH/rsync, on
 merge to `main`, after the change is verified on staging (plan workstream 6).
 Until then this repo is history + backup only.
