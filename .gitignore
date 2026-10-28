@@ -69,7 +69,9 @@ wp-content/plugins/*
 
 
 # === Third-party themes ===
-# Not tracked. Only our own theme (digital) is version-controlled.
+# Not tracked. Only our own theme (tue-digital-exhibition) is version-controlled.
+# The slug is deliberately not "digital": that name exists on wordpress.org and
+# Plesk WP Toolkit would auto-update it with an unrelated theme.
 wp-content/themes/*
-!wp-content/themes/digital/
+!wp-content/themes/tue-digital-exhibition/
 !wp-content/themes/index.php
