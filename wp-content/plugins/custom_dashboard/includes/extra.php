@@ -538,17 +538,6 @@ function vb_add_sticky_bottom_actions() {
 						cursor: not-allowed;
 				}
 
-				.vb-btn-preview {
-						background-color: #f0f0f1;
-						color: #2c3338;
-						border: 1px solid #c3c4c7;
-				}
-				.vb-btn-preview:hover {
-						background-color: #ffffff;
-						border-color: var(--blue-light) !important;
-						color: var(--blue-light) !important;
-				}
-
 				/* Responsive adjustments for Admin Sidebar */
 				@media (min-width: 783px) {
 						#vb-sticky-actions {
@@ -564,14 +553,12 @@ function vb_add_sticky_bottom_actions() {
 
 		<div id="vb-sticky-actions">
 				<button id="vb-btn-update" class="vb-action-btn vb-btn-update">Update</button>
-				<button id="vb-btn-preview" class="vb-action-btn vb-btn-preview">Preview Changes</button>
 		</div>
 
 		<script type="text/javascript">
 				document.addEventListener("DOMContentLoaded", function() {
 						const stickyBar = document.getElementById('vb-sticky-actions');
 						const btnUpdate = document.getElementById('vb-btn-update');
-						const btnPreview = document.getElementById('vb-btn-preview');
 
 						// 1. SCROLL LOGIC
 						// ------------------------------------------------
@@ -632,43 +619,6 @@ function vb_add_sticky_bottom_actions() {
 								alert('Update button not found.');
 						});
 
-						// PREVIEW ACTION
-						btnPreview.addEventListener('click', function(e) {
-								e.preventDefault();
-
-								// STEP 1: Check for Classic Preview Button
-								const classicPreviewBtn = document.getElementById('post-preview');
-
-								if (classicPreviewBtn) {
-										// --- CLASSIC EDITOR LOGIC ---
-										const originalTarget = classicPreviewBtn.target;
-										classicPreviewBtn.target = '_blank';
-
-										// Prefer href if available for cleaner new tab opening
-										if (classicPreviewBtn.href && classicPreviewBtn.href !== '#') {
-												window.open(classicPreviewBtn.href, '_blank');
-										} else {
-												classicPreviewBtn.click();
-										}
-
-										classicPreviewBtn.target = originalTarget;
-										return;
-								}
-
-								// STEP 2: Try Gutenberg Preview
-								if (typeof wp !== 'undefined' && wp.data && wp.data.select) {
-										const editorSelect = wp.data.select('core/editor');
-										if (editorSelect) {
-												 const previewLink = editorSelect.getEditedPostPreviewLink();
-												 if (previewLink) {
-														window.open(previewLink, '_blank');
-														return;
-												 }
-										}
-								}
-
-								alert('Preview button not found.');
-						});
 				});
 		</script>
 		<?php

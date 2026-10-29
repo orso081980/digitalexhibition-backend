@@ -125,3 +125,41 @@ function cs_add_all_caps_to_school_role()
 
 // Eseguiamo la funzione direttamente per forzare l'aggiornamento.
 cs_add_all_caps_to_school_role();
+
+
+/**
+ * Admin sidebar order, for every role: the day-to-day items first, in this
+ * order, then whatever else is installed in WordPress's usual order.
+ *
+ * Uses the `menu_order` filter (runs after all `admin_menu` callbacks, so
+ * menus added by other plugins are already present). Slugs that don't exist
+ * for the current user (a role without access, a plugin that's off) are
+ * simply skipped. Separators are left where they are among "the rest".
+ */
+add_filter("custom_menu_order", "__return_true");
+add_filter("menu_order", "cd_admin_menu_order", 999);
+function cd_admin_menu_order(array $menu_order): array
+{
+	$priority = [
+		"index.php", // Home
+		"upload.php", // Media
+		"edit.php", // Projects (relabelled posts)
+		"edit.php?post_type=courses", // Courses
+		"edit.php?post_type=seminars", // Seminars
+		"edit.php?post_type=archiprix", // Archiprix
+		"cd-manage-news", // Manage News
+		"content-audit", // Audit Content
+		"activity-log-page", // Activity log
+		"edit.php?post_type=page", // Pages
+		"elementor", // Elementor
+		"wp-toolkit", // WP Toolkit
+		"student-list-page", // Student
+		"edit-comments.php", // Comments
+		"edit.php?post_type=dflip", // dFlip Books
+	];
+
+	$first = array_values(array_intersect($priority, $menu_order));
+	$rest = array_values(array_diff($menu_order, $priority));
+
+	return array_merge($first, $rest);
+}
