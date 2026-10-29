@@ -10,7 +10,7 @@ workspace) for the full picture.
 ## What's tracked
 
 - `wp-content/plugins/figuro-folder` (Figuro Media) and `wp-content/plugins/custom_dashboard` — **our own code only.** Every other plugin is gitignored; see below.
-- `wp-content/themes/digital/` — the active theme (only)
+- `wp-content/themes/tue-digital-exhibition/` — the active theme (only). Renamed from `digital` so Plesk/WP Toolkit auto-updates can't overwrite it; don't rename it back
 - `wp-content/mu-plugins/`
 - `wp-content/maintenance*`
 - `wp-config.reference.php` — placeholder config for deploys

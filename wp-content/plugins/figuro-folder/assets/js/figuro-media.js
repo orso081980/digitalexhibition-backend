@@ -578,6 +578,7 @@
 		var formData = new FormData();
 		formData.append( 'action', 'figuro_upload_attachment' );
 		formData.append( 'nonce', FiguroMedia.nonce );
+		formData.append( '_wpnonce', FiguroMedia.mediaNonce );
 		formData.append( 'folder', state.currentFolder );
 		formData.append( 'file', file );
 

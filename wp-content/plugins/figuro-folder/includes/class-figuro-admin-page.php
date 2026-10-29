@@ -40,6 +40,8 @@ class Figuro_Admin_Page {
 			array(
 				'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
 				'nonce'         => wp_create_nonce( 'figuro_media_nonce' ),
+				// SVG Support verifies a core 'media-form' nonce in _wpnonce on browser uploads.
+				'mediaNonce'    => wp_create_nonce( 'media-form' ),
 				'maxUploadSize' => (int) wp_max_upload_size(),
 				'i18n'          => array(
 					'allFiles'        => __( 'All Files', 'figuro-media' ),
