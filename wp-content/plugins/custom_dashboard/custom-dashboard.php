@@ -1229,6 +1229,7 @@ require_once CD_PLUGIN_DIR . "includes/style.php";
 require_once CD_PLUGIN_DIR . "includes/extra.php";
 require_once CD_PLUGIN_DIR . "includes/shortcode.php";
 require_once CD_PLUGIN_DIR . "includes/sceltaposizione.php";
+require_once CD_PLUGIN_DIR . "includes/rest-site.php";
 require_once CD_PLUGIN_DIR . "includes/ruolo.php";
 require_once CD_PLUGIN_DIR . "includes/cpt.php";
 require_once CD_PLUGIN_DIR . "includes/fnpdf.php";
