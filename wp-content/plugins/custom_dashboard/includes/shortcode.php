@@ -753,7 +753,8 @@ function cd_video_gallery_shortcode()
 
         .embed-container iframe,
         .embed-container object,
-        .embed-container embed {
+        .embed-container embed,
+        .embed-container video {
             position: absolute;
             top: 0;
             left: 0;
@@ -767,7 +768,16 @@ function cd_video_gallery_shortcode()
         while (have_rows("list_video")):
             the_row();
             echo '<div class="embed-container">';
-            the_sub_field("embed_video");
+            // A video chosen from the media library: `video_url` returns its
+            // URL (an attachment, so the media offloader serves it from R2).
+            // Rows that only have an "Embed Video" (YouTube, Vimeo…) keep
+            // rendering through the embed.
+            $video_file_url = get_sub_field("video_url");
+            if ($video_file_url) {
+                echo '<video controls preload="metadata" playsinline src="' . esc_url($video_file_url) . '"></video>';
+            } else {
+                the_sub_field("embed_video");
+            }
             echo "</div>";
         endwhile;
 
