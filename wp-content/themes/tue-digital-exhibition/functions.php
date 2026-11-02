@@ -193,6 +193,12 @@ require get_template_directory() . '/includes/settings-functions.php';
 // Header & footer styling option, inside Elementor
 require get_template_directory() . '/includes/elementor-functions.php';
 
+// Comments are disabled globally
+require get_template_directory() . '/includes/disable-comments.php';
+
+// White logo in the admin bar
+require get_template_directory() . '/includes/admin-bar-logo.php';
+
 if ( ! function_exists( 'hello_elementor_customizer' ) ) {
 	// Customizer controls
 	function hello_elementor_customizer() {
