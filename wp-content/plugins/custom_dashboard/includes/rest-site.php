@@ -265,3 +265,26 @@ function cd_site_category_tabs(array $config, WP_Post $page): array {
 		];
 	}, $terms);
 }
+
+/**
+ * `cd_group_years` on posts and courses: the curriculum year(s) ("years_1",
+ * "Years 2"…) held in the ACF `general_information.group_years` checkbox. The
+ * frontend groups the Bachelor lists into "Year 1 / Year 2 / Year 3" sections
+ * with it, as the live site does. ACF itself stays hidden from the REST API.
+ */
+add_action('rest_api_init', function () {
+	register_rest_field(['post', 'courses'], 'cd_group_years', [
+		'get_callback' => function ($object) {
+			if (!function_exists('get_field')) {
+				return [];
+			}
+			$info = get_field('general_information', $object['id']);
+			if (is_array($info) && isset($info[0]) && is_array($info[0])) {
+				$info = $info[0]; // repeater-style return, as read in shortcode.php
+			}
+			$years = is_array($info) && !empty($info['group_years']) ? (array) $info['group_years'] : [];
+			return array_values($years);
+		},
+		'schema' => ['type' => 'array', 'context' => ['view']],
+	]);
+});
