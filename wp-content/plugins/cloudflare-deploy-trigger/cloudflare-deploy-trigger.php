@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Cloudflare Deploy Trigger
- * Description: Adds a "Deploy Frontend" button to the WordPress admin bar (top bar, every wp-admin page). Click it once you're done making changes, confirm in the dialog, and it triggers a Cloudflare Workers Build deploy hook — the Nuxt frontend re-fetches everything from this site's REST API and redeploys as a static build. If a Frontend URL is set, a progress notice follows the build and confirms when the new version is live. The deploy hook URL and Frontend URL are configured under Settings → Deploy Frontend.
- * Version: 1.2
+ * Plugin Name: Frontend Deploy Trigger
+ * Description: Adds a "Deploy Frontend" button to the WordPress admin bar (top bar, every wp-admin page). Click it once you're done making changes, confirm in the dialog, and it triggers a rebuild — a GitHub Actions workflow (linux3) or a Cloudflare Workers Build deploy hook. The Nuxt frontend re-fetches everything from this site's REST API and redeploys as a static build. If a Frontend URL is set, a progress notice follows the build and confirms when the new version is live. The deploy hook URL and Frontend URL are configured under Settings → Deploy Frontend.
+ * Version: 1.3
  * Author: Digital Exhibition
  */
 
@@ -12,6 +12,10 @@ if (!defined('ABSPATH')) {
 
 define('CFDT_OPTION_HOOK_URL', 'cfdt_deploy_hook_url');
 define('CFDT_OPTION_FRONTEND_URL', 'cfdt_frontend_url');
+// Optional access token, sent as `Authorization: Bearer …` (GitHub needs one).
+define('CFDT_OPTION_TOKEN', 'cfdt_deploy_token');
+// GitHub only: the branch the workflow builds from.
+define('CFDT_OPTION_GIT_REF', 'cfdt_git_ref');
 define('CFDT_OPTION_LAST_RUN', 'cfdt_last_run');
 // A deploy that's been triggered but not yet seen live: ['baseline' => build id
 // the frontend served at trigger time, 'started' => unix time].
@@ -37,6 +41,16 @@ function cfdt_register_settings() {
 		'sanitize_callback' => 'esc_url_raw',
 		'default' => '',
 	]);
+	register_setting('cfdt_settings', CFDT_OPTION_TOKEN, [
+		'type' => 'string',
+		'sanitize_callback' => 'sanitize_text_field',
+		'default' => '',
+	]);
+	register_setting('cfdt_settings', CFDT_OPTION_GIT_REF, [
+		'type' => 'string',
+		'sanitize_callback' => 'sanitize_text_field',
+		'default' => 'linux',
+	]);
 	register_setting('cfdt_settings', CFDT_OPTION_FRONTEND_URL, [
 		'type' => 'string',
 		'sanitize_callback' => 'esc_url_raw',
@@ -47,8 +61,22 @@ function cfdt_register_settings() {
 
 	add_settings_field(
 		'cfdt_hook_url_field',
-		'Cloudflare deploy hook URL',
+		'Deploy hook URL',
 		'cfdt_render_hook_url_field',
+		'cfdt_settings',
+		'cfdt_main'
+	);
+	add_settings_field(
+		'cfdt_token_field',
+		'Access token (GitHub)',
+		'cfdt_render_token_field',
+		'cfdt_settings',
+		'cfdt_main'
+	);
+	add_settings_field(
+		'cfdt_git_ref_field',
+		'Branch to build (GitHub)',
+		'cfdt_render_git_ref_field',
 		'cfdt_settings',
 		'cfdt_main'
 	);
@@ -65,11 +93,36 @@ add_action('admin_init', 'cfdt_register_settings');
 function cfdt_render_hook_url_field() {
 	$value = get_option(CFDT_OPTION_HOOK_URL, '');
 	printf(
-		'<input type="url" name="%s" value="%s" class="regular-text" placeholder="https://api.cloudflare.com/client/v4/workers/builds/deploy_hooks/..." />',
+		'<input type="url" name="%s" value="%s" class="regular-text" placeholder="https://api.github.com/repos/OWNER/REPO/actions/workflows/deploy.yml/dispatches" />',
 		esc_attr(CFDT_OPTION_HOOK_URL),
 		esc_attr($value)
 	);
-	echo '<p class="description">From the Cloudflare dashboard: your Worker → Settings → Builds → Deploy Hooks.</p>';
+	echo '<p class="description">GitHub: <code>https://api.github.com/repos/OWNER/REPO/actions/workflows/deploy.yml/dispatches</code>. Cloudflare: your Worker → Settings → Builds → Deploy Hooks.</p>';
+}
+
+function cfdt_render_token_field() {
+	$value = get_option(CFDT_OPTION_TOKEN, '');
+	printf(
+		'<input type="password" name="%s" value="%s" class="regular-text" autocomplete="new-password" />',
+		esc_attr(CFDT_OPTION_TOKEN),
+		esc_attr($value)
+	);
+	echo '<p class="description">A GitHub fine-grained personal access token for the repository with the permission <strong>Actions: Read and write</strong>. Leave empty for a Cloudflare hook.</p>';
+}
+
+function cfdt_render_git_ref_field() {
+	$value = get_option(CFDT_OPTION_GIT_REF, 'linux');
+	printf(
+		'<input type="text" name="%s" value="%s" class="regular-text" placeholder="linux" />',
+		esc_attr(CFDT_OPTION_GIT_REF),
+		esc_attr($value)
+	);
+	echo '<p class="description">The Git branch the workflow builds. Only used with a GitHub URL.</p>';
+}
+
+/** True for the GitHub "run this workflow" API address. */
+function cfdt_is_github_dispatch($url) {
+	return (bool) preg_match('#^https://api\.github\.com/repos/[^/]+/[^/]+/actions/workflows/[^/]+/dispatches$#', (string) $url);
 }
 
 function cfdt_render_frontend_url_field() {
@@ -107,7 +160,7 @@ function cfdt_render_settings_page() {
 	?>
 	<div class="wrap">
 		<h1>Deploy Frontend</h1>
-		<p>Set the Cloudflare deploy hook URL below. To trigger a deploy, click "🚀 Deploy Frontend" in the admin bar at the top of the screen (available on every admin page).</p>
+		<p>Set the deploy hook URL below. To trigger a deploy, click "🚀 Deploy Frontend" in the admin bar at the top of the screen (available on every admin page).</p>
 		<form method="post" action="options.php">
 			<?php
 			settings_fields('cfdt_settings');
@@ -149,7 +202,7 @@ function cfdt_add_admin_bar_node($wp_admin_bar) {
 		'href' => '#',
 		'meta' => [
 			'class' => 'cfdt-deploy-frontend-node',
-			'title' => 'Trigger a Cloudflare Workers Build to redeploy the frontend',
+			'title' => 'Rebuild and redeploy the frontend',
 		],
 	]);
 }
@@ -353,7 +406,7 @@ function cfdt_print_admin_bar_script() {
 						show('done', 'Frontend deployed', 'The new version is live (took ' + mmss(res.data.elapsed) + ').' + link, true);
 					} else if (state === 'timeout') {
 						stopWatching();
-						show('warn', 'Not live yet', 'The new version hasn’t appeared after 20 minutes. The build may have failed — check the build log in Cloudflare.');
+						show('warn', 'Not live yet', 'The new version hasn’t appeared after 20 minutes. The build may have failed — check the run in the GitHub Actions tab (or the build log in Cloudflare).');
 					} else if (state === 'idle') {
 						stopWatching();
 						toast.hidden = true;
@@ -390,7 +443,7 @@ function cfdt_print_admin_bar_script() {
 			if (busy) return;
 			busy = true;
 			button.textContent = 'Triggering…';
-			show('', 'Starting the deploy…', 'Contacting Cloudflare.');
+			show('', 'Starting the deploy…', 'Contacting the deploy hook.');
 
 			post('cfdt_trigger_deploy')
 				.then(function (res) {
@@ -422,7 +475,7 @@ add_action('admin_footer', 'cfdt_print_admin_bar_script');
 
 /**
  * AJAX handler: verifies the nonce + capability, enforces a short cooldown
- * so repeated clicks can't hammer the Cloudflare API or burn build minutes,
+ * so repeated clicks can't hammer the deploy hook or burn build minutes,
  * then POSTs to the deploy hook. When a Frontend URL is set, it first notes
  * which build the site is serving so the status handler can tell when a
  * newer one has gone live.
@@ -447,7 +500,20 @@ function cfdt_handle_trigger_deploy() {
 
 	$baseline = cfdt_fetch_build_id();
 
-	$response = wp_remote_post($hook_url, ['timeout' => 15]);
+	$args = ['timeout' => 15, 'headers' => []];
+	$token = (string) get_option(CFDT_OPTION_TOKEN, '');
+	if ($token !== '') {
+		$args['headers']['Authorization'] = 'Bearer ' . $token;
+	}
+	if (cfdt_is_github_dispatch($hook_url)) {
+		// GitHub's "create a workflow dispatch event": answers 204 with no body.
+		$ref = trim((string) get_option(CFDT_OPTION_GIT_REF, 'linux'));
+		$args['headers']['Accept'] = 'application/vnd.github+json';
+		$args['headers']['X-GitHub-Api-Version'] = '2022-11-28';
+		$args['headers']['Content-Type'] = 'application/json';
+		$args['body'] = wp_json_encode(['ref' => $ref !== '' ? $ref : 'linux']);
+	}
+	$response = wp_remote_post($hook_url, $args);
 
 	if (is_wp_error($response)) {
 		wp_send_json_error(['message' => $response->get_error_message()]);
@@ -455,7 +521,7 @@ function cfdt_handle_trigger_deploy() {
 
 	$status = wp_remote_retrieve_response_code($response);
 	if ($status < 200 || $status >= 300) {
-		wp_send_json_error(['message' => "Cloudflare returned HTTP {$status}."]);
+		wp_send_json_error(['message' => "The deploy hook returned HTTP {$status}" . ($status === 401 || $status === 403 || $status === 404 ? ' — check the URL and the access token.' : '.')]);
 	}
 
 	$user = wp_get_current_user();
