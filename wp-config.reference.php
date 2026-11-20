@@ -37,7 +37,8 @@ define( 'WP_CACHE_KEY_SALT', 'REPLACE_ME' );
 // ** Table prefix (must match the live database) ** //
 $table_prefix = '5U6Nk_';
 
-/* Advanced Media Offloader — Cloudflare R2 credentials (media → task 4.1).
+/* STAGING ONLY. Live keeps its media local — do not define these on live.
+   Advanced Media Offloader — Cloudflare R2 credentials (media → task 4.1).
    Checked by the plugin before its DB option, so these never need re-entry
    in wp-admin. Leave commented until real values are filled in — a
    REPLACE_ME value still counts as "configured" and the plugin will start

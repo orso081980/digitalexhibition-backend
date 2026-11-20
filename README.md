@@ -48,10 +48,20 @@ old code ignores the new fields, so scripts-first has no gap.
 | `wp-content/plugins/*` (except figuro-folder, custom_dashboard) | Third-party plugins — see above. Managed per environment. |
 | `wp-content/ngg/` | NextGEN Gallery module cache |
 | `wp-content/themes/{chique,chique-pro,twentytwentyfive}` | Inactive themes — removed |
-| `wp-content/uploads/` | Media — moves to Cloudflare R2 (plan task 4.1) via the `advanced-media-offloader` plugin. Credentials live as `ADVMO_CLOUDFLARE_R2_*` constants in `wp-config.php` (template in `wp-config.reference.php`), never in the DB option. Folder kept locally (empty) so WP can still write to it before offload. |
+| `wp-content/uploads/` | Media. **Live keeps every asset local in this folder — no R2.** Staging serves media from Cloudflare R2 via the `advanced-media-offloader` plugin (installed on staging only); its credentials are `ADVMO_CLOUDFLARE_R2_*` constants in staging's `wp-config.php` (template in `wp-config.reference.php`), never in the DB option. |
 | `*.log`, `wp-content/logs/`, `wp-content/compressx/log/` | Runtime logs |
 | `wp-content/upgrade*/`, `*-upgrade-temp-backup/` | WordPress update scratch dirs |
 
+
+## Live vs staging: R2
+
+The code is the same on both; only the environment differs. R2 is switched on
+by the `ADVMO_CLOUDFLARE_R2_DOMAIN` constant in `wp-config.php` plus the
+`advanced-media-offloader` plugin, both **staging only**. Without the constant
+the two R2 mu-plugins (`dflip-r2-pdf-urls`, `advmo-regenerate-thumbnails-compat`)
+do nothing. Never define it on live. The R2 database state (`advmo_*`
+attachment meta, `advmo_settings`, rewritten dFlip URLs) lives in staging's DB
+only and is never copied to live.
 
 ## Deploy
 
