@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Frontend Deploy Trigger
  * Description: Adds a "Deploy Frontend" button to the WordPress admin bar (top bar, every wp-admin page). Click it once you're done making changes, confirm in the dialog, and it triggers a rebuild — a GitHub Actions workflow (linux3) or a Cloudflare Workers Build deploy hook. The Nuxt frontend re-fetches everything from this site's REST API and redeploys as a static build. If a Frontend URL is set, a progress notice follows the build and confirms when the new version is live. The deploy hook URL and Frontend URL are configured under Settings → Deploy Frontend.
- * Version: 1.3
+ * Version: 1.4
  * Author: Digital Exhibition
  */
 
@@ -20,6 +20,18 @@ define('CFDT_OPTION_LAST_RUN', 'cfdt_last_run');
 // A deploy that's been triggered but not yet seen live: ['baseline' => build id
 // the frontend served at trigger time, 'started' => unix time].
 define('CFDT_OPTION_PENDING', 'cfdt_pending');
+// Optional: the address of the Plesk Git webhook on this same server. While a
+// deploy is being watched, WordPress calls it so Plesk pulls and deploys the
+// finished build — no inbound webhook from GitHub needed (see cfdt_poke_plesk()).
+define('CFDT_OPTION_PULL_URL', 'cfdt_pull_url');
+// The last call made to it: ['time', 'code', 'error'], shown on the settings page.
+define('CFDT_OPTION_LAST_PULL', 'cfdt_last_pull');
+// A build takes minutes; don't bother Plesk before this many seconds have passed,
+// then call it this often until the new version shows up.
+define('CFDT_PULL_AFTER', 120);
+define('CFDT_PULL_EVERY', 30);
+// WP-Cron hook that keeps calling it when no admin page is open.
+define('CFDT_CRON_HOOK', 'cfdt_poke_plesk');
 define('CFDT_NONCE_ACTION', 'cfdt_trigger_deploy');
 define('CFDT_COOLDOWN_SECONDS', 60);
 // Stop watching for the new version after this long. A build that fails never
@@ -56,6 +68,11 @@ function cfdt_register_settings() {
 		'sanitize_callback' => 'esc_url_raw',
 		'default' => '',
 	]);
+	register_setting('cfdt_settings', CFDT_OPTION_PULL_URL, [
+		'type' => 'string',
+		'sanitize_callback' => 'esc_url_raw',
+		'default' => '',
+	]);
 
 	add_settings_section('cfdt_main', '', '__return_false', 'cfdt_settings');
 
@@ -84,6 +101,13 @@ function cfdt_register_settings() {
 		'cfdt_frontend_url_field',
 		'Frontend URL (optional)',
 		'cfdt_render_frontend_url_field',
+		'cfdt_settings',
+		'cfdt_main'
+	);
+	add_settings_field(
+		'cfdt_pull_url_field',
+		'Plesk pull URL (optional)',
+		'cfdt_render_pull_url_field',
 		'cfdt_settings',
 		'cfdt_main'
 	);
@@ -135,6 +159,16 @@ function cfdt_render_frontend_url_field() {
 	echo '<p class="description">The public address of the frontend. With this set, after a deploy is triggered a notice shows progress and confirms when the new version is live. Leave empty to skip that.</p>';
 }
 
+function cfdt_render_pull_url_field() {
+	$value = get_option(CFDT_OPTION_PULL_URL, '');
+	printf(
+		'<input type="password" name="%s" value="%s" class="regular-text" autocomplete="new-password" placeholder="https://127.0.0.1:8443/modules/git/public/web-hook.php?uuid=…" />',
+		esc_attr(CFDT_OPTION_PULL_URL),
+		esc_attr($value)
+	);
+	echo '<p class="description">Only when the frontend is hosted on this same server with Plesk Git. The webhook address from Plesk → Git → the repository, with the host replaced by <code>127.0.0.1</code>. While a deploy is being watched, WordPress calls it so Plesk pulls and deploys the finished build by itself (GitHub can\'t reach Plesk\'s webhook from outside). Needs the Frontend URL above, so the plugin knows when the new version is live. The address contains a secret — keep it private.</p>';
+}
+
 function cfdt_register_settings_page() {
 	add_options_page(
 		'Deploy Frontend',
@@ -180,6 +214,19 @@ function cfdt_render_settings_page() {
 					<?php echo esc_html(wp_date('Y-m-d H:i', $last_run['completed'])); ?>
 				</p>
 			<?php endif; ?>
+		<?php endif; ?>
+		<?php $last_pull = get_option(CFDT_OPTION_LAST_PULL); ?>
+		<?php if (!empty($last_pull['time'])) : ?>
+			<p>
+				<strong>Last Plesk pull:</strong>
+				<?php echo esc_html(wp_date('Y-m-d H:i:s', $last_pull['time'])); ?>
+				<?php if (!empty($last_pull['error'])) : ?>
+					— failed: <?php echo esc_html($last_pull['error']); ?>
+				<?php else : ?>
+					— HTTP <?php echo esc_html((string) ($last_pull['code'] ?? '?')); ?>
+					<?php echo ((int) ($last_pull['code'] ?? 0)) >= 200 && ((int) ($last_pull['code'] ?? 0)) < 300 ? '(accepted)' : '(rejected — check the address)'; ?>
+				<?php endif; ?>
+			</p>
 		<?php endif; ?>
 	</div>
 	<?php
@@ -531,7 +578,12 @@ function cfdt_handle_trigger_deploy() {
 	]);
 
 	if ($baseline !== null) {
-		update_option(CFDT_OPTION_PENDING, ['baseline' => $baseline, 'started' => time()], false);
+		$started = time();
+		update_option(CFDT_OPTION_PENDING, ['baseline' => $baseline, 'started' => $started], false);
+		// Also keep calling Plesk if the browser tab gets closed: WP-Cron takes over.
+		if (get_option(CFDT_OPTION_PULL_URL, '') !== '') {
+			wp_schedule_single_event($started + CFDT_PULL_AFTER, CFDT_CRON_HOOK, [$started]);
+		}
 	} else {
 		delete_option(CFDT_OPTION_PENDING);
 	}
@@ -552,9 +604,24 @@ function cfdt_handle_deploy_status() {
 		wp_send_json_error(['message' => 'You are not allowed to do this.'], 403);
 	}
 
+	$result = cfdt_resolve_pending();
+	if ($result['state'] === 'building') {
+		cfdt_poke_plesk(); // no-op unless a Plesk pull URL is set and it's time
+	}
+	wp_send_json_success($result);
+}
+add_action('wp_ajax_cfdt_deploy_status', 'cfdt_handle_deploy_status');
+
+/**
+ * Where is the deploy that was triggered? Compares the frontend's current
+ * build id with the one noted at trigger time, and clears the pending state
+ * once it's live or has timed out. Shared by the status handler (browser) and
+ * the WP-Cron fallback. States: building | done | timeout | idle.
+ */
+function cfdt_resolve_pending() {
 	$pending = get_option(CFDT_OPTION_PENDING);
 	if (empty($pending['started']) || empty($pending['baseline'])) {
-		wp_send_json_success(['state' => 'idle']);
+		return ['state' => 'idle'];
 	}
 
 	$elapsed = time() - (int) $pending['started'];
@@ -567,14 +634,82 @@ function cfdt_handle_deploy_status() {
 			$last_run['completed'] = time();
 			update_option(CFDT_OPTION_LAST_RUN, $last_run);
 		}
-		wp_send_json_success(['state' => 'done', 'elapsed' => $elapsed]);
+		return ['state' => 'done', 'elapsed' => $elapsed];
 	}
 
 	if ($elapsed > CFDT_TRACK_TIMEOUT) {
 		delete_option(CFDT_OPTION_PENDING);
-		wp_send_json_success(['state' => 'timeout', 'elapsed' => $elapsed]);
+		return ['state' => 'timeout', 'elapsed' => $elapsed];
 	}
 
-	wp_send_json_success(['state' => 'building', 'elapsed' => $elapsed]);
+	return ['state' => 'building', 'elapsed' => $elapsed];
 }
-add_action('wp_ajax_cfdt_deploy_status', 'cfdt_handle_deploy_status');
+
+/**
+ * Asks Plesk (on this same server) to pull and deploy the finished build.
+ *
+ * GitHub builds the site and pushes it to the `linux-deploy` branch, but Plesk
+ * only learns of it through its Git webhook, which GitHub can't reach from
+ * outside. WordPress lives on the same server, so it makes the call itself,
+ * while a deploy is being watched. Until the build is pushed the call is a
+ * harmless no-op ("nothing new to fetch"); once it is, Plesk pulls and, with
+ * automatic deployment on, deploys it. Throttled, so a 15 s status poll and the
+ * cron fallback together don't call it more than every CFDT_PULL_EVERY seconds.
+ */
+function cfdt_poke_plesk() {
+	$url = (string) get_option(CFDT_OPTION_PULL_URL, '');
+	$pending = get_option(CFDT_OPTION_PENDING);
+	if ($url === '' || empty($pending['started'])) {
+		return;
+	}
+
+	$now = time();
+	if ($now - (int) $pending['started'] < CFDT_PULL_AFTER) {
+		return; // the build can't be finished yet
+	}
+	if (!empty($pending['poked']) && $now - (int) $pending['poked'] < CFDT_PULL_EVERY - 2) {
+		return;
+	}
+	// Note the attempt first, so two overlapping requests don't both call.
+	$pending['poked'] = $now;
+	update_option(CFDT_OPTION_PENDING, $pending, false);
+
+	// A call to this machine's own panel (self-signed certificate) can't be
+	// verified; anything else is verified as usual.
+	$host = (string) wp_parse_url($url, PHP_URL_HOST);
+	$is_local = in_array($host, ['127.0.0.1', 'localhost', '::1', '[::1]'], true);
+
+	$response = wp_remote_post($url, [
+		'timeout' => 30,
+		'redirection' => 0,
+		'sslverify' => !$is_local,
+		'headers' => ['User-Agent' => 'frontend-deploy-trigger'],
+	]);
+
+	$last = ['time' => $now];
+	if (is_wp_error($response)) {
+		$last['error'] = $response->get_error_message();
+	} else {
+		$last['code'] = (int) wp_remote_retrieve_response_code($response);
+	}
+	update_option(CFDT_OPTION_LAST_PULL, $last, false);
+}
+
+/**
+ * WP-Cron fallback for the call above, for when nobody has an admin page open
+ * (the status handler is driven by the browser). Re-schedules itself every
+ * CFDT_PULL_EVERY seconds until the deploy is live, times out, or a newer
+ * deploy replaces it. `$started` identifies the deploy this chain belongs to.
+ */
+function cfdt_cron_poke_plesk($started = 0) {
+	$pending = get_option(CFDT_OPTION_PENDING);
+	if (empty($pending['started']) || (int) $pending['started'] !== (int) $started) {
+		return;
+	}
+	if (cfdt_resolve_pending()['state'] !== 'building') {
+		return;
+	}
+	cfdt_poke_plesk();
+	wp_schedule_single_event(time() + CFDT_PULL_EVERY, CFDT_CRON_HOOK, [(int) $started]);
+}
+add_action(CFDT_CRON_HOOK, 'cfdt_cron_poke_plesk');

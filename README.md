@@ -63,6 +63,25 @@ do nothing. Never define it on live. The R2 database state (`advmo_*`
 attachment meta, `advmo_settings`, rewritten dFlip URLs) lives in staging's DB
 only and is never copied to live.
 
+## Deploying the frontend (the "Deploy Frontend" button)
+
+The button in the WordPress admin bar (plugin `cloudflare-deploy-trigger`,
+Settings → Deploy Frontend) starts the frontend's GitHub Actions build. The
+finished build lands on the frontend repo's `linux-deploy` branch, which Plesk
+(same server) deploys. GitHub cannot reach Plesk's webhook from outside, so
+WordPress makes the call itself:
+
+- **Plesk pull URL**: Plesk → Git → the frontend repository → webhook URL, with
+  the host replaced by `127.0.0.1`
+  (`https://127.0.0.1:8443/modules/git/public/web-hook.php?uuid=…`). It contains a
+  secret.
+- **Frontend URL** must be set too: the plugin watches the frontend's build id to
+  know when the new version is live, and only calls Plesk while a deploy is being
+  watched (after ~2 minutes, then every 30 s; a no-op until the build is
+  published). WP-Cron keeps calling it if the admin tab is closed.
+- Plesk's deployment mode must be **Automatic** so a pull is also deployed.
+- The settings page shows the result of the last call ("Last Plesk pull: … HTTP 204").
+
 ## Deploy
 
 Not wired yet — planned as GitHub Actions → SSH/rsync, on
