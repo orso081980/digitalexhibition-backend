@@ -65,7 +65,7 @@ only and is never copied to live.
 
 ## Deploying the frontend (the "Deploy Frontend" button)
 
-The button in the WordPress admin bar (plugin `cloudflare-deploy-trigger`,
+The button in the WordPress admin bar (plugin `frontend-deploy`,
 Settings → Deploy Frontend) starts the frontend's GitHub Actions build. The
 finished build lands on the frontend repo's `linux-deploy` branch, which Plesk
 (same server) deploys. GitHub cannot reach Plesk's webhook from outside, so
