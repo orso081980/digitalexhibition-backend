@@ -61,6 +61,8 @@ wp-content/uploads/
 # code that also has to sit on the server unrelated to this repo. Kept on
 # localhost (and on the server) as plain files, managed per environment.
 # Only our own in-house plugins stay tracked.
+# The old reinstall script is deliberately gone and must not come back.
+bin/install-plugins.sh
 wp-content/plugins/*
 !wp-content/plugins/figuro-folder/
 !wp-content/plugins/custom_dashboard/
